@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-background text-foreground min-h-screen;
+}
+
+@layer base {
+  :root {
+    --background: #55AD9B;
+    --foreground: #092635;
+    --customColorTwo: #95D2B3;
+    --customColorThree: #D8EFD3;
+    --customColorFour: #12564a;
+  }
+
+  .dark {
+    --background: #092635;
+    --foreground: #55AD9B;
+    --customColorTwo: #1B4242;
+    --customColorThree: #5C8374;
+    --customColorFour: #9EC8B9;
+  }
+}
+
+@layer utilities {
+  .bg-background {
+    background-color: var(--background);
+  }
+
+  .bg-backgroundReverse {
+    background-color: var(--foreground);
+  }
+
+  .text-foreground {
+    color: var(--foreground);
+  }
+
+  .text-foregroundReverse {
+    color: var(--background);
+  }
+
+  .bg-customColorOne {
+    background-color: var(--customColorOne);
+  }
+
+  .bg-customColorTwo {
+    background-color: var(--customColorTwo);
+  }
+
+  .bg-customColorThree {
+    background-color: var(--customColorThree);
+  }
+
+  .bg-customColorFour {
+    background-color: var(--customColorFour);
+  }
+}
