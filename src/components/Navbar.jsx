@@ -43,9 +43,9 @@ function Navbar() {
                 </label>
                 <nav aria-label="Header Navigation" className="py-2 peer-checked:max-h-fit flex max-h-0 w-full flex-col items-center overflow-hidden transition-all lg:ml-24 lg:max-h-full lg:flex-row justify-center bg-background">
                     <ul className="flex w-full flex-col items-center space-y-2 lg:flex-row lg:justify-center lg:space-y-0">
-                        {pages.map((item) => (
+                        {pages.map((item, ind) => (
                             <>
-                                <li className="lg:mr-6"><a className="rounded text-foreground font-serif text-lg" href="#">{item}</a></li>
+                                <li key={ind} className="lg:mr-6"><a className="rounded text-foreground font-serif text-lg" href="#">{item}</a></li>
                             </>
                         ))}
                     </ul>

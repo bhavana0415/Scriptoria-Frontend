@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArrowCircleLeftRoundedIcon from '@mui/icons-material/ArrowCircleLeftRounded';
 import ArrowCircleRightRoundedIcon from '@mui/icons-material/ArrowCircleRightRounded';
 import { useSelector } from "react-redux";
@@ -18,6 +18,9 @@ export default function Slider() {
     const [current, setCurrent] = useState(0);
     const currentMode = useSelector((state) => state.currentState.currentMode)
 
+    useEffect(()=>{
+        console.log("currentMode",currentMode)
+    },[currentMode])
     const previousSlide = () => {
         setCurrent((prev) => {
             if (prev == 0) {

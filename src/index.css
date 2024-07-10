@@ -8,16 +8,16 @@ body {
 
 @layer base {
   :root {
-    --background: #7afff4;
+    --background: #83fbf1;
     --foreground: #092635;
     --customColorTwo: #95D2B3;
     --customColorThree: #D8EFD3;
-    --customColorFour: #12564a;
+    --customColorFour: #3c8082;
   }
 
   .dark {
     --background: #092635;
-    --foreground: #55AD9B;
+    --foreground: #83fbf1;
     --customColorTwo: #1B4242;
     --customColorThree: #5C8374;
     --customColorFour: #9EC8B9;
