@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar"
 import Browse from "./pages/browser/Browse"
 import { Provider } from 'react-redux'
 import { store } from "./store/store"
+import Books from "./pages/books/Books"
 
 const router = createBrowserRouter([
     {
@@ -12,7 +13,8 @@ const router = createBrowserRouter([
         errorElement: <>Page does not exist</>,
         children: [
             {path: '/', element: <Home/>},
-            {path: '/browse', element: <Browse/>}
+            {path: '/browse', element: <Browse/>},
+            {path: '/books', element: <Books/>}
         ],
     },
 ])

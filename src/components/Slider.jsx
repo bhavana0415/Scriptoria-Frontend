@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArrowCircleLeftRoundedIcon from '@mui/icons-material/ArrowCircleLeftRounded';
 import ArrowCircleRightRoundedIcon from '@mui/icons-material/ArrowCircleRightRounded';
 import { useSelector } from "react-redux";
@@ -10,12 +10,7 @@ import CelebrationIcon from '@mui/icons-material/Celebration';
 
 const images = [
     "https://www.gutenberg.org/cache/epub/29024/pg29024.cover.medium.jpg",
-    // "https://www.gutenberg.org/cache/epub/2701/pg2701.cover.medium.jpg",
-    // "https://www.gutenberg.org/cache/epub/145/pg145.cover.medium.jpg",
-    // "https://www.gutenberg.org/cache/epub/2641/pg2641.cover.medium.jpg",
-    // "https://www.gutenberg.org/cache/epub/100/pg100.cover.medium.jpg",
     "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    // "https://www.gutenberg.org/cache/epub/16389/pg16389.cover.medium.jpg",
     "https://www.gutenberg.org/cache/epub/37106/pg37106.cover.medium.jpg",
 ]
 
@@ -23,6 +18,9 @@ export default function Slider() {
     const [current, setCurrent] = useState(0);
     const currentMode = useSelector((state) => state.currentState.currentMode)
 
+    useEffect(()=>{
+        console.log("currentMode",currentMode)
+    },[currentMode])
     const previousSlide = () => {
         setCurrent((prev) => {
             if (prev == 0) {
@@ -55,7 +53,7 @@ export default function Slider() {
                     <div className="w-full max-w-screen-lg mx-auto p-8 text-foreground">
                         <article className="ml-auto my-5 flex max-w-md flex-col rounded-2xl px-4 shadow md:max-w-5xl md:flex-row md:items-center">
                             <div className="shrink-0 my-4 md:mr-8 md:max-w-sm">
-                                <img className="rounded-2xl h-40" src="https://images.unsplash.com/photo-1663287695452-bf59337d8746?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60" alt="" />
+                                <img className="rounded-2xl h-40" src="src/assets/reader.jpg" alt="" />
                             </div>
                             <div className="py-4 sm:py-8">
                                 <a href="#" className="mb-6 block text-2xl font-medium text-foreground-700">For Readers:</a>
@@ -68,12 +66,12 @@ export default function Slider() {
                                 <p className="mb-6 text-foreground-300 text-lg">Share your stories with the world. Upload your manuscripts to our platform, connect with a community of avid readers, and watch your fanbase grow. Gain valuable feedback and insights to refine your work. When your book captures the hearts of readers, you'll have the opportunity to publish and reach an even wider audience.</p>
                             </div>
                             <div className="shrink-0 my-4 md:ml-8 md:max-w-sm">
-                                <img className="rounded-2xl h-40" src="https://images.unsplash.com/photo-1663287695452-bf59337d8746?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60" alt="" />
+                                <img className="rounded-2xl h-40 object-contain" src="src/assets/writer.jpg" alt="" />
                             </div>
                         </article>
                     </div>
                 </div>
-                <div className={`min-w-full h-screen bg-gradient-to-r from-pink-${currentMode == 'dark' ? 900 : 200} to-fuchsia-${currentMode == 'dark' ? 800 : 300} flex items-center justify-center`}>
+                <div className={`min-w-full bg-gradient-to-r from-pink-${currentMode == 'dark' ? 900 : 200} to-fuchsia-${currentMode == 'dark' ? 800 : 300} flex items-center justify-center`}>
                     <div className="w-full px-10 flex flex-col md:flex-row items-center">
                         <div className="w-full md:w-3/5">
                             <div className="grid gap-1 sm:grid-cols-1 lg:grid-cols-3">
@@ -96,7 +94,7 @@ export default function Slider() {
                         </div>
                     </div>
                 </div>
-                <div className={`min-w-full h-screen bg-gradient-to-r from-cyan-${currentMode == 'dark' ? 900 : 200} to-teal-${currentMode == 'dark' ? 800 : 300} flex items-center justify-center`}>
+                <div className={`min-w-full bg-gradient-to-r from-cyan-${currentMode == 'dark' ? 900 : 200} to-teal-${currentMode == 'dark' ? 800 : 300} flex items-center justify-center`}>
                     <div className="w-full max-w-screen-lg mx-auto p-8 text-white">
                         <div className="flex flex-col md:flex-row items-center">
                             <div className="w-full md:w-1/2 flex flex-col items-center text-center">
@@ -114,7 +112,7 @@ export default function Slider() {
                         </div>
                     </div>
                 </div>
-                <div className={`min-w-full h-screen bg-gradient-to-r from-purple-${currentMode == 'dark' ? 900 : 200} to-indigo-${currentMode == 'dark' ? 800 : 300} flex items-center justify-center`}>
+                <div className={`min-w-full bg-gradient-to-r from-purple-${currentMode == 'dark' ? 900 : 200} to-indigo-${currentMode == 'dark' ? 800 : 300} flex items-center justify-center`}>
                     <div className={`w-full px-10 text-${currentMode != 'dark' ? 'black' : 'white'}`}>
                         <div className="flex flex-col md:flex-row items-center">
                             <div className="w-full md:w-1/2">

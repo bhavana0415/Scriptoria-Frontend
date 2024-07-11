@@ -2,7 +2,7 @@ import NorthEastIcon from '@mui/icons-material/NorthEast';
 
 export function Welcome() {
     return (
-        <div className='h-screen'>
+        <div className='h-fit'>
             <div className="w-full h-20 bg-background-500"></div>
         <div className="flex flex-col lg:flex-row">
             <section className="mt-[50px] py-16 lg:w-3/5">
@@ -16,7 +16,7 @@ export function Welcome() {
                     </div>
                 </div>
             </section>
-            <section className="relative flex justify-center items-center">
+            <section className="relative flex justify-center items-center lg:flex-row">
                 <div className='absolute top-40 left-0 h-96 w-96 bg-cyan-300 rounded-full z-0 mix-blend-multiply filter blur-3xl opacity-20'></div>
                 <div className='absolute top-40 -right-4 h-96 w-96 bg-teal-300 rounded-full z-0 mix-blend-multiply filter blur-3xl opacity-20'></div>
                 <div className='absolute top-10 left-0 h-96 w-96 bg-purple-300 rounded-full z-0 mix-blend-multiply filter blur-3xl opacity-20'></div>
