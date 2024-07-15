@@ -1,5 +1,5 @@
-export const fetchBooks = async() => {
-    const url = "https://gutendex.com/books";
+export const fetchBooks = async(str = 'recent') => {
+    const url = `https://www.dbooks.org/api/${str}`;
     try{
         const response = await fetch(url,{
             method: "GET",

@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Premium = () => {
+const Write = () => {
   return (
     <div>
-      Premium
+      
     </div>
   )
 }
 
-export default Premium
+export default Write
