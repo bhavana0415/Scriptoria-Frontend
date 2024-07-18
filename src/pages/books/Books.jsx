@@ -131,8 +131,8 @@ const Books = () => {
             </div>
           </div>
           <div className="mx-auto flex flex-wrap max-w-screen-lg justify-center px-2 pb-4 sm:gap-2 sm:px-4">
-            {checked && Array.isArray(checked) && checked.map((item) => (
-              <>
+            {checked && Array.isArray(checked) && checked.map((item, ind) => (
+              <div key={ind}>
                 <p className="text-md flex p-1 bg-pink-600 rounded-xl">
                   #{item}
                   <DeleteForeverRoundedIcon
@@ -140,7 +140,7 @@ const Books = () => {
                     onClick={() => handleCheck(item)}
                   />
                 </p>
-              </>
+              </div>
             ))}
           </div>
           <div className="mx-auto grid max-w-screen-lg justify-center px-4 sm:grid-cols-2 sm:gap-4 sm:px-8 md:grid-cols-4 custom:grids-cols-3">
@@ -151,10 +151,8 @@ const Books = () => {
               }
               return true
             })
-            .slice((page - 1) * 20, page * 20).map((book) => (
-              <>
-                <Card key={book.id} book={book} />
-              </>
+            .slice((page - 1) * 20, page * 20).map((book, ind) => (
+                <Card key={ind} book={book} />
             ))}
           </div>
         </div>

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const currentStateSlice = createSlice({
   name: 'currentState',
-  initialState: { currentMode: 'dark', currentHeader: 'Home', isLoading: false, favourites: [], search: "", checkedItems: [] },
+  initialState: { currentMode: 'dark', currentHeader: 'Home', isLoading: false, favourites: [], search: "", checkedItems: [], writeContent: [] },
   reducers: {
     setCurrentMode: (state, action) => {
       state.currentMode = action.payload;
@@ -21,10 +21,13 @@ export const currentStateSlice = createSlice({
     },
     setCheckedItems: (state, action) => {
       state.checkedItems = action.payload;
+    },
+    setWriteContent: (state, action) => {
+      state.writeContent = action.payload;
     }
   }
 });
 
-export const { setCurrentHeader, setCurrentMode, setIsLoading, setFavourites, setSearch, setCheckedItems } = currentStateSlice.actions;
+export const { setCurrentHeader, setCurrentMode, setIsLoading, setFavourites, setSearch, setCheckedItems, setWriteContent } = currentStateSlice.actions;
 
 export default currentStateSlice.reducer;

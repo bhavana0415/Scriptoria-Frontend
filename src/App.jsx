@@ -6,6 +6,7 @@ import { Home } from "./pages/home/Home";
 import Navbar from "./components/Navbar";
 import Favourites from "./pages/favourites/Favourites";
 import Books from "./pages/books/Books";
+import Write from "./pages/write/Write";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,8 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/favourites', element: <Favourites /> },
-      { path: '/books', element: <Books /> }
+      { path: '/books', element: <Books /> },
+      { path: '/write', element: <Write /> },
     ],
   },
 ]);

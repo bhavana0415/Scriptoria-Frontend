@@ -71,7 +71,6 @@ function Navbar() {
           className="py-1 peer-checked:max-h-fit flex max-h-0 w-full flex-col items-center overflow-hidden transition-all lg:ml-24 lg:max-h-full lg:flex-row justify-center bg-background">
           <ul className="flex w-full flex-col items-center space-y-2 lg:flex-row lg:justify-center lg:space-y-0">
             {pages.map((item, ind) => (
-              <>
                 <li key={ind} className="lg:mr-6">
                   <a
                     className="rounded text-foreground font-serif text-lg"
@@ -79,7 +78,6 @@ function Navbar() {
                     {item}
                   </a>
                 </li>
-              </>
             ))}
           </ul>
           <form
@@ -140,7 +138,7 @@ function Navbar() {
         <nav
           aria-label="Footer Navigation"
           className="mx-auto mb-0 flex max-w-lg flex-col gap-10 text-center sm:flex-row sm:text-left">
-          <a href="#" className="font-medium text-white">
+          <a href="/" className="font-medium text-white">
             Home
           </a>
           <a href="#" className="font-medium text-white">
