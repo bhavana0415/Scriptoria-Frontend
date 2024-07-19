@@ -24,7 +24,7 @@ const Reviews = () => {
   return (
     <div className="my-10">
       <div className="text-center">
-        <h2 className="text-xl italic py-2 font-bold text-white sm:text-2xl lg:text-3xl">
+        <h2 className="text-xl py-2 font-serif text-foreground sm:text-2xl lg:text-3xl">
           Have a look at what our readers say
         </h2>
       </div>

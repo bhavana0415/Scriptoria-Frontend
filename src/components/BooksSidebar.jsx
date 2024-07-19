@@ -40,7 +40,7 @@ const BooksSidebar = ({ data, checked, setChecked }) => {
   };
 
   return (
-    <div className="w-60 flex flex-col">
+    <div className="w-full flex flex-col">
       <div className="grow flex flex-col border-left">
         {data.map((genre, index) => (
           <div key={index}>

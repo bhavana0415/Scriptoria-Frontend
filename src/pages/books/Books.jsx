@@ -81,12 +81,12 @@ const Books = () => {
   return (
     <div>
       <div className="w-full h-20 bg-background-500 flex"></div>
-      <div className="md:w-1/5 px-2 fixed h-screen overflow-y-scroll no-scrollbar">
+      <div className="sm:w-1/5 px-2 fixed h-screen overflow-y-scroll no-scrollbar hidden sm:flex">
         <BooksSidebar data={data} checked={checked} setChecked={setChecked} />
       </div>
       <div className="flex w-full min-h-screen mt-2">
-        <div className="md:w-1/5 px-2"></div>
-        <div className="w-full md:w-4/5 mx-2 my-2 flex-grow flex flex-col">
+        <div className="sm:w-1/5 px-2"></div>
+        <div className="w-full sm:w-4/5 mx-2 my-2 flex-grow flex flex-col">
           <div className="mx-auto flex flex-right max-w-screen-lg justify-center px-2 pb-4">
             <FormControl sx={{ minWidth: 120 }} size="small">
               <InputLabel
@@ -143,7 +143,7 @@ const Books = () => {
               </div>
             ))}
           </div>
-          <div className="mx-auto grid max-w-screen-lg justify-center px-4 sm:grid-cols-2 sm:gap-4 sm:px-8 md:grid-cols-4 custom:grids-cols-3">
+          <div className="mx-auto grid max-w-screen-lg justify-center px-4 xsm:grid-col-1 sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             {books && books
             .filter((book)=>{
               if(filter!= "" && filterValue!=""){

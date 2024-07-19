@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
-import { setWriteContent } from "../store/Features/currentState/currentStateSlice";
+import { setWriteContent } from "../store/Features/writeContent/writeContentSlice";
 
 const PreviewDialog = ({ open, content, bookDetails, handleClose }) => {
 
@@ -24,7 +24,7 @@ const PreviewDialog = ({ open, content, bookDetails, handleClose }) => {
 
   
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
+    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
       <DialogTitle
         sx={{
           backgroundColor: blueGrey[900],
@@ -45,7 +45,7 @@ const PreviewDialog = ({ open, content, bookDetails, handleClose }) => {
               );
             } else {
               return (
-                <div key={index} className="flex justify-center items-center">
+                <div key={index} className={`flex ${item.type === "Chapter" ? "justify-center" : ""} items-center`}>
                   <ContextTypography
                     item={item}
                     content={content}
@@ -101,7 +101,7 @@ const ContextTypography = ({ item, content, index }) => {
 
   if (item.type === "Chapter") {
     return (
-      <Typography className="mx-2 font-serif my-4" variant="h4" sx={{paddingY: "4px"}}>
+      <Typography variant="h4" sx={{paddingY: "10px", fontFamily: "serif"}}>
         {`Chapter ${
           content.slice(0, index + 1).filter((it) => it.type === "Chapter")
             .length
@@ -110,15 +110,23 @@ const ContextTypography = ({ item, content, index }) => {
     );
   } else if (item.type === "Heading") {
     return (
-      <Typography className={`mx-2 font-mono`} variant="h5">
+      <Typography variant="h5" sx={{paddingY: "4px"}}>
+        {item.text}
+      </Typography>
+    );
+  }else if (item.type === "Subheading") {
+    return (
+      <Typography variant="h6" sx={{paddingY: "2px"}}>
         {item.text}
       </Typography>
     );
   } else if (item.type === "Image") {
-    return <Typography className={`mx-2 `}>{item.text}</Typography>;
+    return (
+      <img className="w-[50%] h-auto" src={item.text} alt=""/>
+    );
   } else {
     return (
-      <Typography className={`mx-2 font-mono`} variant="body1">
+      <Typography sx={{paddingY: "2px"}} variant="body1">
         <>&emsp;</>
         {item.text}
       </Typography>

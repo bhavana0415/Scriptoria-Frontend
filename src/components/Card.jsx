@@ -2,10 +2,7 @@ import { useEffect, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setFavourites,
-  setIsLoading,
-} from "../store/Features/currentState/currentStateSlice";
+import { setIsLoading } from "../store/Features/currentState/currentStateSlice";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -15,6 +12,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import BookDialog from "./BookDialog";
 import { fetchBooks } from "../api/dbBooks/api";
+import { setFavourites } from "../store/Features/favourites/favouritesSlice";
 
 const Card = ({ book }) => {
   const [rating, setRating] = useState(3);
@@ -22,7 +20,7 @@ const Card = ({ book }) => {
   const [bookDetails, setBookDetails] = useState(null);
   const dispatch = useDispatch();
 
-  const favourites = useSelector((state) => state.currentState.favourites);
+  const favourites = useSelector((state) => state.favourites.favourites);
 
   const calculateRating = (num) => {
     while (num >= 10) {
