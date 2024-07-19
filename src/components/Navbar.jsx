@@ -9,7 +9,10 @@ import { useNavigate } from "react-router-dom";
 import { setCheckedItems, setCurrentMode } from "../store/Features/currentState/currentStateSlice";
 import Loader from "./Loader";
 import { fetchBooksAsync } from "../store/Features/fetchData/fetchDataSlice";
-
+import CreateIcon from '@mui/icons-material/Create';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Tooltip } from "@mui/material";
 const pages = ["Books", "Write", "Favourites"];
 
 function Navbar() {
@@ -71,13 +74,21 @@ function Navbar() {
           className="py-1 peer-checked:max-h-fit flex max-h-0 w-full flex-col items-center overflow-hidden transition-all lg:ml-24 lg:max-h-full lg:flex-row justify-center bg-background">
           <ul className="flex w-full flex-col items-center space-y-2 lg:flex-row lg:justify-center lg:space-y-0">
             {pages.map((item, ind) => (
-                <li key={ind} className="lg:mr-6">
+                <li key={ind} className="mx-2 my-2">
+                <Tooltip title={item} placement="top">
                   <a
                     className="rounded text-foreground font-serif text-lg"
                     href={`/${item}`}>
-                    {item}
+                    {item === "Books" ? (
+                      <LibraryBooksIcon />
+                    ) : item === "Write" ? (
+                      <CreateIcon />
+                    ) : (
+                      <FavoriteIcon />
+                    )}
                   </a>
-                </li>
+                </Tooltip>
+              </li>
             ))}
           </ul>
           <form
