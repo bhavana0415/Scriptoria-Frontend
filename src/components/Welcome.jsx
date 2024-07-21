@@ -1,5 +1,5 @@
 import NorthEastIcon from '@mui/icons-material/NorthEast';
-import { ebookImg } from '/ebook.png'
+import ebookImg from '/ebook.png'
 export function Welcome() {
     return (
         <div className='h-fit'>

@@ -1,4 +1,4 @@
-import { libraryImg } from '/library.jpg';
+import libraryImg from '/library.jpg';
 
 const Thankyou = () => {
     return (
