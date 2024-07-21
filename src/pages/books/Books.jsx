@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card";
@@ -32,10 +32,6 @@ const Books = () => {
   const currentMode = useSelector((state) => state.currentState.currentMode);
   const checkedItems = useSelector((state) => state.currentState.checkedItems);
   const books = useSelector((state) => state.fetchData.books);
-
-  const [pagesCount, setPagesCount] = useState(
-    books ? Math.ceil(books.length / 20) : 0
-  );
   const [page, setPage] = useState(1);
   const [checked, setChecked] = useState(checkedItems ?? []);
   const [filter, setFilter] = useState("");
@@ -53,15 +49,14 @@ const Books = () => {
     }
   }, [books, dispatch]);
 
-  useEffect(() => {
-    const filteredBooks = books.filter((book) => {
-      if (filter !== "" && filterValue !== "") {
-        return book[filter].toLowerCase().includes(filterValue.toLowerCase());
-      }
-      return true;
-    });
-    setPagesCount(Math.ceil(filteredBooks.length / 20));
+  const filteredBooks = useMemo(() => {
+    if (filter === "" || filterValue === "") return books;
+    return books.filter((book) =>
+      book[filter]?.toLowerCase().includes(filterValue.toLowerCase())
+    );
   }, [books, filter, filterValue]);
+
+  const pagesCount = useMemo(() => Math.ceil(filteredBooks ? filteredBooks.length / 20 : 0), [filteredBooks]);
 
   useEffect(() => {
     dispatch(setCheckedItems(checked));
@@ -169,7 +164,7 @@ const Books = () => {
               </p>
             )}
           </div>
-          {books && books.length>0 && (<Pagination
+          {books && books.length > 0 && (<Pagination
             page={page}
             onChange={handleChange}
             count={pagesCount}
