@@ -15,7 +15,8 @@ import { fetchBooksAsync } from "../store/Features/fetchData/fetchDataSlice";
 import CreateIcon from "@mui/icons-material/Create";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Tooltip } from "@mui/material";
+// import { Tooltip } from "@mui/material";
+import { logoImg } from './../assets/logo.png';
 const pages = ["Books", "Write", "Favourites"];
 
 function Navbar() {
@@ -152,7 +153,7 @@ function Navbar() {
         <div className="absolute -top-8 left-1/2 h-20 w-20 -translate-x-1/2 rounded-full border-2 border-cyan-100 bg-white">
           <img
             className="h-full object-contain rounded-full"
-            src="src/assets/logo.png"
+            src={logoImg}
             alt=""
           />
         </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import { useSelector } from "react-redux";
@@ -8,6 +8,9 @@ import Diversity2Icon from "@mui/icons-material/Diversity2";
 import PublishIcon from "@mui/icons-material/Publish";
 import CelebrationIcon from "@mui/icons-material/Celebration";
 import { Link } from "react-router-dom";
+import { readerImg } from './../assets/reader.jpg';
+import { writerImg } from './../assets/writer.jpg';
+import { authorImg } from './../assets/author.png';
 
 const images = [
   "https://www.dbooks.org/img/books/5591710361s.jpg",
@@ -61,7 +64,7 @@ export default function Slider() {
                   <div className="shrink-0 md:mr-8 md:max-w-sm">
                     <img
                       className="rounded-2xl h-40"
-                      src="src/assets/reader.jpg"
+                      src={readerImg}
                       alt=""
                     />
                   </div>
@@ -98,7 +101,7 @@ export default function Slider() {
                   <div className="shrink-0 md:ml-8 md:max-w-sm">
                     <img
                       className="rounded-2xl h-40 object-contain"
-                      src="src/assets/writer.jpg"
+                      src={writerImg}
                       alt=""
                     />
                   </div>
@@ -190,7 +193,7 @@ export default function Slider() {
                   <div className="w-full md:w-1/2">
                     <img
                       className="object-contain"
-                      src="src/assets/author.png"
+                      src={authorImg}
                       alt=""
                     />
                   </div>
