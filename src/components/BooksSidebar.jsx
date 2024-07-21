@@ -40,12 +40,12 @@ const BooksSidebar = ({ data, checked, setChecked }) => {
   };
 
   return (
-    <div className="w-60 flex flex-col">
+    <div className="w-full flex flex-col">
       <div className="grow flex flex-col border-left">
         {data.map((genre, index) => (
-          <>
+          <div key={genre.genre}>
             {checkMenuItemDisplay(genre.genre) && (
-              <div key={genre.genre}>
+              <div>
                 <div className="flex items-center justify-between py-1 pl-2 border-g-bottom">
                   <div>
                     <div className="text-foreground pt-2 pb-2 font-bold text-md">
@@ -126,7 +126,7 @@ const BooksSidebar = ({ data, checked, setChecked }) => {
                 )}
               </div>
             )}
-          </>
+          </div>
         ))}
         <div className="w-full h-60"></div>
       </div>

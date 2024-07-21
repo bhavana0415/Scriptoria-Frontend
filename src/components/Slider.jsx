@@ -17,12 +17,7 @@ const images = [
 
 export default function Slider() {
   const [current, setCurrent] = useState(0);
-  const currentMode =
-    useSelector((state) => state.currentState.currentMode) ?? "dark";
-
-  useEffect(() => {
-    console.log("currentMode", currentMode);
-  }, [currentMode]);
+  const currentMode = useSelector((state) => state.currentState.currentMode) ?? "dark";
   const previousSlide = () => {
     setCurrent((prev) => {
       if (prev == 0) {
@@ -71,11 +66,10 @@ export default function Slider() {
                     />
                   </div>
                   <div className="py-1 sm:py-2">
-                    <a
-                      href="#"
+                    <p
                       className="mb-6 block text-2xl font-medium text-foreground-700">
                       For Readers:
-                    </a>
+                    </p>
                     <p className="mb-6 text-foreground-300 text-lg">
                       Dive into a world of endless knowledge. From
                       groundbreaking scientific discoveries and insightful
@@ -88,11 +82,10 @@ export default function Slider() {
                 </article>
                 <article className="my-2 flex flex-col rounded-2xl px-4 shadow-2xl md:max-w-5xl md:flex-row md:items-center">
                   <div className="py-1 sm:py-2">
-                    <a
-                      href="#"
+                    <p
                       className="mb-6 block text-2xl font-medium text-foreground-700">
                       For Writers:
-                    </a>
+                    </p>
                     <p className="mb-6 text-foreground-300 text-lg">
                       Share your educational content with the world. Upload your
                       manuscripts to our platform, connect with a community of
@@ -123,7 +116,7 @@ export default function Slider() {
                   <div className="grid gap-1 sm:grid-cols-3 lg:grid-cols-3">
                     {images.map((img, ind) => (
                       <div
-                        key={ind}
+                        key={img}
                         className={`rounded-xl transition duration-500 hover:scale-105 mt-${
                           ind * 4
                         } `}>

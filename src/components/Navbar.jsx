@@ -6,10 +6,16 @@ import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setCheckedItems, setCurrentMode } from "../store/Features/currentState/currentStateSlice";
+import {
+  setCheckedItems,
+  setCurrentMode,
+} from "../store/Features/currentState/currentStateSlice";
 import Loader from "./Loader";
 import { fetchBooksAsync } from "../store/Features/fetchData/fetchDataSlice";
-
+import CreateIcon from "@mui/icons-material/Create";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Tooltip } from "@mui/material";
 const pages = ["Books", "Write", "Favourites"];
 
 function Navbar() {
@@ -34,7 +40,7 @@ function Navbar() {
 
   const handleClickEnter = (e) => {
     e.preventDefault();
-    dispatch(setCheckedItems([searchValue]))
+    dispatch(setCheckedItems([searchValue]));
     dispatch(fetchBooksAsync([searchValue]));
     navigate("/books");
   };
@@ -68,32 +74,45 @@ function Navbar() {
         </label>
         <nav
           aria-label="Header Navigation"
-          className="py-1 peer-checked:max-h-fit flex max-h-0 w-full flex-col items-center overflow-hidden transition-all lg:ml-24 lg:max-h-full lg:flex-row justify-center bg-background">
-          <ul className="flex w-full flex-col items-center space-y-2 lg:flex-row lg:justify-center lg:space-y-0">
-            {pages.map((item, ind) => (
-              <>
-                <li key={ind} className="lg:mr-6">
-                  <a
-                    className="rounded text-foreground font-serif text-lg"
-                    href={`/${item}`}>
-                    {item}
-                  </a>
-                </li>
-              </>
+          className="py-0 peer-checked:max-h-fit flex max-h-0 w-full flex-col items-center overflow-hidden transition-all lg:ml-24 lg:max-h-full lg:flex-row justify-center bg-background">
+          <ul className="flex w-full items-center m-2 flex-row justify-center">
+            {pages.map((item) => (
+              <li key={item} className="mx-2">
+                <a className="text-foreground font-serif" href={`/${item}`}>
+                  {item === "Books" ? (
+                    <span className="flex flex-row">
+                      <LibraryBooksIcon />
+                      <p className="hidden lg:flex">{item}</p>
+                    </span>
+                  ) : item === "Write" ? (
+                    <span className="flex flex-row">
+                      <CreateIcon />
+                      <p className="hidden lg:flex">{item}</p>
+                    </span>
+                  ) : (
+                    <span className="flex flex-row">
+                      <FavoriteIcon />
+                      <p className="hidden lg:flex">{item}</p>
+                    </span>
+                  )}
+                </a>
+              </li>
             ))}
           </ul>
-          <form
-            onSubmit={handleClickEnter}
-            className="relative h-10 w-1/2 rounded-full mx-4 flex items-center">
-            <SearchRoundedIcon className="absolute left-4 text-foregroundReverse" />
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              className="h-full w-full pl-12 pr-4 rounded-full focus:outline-none bg-backgroundReverse text-foregroundReverse"
-            />
-          </form>
+          <div className="w-full mx-4">
+            <form
+              onSubmit={handleClickEnter}
+              className="relative h-10 w-full rounded-full m-2 flex items-center">
+              <SearchRoundedIcon className="absolute left-4 text-foregroundReverse" />
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                className="h-full w-full pl-12 pr-4 rounded-full focus:outline-none bg-backgroundReverse text-foregroundReverse"
+              />
+            </form>
+          </div>
           {/* <div className="my-4 flex items-center lg:my-0 lg:ml-auto lg:space-x-2 lg:space-y-0">
             <a
               href="#"
@@ -140,7 +159,7 @@ function Navbar() {
         <nav
           aria-label="Footer Navigation"
           className="mx-auto mb-0 flex max-w-lg flex-col gap-10 text-center sm:flex-row sm:text-left">
-          <a href="#" className="font-medium text-white">
+          <a href="/" className="font-medium text-white">
             Home
           </a>
           <a href="#" className="font-medium text-white">

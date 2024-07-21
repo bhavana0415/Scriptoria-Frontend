@@ -14,7 +14,8 @@ module.exports = {
         "custom-hover": "var(--customColorTwo)",
       },
       screens: {
-        custom: "1080px", // Example of another custom media query
+        xsm: "300px",
+        custom: "1080px",
       },
     },
   },

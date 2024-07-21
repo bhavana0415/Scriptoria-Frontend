@@ -1,6 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import currentStateSlice from "./Features/currentState/currentStateSlice";
 import fetchDataSlice from "./Features/fetchData/fetchDataSlice";
+import favouritesSlice from "./Features/favourites/favouritesSlice";
+import writeContentSlice from "./Features/writeContent/writeContentSlice";
 
 const localStorageMiddleware = store => next => action => {
     const result = next(action);
@@ -21,6 +23,8 @@ export const store = configureStore({
     reducer: {
         currentState: currentStateSlice,
         fetchData: fetchDataSlice,
+        favourites: favouritesSlice,
+        writeContent: writeContentSlice,
     },
     preloadedState: reHydrateStore(),
   middleware: (getDefaultMiddleware) =>
