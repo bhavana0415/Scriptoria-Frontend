@@ -43,12 +43,6 @@ const Books = () => {
     setPage(value);
   };
 
-  useEffect(() => {
-    if (books == null) {
-      dispatch(fetchRecentBooksAsync());
-    }
-  }, [books, dispatch]);
-
   const filteredBooks = useMemo(() => {
     if (filter === "" || filterValue === "") return books;
     return books.filter((book) =>

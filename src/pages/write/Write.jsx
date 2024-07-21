@@ -91,11 +91,13 @@ const Write = () => {
             <Tooltip
               title="Publish feature currently unavailable"
               placement="top">
-              <button
-                className="bg-pink-500 mr-20 text-white font-bold py-2 px-4 rounded-full"
-                disabled={true}>
-                Publish
-              </button>
+              <span>
+                <button
+                  className="bg-pink-500 mr-20 text-white font-bold py-2 px-4 rounded-full"
+                  disabled={true}>
+                  Publish
+                </button>
+              </span>
             </Tooltip>
           </div>
           <div className="w-full flex flex-wrap px-2 md:hidden lg:hidden h-fit">
