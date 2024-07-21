@@ -16,7 +16,7 @@ import CreateIcon from "@mui/icons-material/Create";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 // import { Tooltip } from "@mui/material";
-import { logoImg } from './../assets/logo.png';
+import { logoImg } from '/logo.png';
 const pages = ["Books", "Write", "Favourites"];
 
 function Navbar() {

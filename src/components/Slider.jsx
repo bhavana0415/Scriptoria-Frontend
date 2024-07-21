@@ -8,9 +8,9 @@ import Diversity2Icon from "@mui/icons-material/Diversity2";
 import PublishIcon from "@mui/icons-material/Publish";
 import CelebrationIcon from "@mui/icons-material/Celebration";
 import { Link } from "react-router-dom";
-import { readerImg } from './../assets/reader.jpg';
-import { writerImg } from './../assets/writer.jpg';
-import { authorImg } from './../assets/author.png';
+import { readerImg } from '/reader.jpg';
+import { writerImg } from '/writer.jpg';
+import { authorImg } from '/author.png';
 
 const images = [
   "https://www.dbooks.org/img/books/5591710361s.jpg",
