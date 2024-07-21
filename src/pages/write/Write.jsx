@@ -68,9 +68,9 @@ const Write = () => {
       <div className="w-full h-20 bg-background-500 flex"></div>
       <div className="fixed hidden md:flex md:flex-col md:w-1/6 px-2 ">
         {["Chapter", "Heading", "Subheading", "Paragraph", "Image"].map(
-          (item, ind) => (
+          (item) => (
             <div
-              key={ind}
+              key={item}
               className="border-2 border-pink-600 rounded-lg m-2 cursor-pointer"
               onClick={() => handleSelectButton(item)}>
               <button className="cursor-pointer m-2">Add {item}</button>
@@ -100,9 +100,9 @@ const Write = () => {
           </div>
           <div className="w-full flex flex-wrap px-2 md:hidden lg:hidden h-fit">
             {["Chapter", "Heading", "Subheading", "Paragraph", "Image"].map(
-              (item, ind) => (
+              (item) => (
                 <div
-                  key={ind}
+                  key={item}
                   className="border-2 border-pink-600 rounded-lg m-2 cursor-pointer"
                   onClick={() => handleSelectButton(item)}>
                   <button className="cursor-pointer m-2">Add {item}</button>
@@ -115,7 +115,7 @@ const Write = () => {
               if (item.type === "Image") {
                 return (
                   <div
-                    key={index}
+                    key={item}
                     className="w-[95%] mb-4 p-4 relative border border-cyan-500 rounded-md flex justify-center items-center">
                     <div
                       className="flex justify-end absolute -top-1 -right-6 cursor-pointer"
@@ -171,7 +171,7 @@ const Write = () => {
                 );
               } else {
                 return (
-                  <div key={index} className="w-[95%] mb-4 relative">
+                  <div key={item} className="w-[95%] mb-4 relative">
                     <div
                       className="flex justify-end absolute -top-1 -right-6 cursor-pointer"
                       onClick={() => removeContent(index)}>

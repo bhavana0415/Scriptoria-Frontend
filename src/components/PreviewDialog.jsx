@@ -45,7 +45,7 @@ const PreviewDialog = ({ open, content, bookDetails, handleClose }) => {
               );
             } else {
               return (
-                <div key={index} className={`flex ${item.type === "Chapter" ? "justify-center" : ""} items-center`}>
+                <div key={item} className={`flex ${item.type === "Chapter" ? "justify-center" : ""} items-center`}>
                   <ContextTypography
                     item={item}
                     content={content}
