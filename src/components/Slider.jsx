@@ -123,7 +123,7 @@ export default function Slider() {
                         className={`rounded-xl transition duration-500 hover:scale-105 mt-${
                           ind * 4
                         } `}>
-                        <a href="#">
+                        <a href="/books">
                           <div className="relative flex items-center justify-center overflow-hidden rounded-xl bg-fuchsia-300 h-80 sm:h-72">
                             <img
                               className="object-fill w-full h-full"
@@ -282,7 +282,7 @@ export default function Slider() {
               key={"circle" + index}
               onClick={() => setCurrent(index)}
               className={`cursor-pointer ${
-                index === current ? "text-white" : "text-gray-500"
+                index === current ? "text-foreground" : "text-stone-500"
               }`}>
               {slide}
             </div>
