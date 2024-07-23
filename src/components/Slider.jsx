@@ -282,7 +282,7 @@ export default function Slider() {
               key={"circle" + index}
               onClick={() => setCurrent(index)}
               className={`cursor-pointer ${
-                index === current ? "text-white" : "text-gray-500"
+                index === current ? "text-foreground" : "text-stone-500"
               }`}>
               {slide}
             </div>

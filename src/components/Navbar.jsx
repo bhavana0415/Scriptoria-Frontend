@@ -75,7 +75,7 @@ function Navbar() {
         </label>
         <nav
           aria-label="Header Navigation"
-          className="py-0 peer-checked:max-h-fit flex max-h-0 w-full flex-col items-center overflow-hidden transition-all lg:ml-24 lg:max-h-full lg:flex-row justify-center bg-background">
+          className="py-0 peer-checked:max-h-fit flex max-h-0 w-full flex-col items-center overflow-hidden transition duration-500 lg:ml-24 lg:max-h-full lg:flex-row justify-center bg-background">
           <ul className="flex w-full items-center m-2 flex-row justify-center">
             {pages.map((item) => (
               <li key={item} className="mx-2">

@@ -39,8 +39,9 @@ const BookDialog = ({ open, handleClose, book }) => {
               sx={{ fontFamily: "cursive" }}>
               <p className="text-sm py-2">by {book.authors}</p>
             </Typography>
-            <Typography variant="body1" paragraph>
-              {book.description}
+            <Typography variant="body1" paragraph 
+            dangerouslySetInnerHTML={{ __html: book.description }}
+            >
             </Typography>
             <Typography variant="body2" color="textSecondary">
               <p className="absolute bottom-2">

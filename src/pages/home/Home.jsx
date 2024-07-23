@@ -1,3 +1,4 @@
+import EditorPicks from "../../components/EditorPicks"
 import Reviews from "../../components/Reviews"
 import Slider from "../../components/Slider"
 import { Welcome } from "../../components/Welcome"
@@ -8,6 +9,7 @@ export function Home() {
         <Welcome/>
         <Slider/>
         <Reviews/>
+        <EditorPicks/>
         </>
 
     )

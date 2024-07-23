@@ -50,7 +50,10 @@ const Books = () => {
     );
   }, [books, filter, filterValue]);
 
-  const pagesCount = useMemo(() => Math.ceil(filteredBooks ? filteredBooks.length / 20 : 0), [filteredBooks]);
+  const pagesCount = useMemo(
+    () => Math.ceil(filteredBooks ? filteredBooks.length / 20 : 0),
+    [filteredBooks]
+  );
 
   useEffect(() => {
     dispatch(setCheckedItems(checked));
@@ -158,27 +161,35 @@ const Books = () => {
               </p>
             )}
           </div>
-          {books && books.length > 0 && (<Pagination
-            page={page}
-            onChange={handleChange}
-            count={pagesCount}
-            variant="outlined"
-            shape="rounded"
-            className="pt-10"
-            sx={{
-              "& .MuiPagination-ul": {
-                justifyContent: "center",
-              },
-              "& .MuiPaginationItem-root": {
-                color: currentMode === "dark" ? "white" : "black",
-                borderColor: currentMode === "dark" ? "white" : "black",
-              },
-              "& .Mui-selected": {
-                backgroundColor: "teal",
-                color: currentMode === "dark" ? "white" : "black",
-              },
-            }}
-          />)}
+          {books && books.length > 0 && (
+            <Pagination
+              page={page}
+              onChange={handleChange}
+              count={pagesCount}
+              variant="outlined"
+              shape="rounded"
+              className="pt-10"
+              sx={{
+                "& .MuiPagination-ul": {
+                  justifyContent: "center",
+                },
+                "& .MuiPaginationItem-root": {
+                  color: currentMode === "dark" ? "white" : "black",
+                  borderColor: currentMode === "dark" ? "white" : "black",
+                  "&:hover": {
+                    backgroundColor:
+                      currentMode === "dark" ? pink[400] : pink[800],
+                    color: currentMode === "dark" ? "white" : "black",
+                  },
+                },
+                "& .Mui-selected": {
+                  backgroundColor:
+                    currentMode === "dark" ? pink[800] : pink[400],
+                  color: currentMode === "dark" ? "white" : "black",
+                },
+              }}
+            />
+          )}
         </div>
       </div>
     </div>
