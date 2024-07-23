@@ -11,14 +11,13 @@ import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { setWriteContent } from "../store/Features/writeContent/writeContentSlice";
 
-const PreviewDialog = ({ open, content, bookDetails, handleClose }) => {
+const PreviewDialog = ({ open, content, handleClose }) => {
 
   const dispatch = useDispatch();
 
   PreviewDialog.propTypes = {
     open: PropTypes.bool.isRequired,
     content: PropTypes.array.isRequired,
-    bookDetails: PropTypes.object.isRequired,
     handleClose: PropTypes.func.isRequired
   }
 
@@ -32,7 +31,7 @@ const PreviewDialog = ({ open, content, bookDetails, handleClose }) => {
           fontFamily: "sans-serif",
         }}
         className="relative items-center">
-        {bookDetails.name}
+          Preview
       </DialogTitle>
       <DialogContent dividers sx={{ backgroundColor: "white", color: "black" }}>
         <div className="px-10 py-5">
