@@ -8,9 +8,11 @@ import Diversity2Icon from "@mui/icons-material/Diversity2";
 import PublishIcon from "@mui/icons-material/Publish";
 import CelebrationIcon from "@mui/icons-material/Celebration";
 import { Link } from "react-router-dom";
-import readerImg from '/reader.jpg';
-import writerImg from '/writer.jpg';
-import authorImg from '/author.png';
+import readerImg from "/reader.jpg";
+import writerImg from "/writer.jpg";
+import authorImg from "/author.png";
+import write1 from "/write1.png";
+import write2 from "/write2.png";
 
 const images = [
   "https://www.dbooks.org/img/books/5591710361s.jpg",
@@ -20,7 +22,8 @@ const images = [
 
 export default function Slider() {
   const [current, setCurrent] = useState(0);
-  const currentMode = useSelector((state) => state.currentState.currentMode) ?? "dark";
+  const currentMode =
+    useSelector((state) => state.currentState.currentMode) ?? "dark";
   const previousSlide = () => {
     setCurrent((prev) => {
       if (prev == 0) {
@@ -44,7 +47,7 @@ export default function Slider() {
       <div className="flex mx-auto flex justify-center items-center h-fit">
         <div className="w-10% h-auto flex justify-center items-center">
           <button onClick={previousSlide} className="focus:outline-none">
-            <ArrowCircleLeftRoundedIcon className="h-20 w-20"/>
+            <ArrowCircleLeftRoundedIcon className="h-20 w-20" />
           </button>
         </div>
         <div className="overflow-hidden w-[90%] rounded-3xl">
@@ -62,15 +65,10 @@ export default function Slider() {
               <div className="w-full max-w-screen-lg mx-auto p-8 text-foreground">
                 <article className="my-2 flex flex-col rounded-2xl px-4 shadow-2xl md:max-w-5xl md:flex-row md:items-center">
                   <div className="shrink-0 md:mr-8 md:max-w-sm">
-                    <img
-                      className="rounded-2xl h-40"
-                      src={readerImg}
-                      alt=""
-                    />
+                    <img className="rounded-2xl h-40" src={readerImg} alt="" />
                   </div>
                   <div className="py-1 sm:py-2">
-                    <p
-                      className="mb-6 block text-2xl font-medium text-foreground-700">
+                    <p className="mb-6 block text-2xl font-medium text-foreground-700">
                       For Readers:
                     </p>
                     <p className="mb-6 text-foreground-300 text-lg">
@@ -85,8 +83,7 @@ export default function Slider() {
                 </article>
                 <article className="my-2 flex flex-col rounded-2xl px-4 shadow-2xl md:max-w-5xl md:flex-row md:items-center">
                   <div className="py-1 sm:py-2">
-                    <p
-                      className="mb-6 block text-2xl font-medium text-foreground-700">
+                    <p className="mb-6 block text-2xl font-medium text-foreground-700">
                       For Writers:
                     </p>
                     <p className="mb-6 text-foreground-300 text-lg">
@@ -191,11 +188,7 @@ export default function Slider() {
                     </blockquote>
                   </div>
                   <div className="w-full md:w-1/2">
-                    <img
-                      className="object-contain"
-                      src={authorImg}
-                      alt=""
-                    />
+                    <img className="object-contain" src={authorImg} alt="" />
                   </div>
                 </div>
               </div>
@@ -211,55 +204,74 @@ export default function Slider() {
                   currentMode != "dark" ? "black" : "white"
                 }`}>
                 <div className="flex flex-col md:flex-row items-center">
-                  <div className="w-full md:w-1/4">
-                    Write page Screen shots here
+                  <div className="w-full h-full md:w-2/5 flex flex-col">
+                    <img src={write1} alt="" className="rounded-lg w-96 h-52" />
+                    <img
+                      src={write2}
+                      alt=""
+                      className="-mt-20 ml-16 w-96 rounded-lg"
+                    />
                   </div>
-                  <div className="relative w-full md:w-3/4 px-12">
+                  <div className="relative w-full md:w-3/5 px-12">
                     {/* <div className="absolute inset-0 w-20 border-dashed border-r-2 border-indigo-300"></div> */}
                     <div className="flex flex-col items-start space-y-2">
-                      <div className="flex items-center justify-center space-x-2">
+                      <div className="flex items-center space-x-2">
                         <div className="w-16 h-16 flex justify-center items-center bg-indigo-300 rounded-full">
                           <DrawIcon />
                         </div>
-                        <div>
-                          Discover a curated collection of educational books
-                          covering various subjects and interests
+                        <div className="flex-1">
+                          <div className="mb-1">
+                            Discover a curated collection of educational books
+                          </div>
+                          <div>covering various subjects and interests</div>
                         </div>
                       </div>
-                      <div className="flex items-center justify-center space-x-2">
+                      <div className="flex items-center space-x-2">
                         <div className="w-16 h-16 flex justify-center items-center bg-indigo-300 rounded-full">
                           <Diversity2Icon />
                         </div>
-                        <div>
-                          Access books anytime, anywhere to expand knowledge and
-                          learn at your own pace
+                        <div className="flex-1">
+                          <div className="mb-1">
+                            Access books anytime, anywhere to expand knowledge
+                          </div>
+                          <div>and learn at your own pace</div>
                         </div>
                       </div>
-                      <div className="flex items-center justify-center space-x-2">
+                      <div className="flex items-center space-x-2">
                         <div className="w-16 h-16 flex justify-center items-center bg-indigo-300 rounded-full">
                           <ConnectWithoutContactIcon />
                         </div>
-                        <div>
-                          Write your own educational manuscripts and publish
-                          them on Scriptoria for others to read
+                        <div className="flex-1">
+                          <div className="mb-1">
+                            Write your own educational manuscripts and
+                          </div>
+                          <div>
+                            publish them on Scriptoria for others to read
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center justify-center space-x-2">
+                      <div className="flex items-center space-x-2">
                         <div className="w-16 h-16 flex justify-center items-center bg-indigo-300 rounded-full">
                           <PublishIcon />
                         </div>
-                        <div>
-                          Use built-in authoring tools to format and structure
-                          your manuscripts effectively
+                        <div className="flex-1">
+                          <div className="mb-1">
+                            Use built-in authoring tools to format and
+                          </div>
+                          <div>structure your manuscripts effectively</div>
                         </div>
                       </div>
-                      <div className="flex items-center justify-center space-x-2">
+                      <div className="flex items-center space-x-2">
                         <div className="w-16 h-16 flex justify-center items-center bg-indigo-300 rounded-full">
                           <CelebrationIcon />
                         </div>
-                        <div>
-                          Utilize Scriptoria to enhance your knowledge to
-                          support your personal and professional growth
+                        <div className="flex-1">
+                          <div className="mb-1">
+                            Utilize Scriptoria to enhance your knowledge to
+                          </div>
+                          <div>
+                            support your personal and professional growth
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -275,7 +287,7 @@ export default function Slider() {
           </button>
         </div>
       </div>
-      <div className="bottom-0 flex justify-center gap-6 w-full items-center">
+      <div className="bottom-0 flex justify-center gap-6 w-full items-center mt-2 mb-10">
         {["About us", "Discover", "Success Stories", "How it works"].map(
           (slide, index) => (
             <div

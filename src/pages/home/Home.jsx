@@ -8,8 +8,8 @@ export function Home() {
         <>
         <Welcome/>
         <Slider/>
-        <Reviews/>
         <EditorPicks/>
+        <Reviews/>
         </>
 
     )

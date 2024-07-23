@@ -9,10 +9,6 @@ const Write = () => {
   const writeContent = useSelector((state) => state.writeContent.writeContent);
 
   const [content, setContent] = useState(writeContent);
-  const [bookDetails, setBookDetails] = useState({
-    name: "React Hooks",
-    author: "Author Name",
-  });
 
   const [previewOpen, setPreviewOpen] = useState(false);
   const imageInputRef = useRef(null);
@@ -195,7 +191,6 @@ const Write = () => {
         <PreviewDialog
           open={previewOpen}
           content={content}
-          bookDetails={bookDetails}
           handleClose={handleClose}
         />
       )}
