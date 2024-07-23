@@ -3,16 +3,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoading } from "../store/Features/currentState/currentStateSlice";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 import BookDialog from "./BookDialog";
 import { fetchBooks } from "../api/dbBooks/api";
 import { setFavourites } from "../store/Features/favourites/favouritesSlice";
+import { setRecentlyViewed } from "../store/Features/recentlyViewed/recentlyViewedSlice";
 
 const Card = ({ book }) => {
   const [rating, setRating] = useState(3);
@@ -21,6 +15,7 @@ const Card = ({ book }) => {
   const dispatch = useDispatch();
 
   const favourites = useSelector((state) => state.favourites.favourites);
+  const recentlyViewed = useSelector((state) => state.recentlyViewed.recentlyViewed);
 
   const calculateRating = (num) => {
     while (num >= 10) {
@@ -35,6 +30,10 @@ const Card = ({ book }) => {
   };
 
   const handleClickOpen = async () => {
+    if(recentlyViewed.findIndex((bk)=>book.id==bk.id)==-1){
+      const recentViews = [...recentlyViewed,book];
+      dispatch(setRecentlyViewed(recentViews))
+    }
     try {
       dispatch(setIsLoading(true));
       const response = await fetchBooks(`book/${book.id}`);

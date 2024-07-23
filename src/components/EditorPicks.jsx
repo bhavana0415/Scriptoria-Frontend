@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { useSelector } from "react-redux";
 
 const recentBooks = [
   {
@@ -108,125 +109,130 @@ const recentBooks = [
     authors: "Ed Freitas",
     image: "https://www.dbooks.org/img/books/1642002305s.jpg",
     url: "https://www.dbooks.org/svelte-succinctly-1642002305/",
-  }
+  },
 ];
 
 const editorPics = [
-    {
-        "id": "3030113302",
-        "title": "Handbook of Pathogens and Diseases in Cephalopods",
-        "subtitle": "",
-        "authors": "Camino Gestal, Santiago Pascual, Ángel Guerra, Graziano Fiorito, Juan M. Vieites",
-        "image": "https://www.dbooks.org/img/books/3030113302s.jpg",
-        "url": "https://www.dbooks.org/handbook-of-pathogens-and-diseases-in-cephalopods-3030113302/"
-    },
-    {
-        "id": "3030118991",
-        "title": "The Biopsychosocial Model of Health and Disease",
-        "subtitle": "New Philosophical and Scientific Developments",
-        "authors": "Derek Bolton, Grant Gillett",
-        "image": "https://www.dbooks.org/img/books/3030118991s.jpg",
-        "url": "https://www.dbooks.org/the-biopsychosocial-model-of-health-and-disease-3030118991/"
-    },
-    {
-        "id": "3319314424",
-        "title": "Cohabitation and Marriage in the Americas: Geo-historical Legacies and New Trends",
-        "subtitle": "",
-        "authors": "Albert Esteve , Ron J. Lesthaeghe",
-        "image": "https://www.dbooks.org/img/books/3319314424s.jpg",
-        "url": "https://www.dbooks.org/cohabitation-and-marriage-in-the-americas-geo-historical-legacies-and-new-trends-3319314424/"
-    },
-    {
-        "id": "3030191826",
-        "title": "Policing and Minority Communities",
-        "subtitle": "Contemporary Issues and Global Perspectives",
-        "authors": "James F. Albrecht, Garth den Heyer, Perry Stanislas",
-        "image": "https://www.dbooks.org/img/books/3030191826s.jpg",
-        "url": "https://www.dbooks.org/policing-and-minority-communities-3030191826/"
-    },
-    {
-        "id": "3319578839",
-        "title": "Eye Tracking Methodology",
-        "subtitle": "Theory and Practice",
-        "authors": "Andrew T. Duchowski",
-        "image": "https://www.dbooks.org/img/books/3319578839s.jpg",
-        "url": "https://www.dbooks.org/eye-tracking-methodology-3319578839/"
-    },
-    {
-        "id": "1509302808",
-        "title": "Windows 10 IT Pro Essentials: Support Secrets",
-        "subtitle": "",
-        "authors": "Ed Bott",
-        "image": "https://www.dbooks.org/img/books/1509302808s.jpg",
-        "url": "https://www.dbooks.org/windows-10-it-pro-essentials-support-secrets-1509302808/"
-    },
-    {
-        "id": "1452",
-        "title": "iOS Developer Notes for Professionals",
-        "subtitle": "",
-        "authors": "Stack Overflow Community",
-        "image": "https://www.dbooks.org/img/books/1452s.jpg",
-        "url": "https://www.dbooks.org/ios-developer-notes-for-professionals-1452/"
-    },
-    {
-        "id": "1453",
-        "title": "Android Notes for Professionals",
-        "subtitle": "",
-        "authors": "Stack Overflow Community",
-        "image": "https://www.dbooks.org/img/books/1453s.jpg",
-        "url": "https://www.dbooks.org/android-notes-for-professionals-1453/"
-    },
-    {
-        "id": "1462",
-        "title": "AngularJS Notes for Professionals",
-        "subtitle": "",
-        "authors": "Stack Overflow Community",
-        "image": "https://www.dbooks.org/img/books/1462s.jpg",
-        "url": "https://www.dbooks.org/angularjs-notes-for-professionals-1462/"
-    },
-    {
-        "id": "1473",
-        "title": "SQL Server Metadata Succinctly",
-        "subtitle": "",
-        "authors": "Joseph D. Booth",
-        "image": "https://www.dbooks.org/img/books/1473s.jpg",
-        "url": "https://www.dbooks.org/sql-server-metadata-succinctly-1473/"
-    },
-    {
-        "id": "1509302786",
-        "title": "Windows 10 IT Pro Essentials: Top 10 Tools",
-        "subtitle": "",
-        "authors": "Ed Bott",
-        "image": "https://www.dbooks.org/img/books/1509302786s.jpg",
-        "url": "https://www.dbooks.org/windows-10-it-pro-essentials-top-10-tools-1509302786/"
-    },
-    {
-        "id": "1494",
-        "title": "Visual Studio 2019 Succinctly",
-        "subtitle": "",
-        "authors": "Alessandro Del Sole",
-        "image": "https://www.dbooks.org/img/books/1494s.jpg",
-        "url": "https://www.dbooks.org/visual-studio-2019-succinctly-1494/"
-    },
-    {
-        "id": "1499",
-        "title": "Laravel 5 Official Documentation",
-        "subtitle": "",
-        "authors": "Gary Blankenship",
-        "image": "https://www.dbooks.org/img/books/1499s.jpg",
-        "url": "https://www.dbooks.org/laravel-5-official-documentation-1499/"
-    },
-    {
-        "id": "1524",
-        "title": "Qt5 Cadaques",
-        "subtitle": "",
-        "authors": "J. Ryannel, J. Thelin",
-        "image": "https://www.dbooks.org/img/books/1524s.jpg",
-        "url": "https://www.dbooks.org/qt5-cadaques-1524/"
-    }
-]
+  {
+    id: "3030113302",
+    title: "Handbook of Pathogens and Diseases in Cephalopods",
+    subtitle: "",
+    authors:
+      "Camino Gestal, Santiago Pascual, Ángel Guerra, Graziano Fiorito, Juan M. Vieites",
+    image: "https://www.dbooks.org/img/books/3030113302s.jpg",
+    url: "https://www.dbooks.org/handbook-of-pathogens-and-diseases-in-cephalopods-3030113302/",
+  },
+  {
+    id: "3030118991",
+    title: "The Biopsychosocial Model of Health and Disease",
+    subtitle: "New Philosophical and Scientific Developments",
+    authors: "Derek Bolton, Grant Gillett",
+    image: "https://www.dbooks.org/img/books/3030118991s.jpg",
+    url: "https://www.dbooks.org/the-biopsychosocial-model-of-health-and-disease-3030118991/",
+  },
+  {
+    id: "3319314424",
+    title:
+      "Cohabitation and Marriage in the Americas: Geo-historical Legacies and New Trends",
+    subtitle: "",
+    authors: "Albert Esteve , Ron J. Lesthaeghe",
+    image: "https://www.dbooks.org/img/books/3319314424s.jpg",
+    url: "https://www.dbooks.org/cohabitation-and-marriage-in-the-americas-geo-historical-legacies-and-new-trends-3319314424/",
+  },
+  {
+    id: "3030191826",
+    title: "Policing and Minority Communities",
+    subtitle: "Contemporary Issues and Global Perspectives",
+    authors: "James F. Albrecht, Garth den Heyer, Perry Stanislas",
+    image: "https://www.dbooks.org/img/books/3030191826s.jpg",
+    url: "https://www.dbooks.org/policing-and-minority-communities-3030191826/",
+  },
+  {
+    id: "3319578839",
+    title: "Eye Tracking Methodology",
+    subtitle: "Theory and Practice",
+    authors: "Andrew T. Duchowski",
+    image: "https://www.dbooks.org/img/books/3319578839s.jpg",
+    url: "https://www.dbooks.org/eye-tracking-methodology-3319578839/",
+  },
+  {
+    id: "1509302808",
+    title: "Windows 10 IT Pro Essentials: Support Secrets",
+    subtitle: "",
+    authors: "Ed Bott",
+    image: "https://www.dbooks.org/img/books/1509302808s.jpg",
+    url: "https://www.dbooks.org/windows-10-it-pro-essentials-support-secrets-1509302808/",
+  },
+  {
+    id: "1452",
+    title: "iOS Developer Notes for Professionals",
+    subtitle: "",
+    authors: "Stack Overflow Community",
+    image: "https://www.dbooks.org/img/books/1452s.jpg",
+    url: "https://www.dbooks.org/ios-developer-notes-for-professionals-1452/",
+  },
+  {
+    id: "1453",
+    title: "Android Notes for Professionals",
+    subtitle: "",
+    authors: "Stack Overflow Community",
+    image: "https://www.dbooks.org/img/books/1453s.jpg",
+    url: "https://www.dbooks.org/android-notes-for-professionals-1453/",
+  },
+  {
+    id: "1462",
+    title: "AngularJS Notes for Professionals",
+    subtitle: "",
+    authors: "Stack Overflow Community",
+    image: "https://www.dbooks.org/img/books/1462s.jpg",
+    url: "https://www.dbooks.org/angularjs-notes-for-professionals-1462/",
+  },
+  {
+    id: "1473",
+    title: "SQL Server Metadata Succinctly",
+    subtitle: "",
+    authors: "Joseph D. Booth",
+    image: "https://www.dbooks.org/img/books/1473s.jpg",
+    url: "https://www.dbooks.org/sql-server-metadata-succinctly-1473/",
+  },
+  {
+    id: "1509302786",
+    title: "Windows 10 IT Pro Essentials: Top 10 Tools",
+    subtitle: "",
+    authors: "Ed Bott",
+    image: "https://www.dbooks.org/img/books/1509302786s.jpg",
+    url: "https://www.dbooks.org/windows-10-it-pro-essentials-top-10-tools-1509302786/",
+  },
+  {
+    id: "1494",
+    title: "Visual Studio 2019 Succinctly",
+    subtitle: "",
+    authors: "Alessandro Del Sole",
+    image: "https://www.dbooks.org/img/books/1494s.jpg",
+    url: "https://www.dbooks.org/visual-studio-2019-succinctly-1494/",
+  },
+  {
+    id: "1499",
+    title: "Laravel 5 Official Documentation",
+    subtitle: "",
+    authors: "Gary Blankenship",
+    image: "https://www.dbooks.org/img/books/1499s.jpg",
+    url: "https://www.dbooks.org/laravel-5-official-documentation-1499/",
+  },
+  {
+    id: "1524",
+    title: "Qt5 Cadaques",
+    subtitle: "",
+    authors: "J. Ryannel, J. Thelin",
+    image: "https://www.dbooks.org/img/books/1524s.jpg",
+    url: "https://www.dbooks.org/qt5-cadaques-1524/",
+  },
+];
 
 const EditorPicks = () => {
+  const recentlyViewed = useSelector(
+    (state) => state.recentlyViewed.recentlyViewed
+  );
   return (
     <>
       <section className="bg-gray-700 py-10 leading-6 text-gray-100 sm:py-16 lg:py-24">
@@ -324,6 +330,22 @@ const EditorPicks = () => {
           </div>
         </div>
       </section>
+      {recentlyViewed && recentlyViewed.length > 0 && (
+        <section className="bg-background text-foreground py-1 leading-6">
+          <div className="flex justify-between m-4">
+            <h2 className="text-2xl font-serif mx-4">Recently Viewed</h2>
+          </div>
+          <div className="flex-grow flex flex-row overflow-x-auto no-scrollbar h-fit my-4 mx-2">
+            <div className="flex flex-nowrap py-4">
+              {recentlyViewed.map((book) => (
+                <div key={book.id} className="w-56 h-full mx-2">
+                  <Card key={book.id} book={book} className="h-120" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 };

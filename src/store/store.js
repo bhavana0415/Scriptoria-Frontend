@@ -3,6 +3,7 @@ import currentStateSlice from "./Features/currentState/currentStateSlice";
 import fetchDataSlice from "./Features/fetchData/fetchDataSlice";
 import favouritesSlice from "./Features/favourites/favouritesSlice";
 import writeContentSlice from "./Features/writeContent/writeContentSlice";
+import recentlyViewedSlice from "./Features/recentlyViewed/recentlyViewedSlice";
 
 const localStorageMiddleware = store => next => action => {
     const result = next(action);
@@ -25,6 +26,7 @@ export const store = configureStore({
         fetchData: fetchDataSlice,
         favourites: favouritesSlice,
         writeContent: writeContentSlice,
+        recentlyViewed: recentlyViewedSlice
     },
     preloadedState: reHydrateStore(),
   middleware: (getDefaultMiddleware) =>

@@ -43,6 +43,7 @@ function Navbar() {
     e.preventDefault();
     dispatch(setCheckedItems([searchValue]));
     dispatch(fetchBooksAsync([searchValue]));
+    setSearchValue("");
     navigate("/books");
   };
 
