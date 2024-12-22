@@ -39,7 +39,6 @@ const Books = () => {
   const dispatch = useDispatch();
 
   const handleChange = (_, value) => {
-    console.log(value);
     setPage(value);
   };
 
@@ -152,7 +151,9 @@ const Books = () => {
                   return true;
                 })
                 .slice((page - 1) * 20, page * 20)
-                .map((book) => <Card key={book.id} book={book} />)}
+                .map((book) => (
+                  <Card type={"dbooks"} key={book.id} book={book} />
+                ))}
           </div>
           <div className="w-full mx-auto flex justify-center items-center">
             {books && books.length == 0 && (

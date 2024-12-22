@@ -310,7 +310,12 @@ const EditorPicks = () => {
           <div className="flex flex-nowrap py-4">
             {recentBooks.map((book) => (
               <div key={book.id} className="w-56 h-full mx-2">
-                <Card key={book.id} book={book} className="h-120" />
+                <Card
+                  type={"dbooks"}
+                  key={book.id}
+                  book={book}
+                  className="h-120"
+                />
               </div>
             ))}
           </div>
@@ -324,7 +329,12 @@ const EditorPicks = () => {
           <div className="flex flex-nowrap py-4">
             {editorPics.map((book) => (
               <div key={book.id} className="w-56 h-full mx-2">
-                <Card key={book.id} book={book} className="h-120" />
+                <Card
+                  type={"dbooks"}
+                  key={book.id}
+                  book={book}
+                  className="h-120"
+                />
               </div>
             ))}
           </div>
@@ -339,7 +349,12 @@ const EditorPicks = () => {
             <div className="flex flex-nowrap py-4">
               {recentlyViewed.map((book) => (
                 <div key={book.id} className="w-56 h-full mx-2">
-                  <Card key={book.id} book={book} className="h-120" />
+                  <Card
+                    type={"mongo"}
+                    key={book.book_id}
+                    book={book}
+                    className="h-120"
+                  />
                 </div>
               ))}
             </div>

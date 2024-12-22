@@ -12,20 +12,28 @@ import {
 } from "../store/Features/currentState/currentStateSlice";
 import Loader from "./Loader";
 import { fetchBooksAsync } from "../store/Features/fetchData/fetchDataSlice";
-import CreateIcon from "@mui/icons-material/Create";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 // import { Tooltip } from "@mui/material";
-import logoImg from '/logo.png';
-const pages = ["Books", "Write", "Favourites"];
+import logoImg from "/logo.png";
+const pages = ["Books", "My Books", "Favourites"];
+import Avatar from "@mui/material/Avatar";
+import { logoutAsync } from "../store/Features/auth/authSlice";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { Button } from "@mui/material";
 
 function Navbar() {
   const currentMode = useSelector((state) => state.currentState.currentMode);
   const isLoading = useSelector((state) => state.currentState.isLoading);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [searchValue, setSearchValue] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
   useEffect(() => {
     if (currentMode == "dark") {
@@ -45,6 +53,16 @@ function Navbar() {
     dispatch(fetchBooksAsync([searchValue]));
     setSearchValue("");
     navigate("/books");
+  };
+
+  const logout = () => {
+    dispatch(logoutAsync());
+  };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -80,15 +98,17 @@ function Navbar() {
           <ul className="flex w-full items-center m-2 flex-row justify-center">
             {pages.map((item) => (
               <li key={item} className="mx-2">
-                <a className="text-foreground font-serif" href={`/${item}`}>
+                <a
+                  className="text-foreground font-serif"
+                  href={`/${item.replace(/\s+/g, "").toLowerCase()}`}>
                   {item === "Books" ? (
                     <span className="flex flex-row">
                       <LibraryBooksIcon />
                       <p className="hidden lg:flex">{item}</p>
                     </span>
-                  ) : item === "Write" ? (
-                    <span className="flex flex-row">
-                      <CreateIcon />
+                  ) : item === "My Books" ? (
+                    <span className="flex flex-row items-center">
+                      <AutoStoriesIcon />
                       <p className="hidden lg:flex">{item}</p>
                     </span>
                   ) : (
@@ -115,22 +135,40 @@ function Navbar() {
               />
             </form>
           </div>
-          {/* <div className="my-4 flex items-center lg:my-0 lg:ml-auto lg:space-x-2 lg:space-y-0">
-            <a
-              href="#"
-              title=""
-              className="whitespace-nowrap rounded font-medium my-0 mx-1 text-foreground">
-              {" "}
-              Sign In{" "}
-            </a>
-            <a
-              href="#"
-              title=""
-              className="whitespace-nowrap rounded font-medium my-0 mx-1 text-foreground">
-              {" "}
-              Sign Up{" "}
-            </a>
-          </div>
+          {user == null ? (
+            <div className="my-4 flex items-center lg:my-0 lg:ml-auto lg:space-x-2 lg:space-y-0">
+              <a
+                href="#"
+                title=""
+                className="whitespace-nowrap p-1 border-2 border-foreground rounded font-medium my-0 mx-1 text-foreground">
+                {" "}
+                Login{" "}
+              </a>
+            </div>
+          ) : (
+            <div>
+              <Avatar
+                alt="Remy Sharp"
+                src={user.image}
+                id="basic-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              />
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}>
+                <MenuItem onClick={logout}>Logout</MenuItem>
+              </Menu>
+            </div>
+          )}
+          {/* 
           <div className="m-4">
             <a
               href="#"
