@@ -50,7 +50,7 @@ const Signup = () => {
             name="name"
             id="name"
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
           />
         </div>
 
@@ -65,7 +65,7 @@ const Signup = () => {
             name="email"
             id="email"
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
           />
         </div>
 
@@ -80,7 +80,7 @@ const Signup = () => {
             name="password"
             id="password"
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
           />
         </div>
 
@@ -97,7 +97,7 @@ const Signup = () => {
                 onClick={() => setSelectedAvatar(avatar)}
                 className={`w-16 h-16 cursor-pointer border-2 rounded-md ${
                   selectedAvatar === avatar
-                    ? "border-blue-500"
+                    ? "border-cyan-500"
                     : "border-transparent"
                 }`}
               />
@@ -109,14 +109,14 @@ const Signup = () => {
           <input
             type="submit"
             value="Sign Up"
-            className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1"
+            className="w-full px-4 py-2 text-white bg-cyan-500 rounded-md hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-1"
           />
         </div>
 
         <div className="signup-container mt-4 text-center">
           <p className="text-gray-600">
             Already have an account?{" "}
-            <a href="/login" className="text-blue-500 hover:underline">
+            <a href="/login" className="text-cyan-500 hover:underline">
               Login
             </a>
           </p>

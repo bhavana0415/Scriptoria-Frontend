@@ -127,8 +127,8 @@ const Books = () => {
           <div className="mx-auto flex flex-wrap max-w-screen-lg justify-center px-2 pb-4 sm:gap-2 sm:px-4">
             {checked &&
               Array.isArray(checked) &&
-              checked.map((item) => (
-                <div key={item}>
+              checked.map((item, index) => (
+                <div key={index}>
                   <p className="text-md flex p-1 bg-pink-600 rounded-xl">
                     #{item}
                     <DeleteForeverRoundedIcon
@@ -151,8 +151,8 @@ const Books = () => {
                   return true;
                 })
                 .slice((page - 1) * 20, page * 20)
-                .map((book) => (
-                  <Card type={"dbooks"} key={book.id} book={book} />
+                .map((book, index) => (
+                  <Card type={"dbooks"} key={index} book={book} />
                 ))}
           </div>
           <div className="w-full mx-auto flex justify-center items-center">

@@ -8,8 +8,8 @@ const Favourites = () => {
     <div className="min-h-screen">
       <div className="w-full h-20 bg-background-500 flex"></div>
       <div className="mx-auto mt-2 grid max-w-screen-lg justify-center px-4 sm:grid-cols-2 sm:gap-4 sm:px-8 md:grid-cols-4 custom:grids-cols-3">
-        {favourites.map((book) => (
-          <Card type={"mongo"} key={book.book_id} book={book} />
+        {favourites.map((book, index) => (
+          <Card type={"mongo"} key={index} book={book} />
         ))}
       </div>
       <div className="w-full flex justify-center">

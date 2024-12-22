@@ -7,7 +7,6 @@ import CreateIcon from "@mui/icons-material/Create";
 
 const MyBooks = () => {
   const books = useSelector((state) => state.writeContent.books);
-  console.log(books);
   const [editingBook, setEditingBook] = useState(null);
 
   const handleEditClick = (book) => {
@@ -27,23 +26,20 @@ const MyBooks = () => {
           />
         ) : (
           <>
-            {books.length > 0 && (
-              <>
-                {books.map((book) => (
-                  <div key={book.id} className="relative min-w-[550px]">
-                    <button
-                      className="absolute top-0 right-2 text-white rounded-full p-2 transition-transform transform hover:scale-125"
-                      onClick={() => handleEditClick(book)}>
-                      <CreateIcon fontSize="small" />
-                    </button>
-                    <MyCard
-                      bookDetails={book.data.bookDetails}
-                      bookContent={book.data.content}
-                    />
-                  </div>
-                ))}
-              </>
-            )}
+            {books.length > 0 &&
+              books.map((book, index) => (
+                <div key={index} className="relative min-w-[550px]">
+                  <button
+                    className="absolute top-0 right-2 text-white rounded-full p-2 transition-transform transform hover:scale-125"
+                    onClick={() => handleEditClick(book)}>
+                    <CreateIcon fontSize="small" />
+                  </button>
+                  <MyCard
+                    bookDetails={book.data.bookDetails}
+                    bookContent={book.data.content}
+                  />
+                </div>
+              ))}
 
             <a
               href="/write"

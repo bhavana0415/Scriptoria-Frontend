@@ -116,7 +116,7 @@ export default function Slider() {
                   <div className="grid gap-1 sm:grid-cols-3 lg:grid-cols-3">
                     {images.map((img, ind) => (
                       <div
-                        key={img}
+                        key={ind}
                         className={`rounded-xl transition duration-500 hover:scale-105 mt-${
                           ind * 4
                         } `}>

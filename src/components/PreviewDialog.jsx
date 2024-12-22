@@ -49,7 +49,6 @@ const PreviewDialog = ({
 
   const handleSave = () => {
     const { bookName, image, description } = myBookDetails;
-    console.log(myBookDetails);
     if (!bookName || !image || !description) {
       alert("Please fill all fields!");
       return;
@@ -123,7 +122,7 @@ const PreviewDialog = ({
                 if (item.type === "Image") {
                   return (
                     <div
-                      key={item}
+                      key={index}
                       className="flex justify-center items-center">
                       <img src={item.text} alt="img" />
                     </div>
@@ -131,7 +130,7 @@ const PreviewDialog = ({
                 } else {
                   return (
                     <div
-                      key={item}
+                      key={index}
                       className={`flex ${
                         item.type === "Chapter" ? "justify-center" : ""
                       } items-center`}>

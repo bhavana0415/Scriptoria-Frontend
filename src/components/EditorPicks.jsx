@@ -308,8 +308,8 @@ const EditorPicks = () => {
         </a>
         <div className="flex-grow flex flex-row overflow-x-auto no-scrollbar h-fit my-4 mx-2">
           <div className="flex flex-nowrap py-4">
-            {recentBooks.map((book) => (
-              <div key={book.id} className="w-56 h-full mx-2">
+            {recentBooks.map((book, index) => (
+              <div key={index} className="w-56 h-full mx-2">
                 <Card
                   type={"dbooks"}
                   key={book.id}
@@ -327,8 +327,8 @@ const EditorPicks = () => {
         </div>
         <div className="flex-grow flex flex-row overflow-x-auto no-scrollbar h-fit my-4 mx-2">
           <div className="flex flex-nowrap py-4">
-            {editorPics.map((book) => (
-              <div key={book.id} className="w-56 h-full mx-2">
+            {editorPics.map((book, index) => (
+              <div key={index} className="w-56 h-full mx-2">
                 <Card
                   type={"dbooks"}
                   key={book.id}
@@ -347,8 +347,8 @@ const EditorPicks = () => {
           </div>
           <div className="flex-grow flex flex-row overflow-x-auto no-scrollbar h-fit my-4 mx-2">
             <div className="flex flex-nowrap py-4">
-              {recentlyViewed.map((book) => (
-                <div key={book.id} className="w-56 h-full mx-2">
+              {recentlyViewed.map((book, index) => (
+                <div key={index} className="w-56 h-full mx-2">
                   <Card
                     type={"mongo"}
                     key={book.book_id}

@@ -22,7 +22,7 @@ import Avatar from "@mui/material/Avatar";
 import { logoutAsync } from "../store/Features/auth/authSlice";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 function Navbar() {
   const currentMode = useSelector((state) => state.currentState.currentMode);
@@ -96,8 +96,8 @@ function Navbar() {
           aria-label="Header Navigation"
           className="py-0 peer-checked:max-h-fit flex max-h-0 w-full flex-col items-center overflow-hidden transition duration-500 lg:ml-24 lg:max-h-full lg:flex-row justify-center bg-background">
           <ul className="flex w-full items-center m-2 flex-row justify-center">
-            {pages.map((item) => (
-              <li key={item} className="mx-2">
+            {pages.map((item, index) => (
+              <li key={index} className="mx-2">
                 <a
                   className="text-foreground font-serif"
                   href={`/${item.replace(/\s+/g, "").toLowerCase()}`}>
@@ -163,8 +163,31 @@ function Navbar() {
                 onClose={handleClose}
                 MenuListProps={{
                   "aria-labelledby": "basic-button",
+                }}
+                sx={{
+                  padding: "0",
+                  "& .MuiPaper-root": {
+                    borderRadius: 2,
+                    padding: 0,
+                    minWidth: 50,
+                  },
+                  "& .MuiMenu-list": {
+                    padding: 0, // Removes padding for the `ul` element
+                  },
                 }}>
-                <MenuItem onClick={logout}>Logout</MenuItem>
+                <MenuItem
+                  onClick={logout}
+                  sx={{
+                    padding: "2px",
+                    color: "red",
+                    "&:hover": {
+                      backgroundColor: "#ffebee",
+                    },
+                  }}>
+                  <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                    Logout
+                  </Typography>
+                </MenuItem>
               </Menu>
             </div>
           )}

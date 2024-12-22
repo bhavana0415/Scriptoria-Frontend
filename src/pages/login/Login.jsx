@@ -6,6 +6,7 @@ import { getFavouritesAsync } from "../../store/Features/favourites/favouritesSl
 import { getRecentsAsync } from "../../store/Features/recentlyViewed/recentlyViewedSlice";
 import { getBooksAsync } from "../../store/Features/writeContent/writeContentSlice";
 import Loader from "../../components/Loader";
+import { Input, InputLabel } from "@mui/material";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -36,47 +37,47 @@ const Login = () => {
         onSubmit={handleSubmit}
         className="max-w-sm mx-auto p-6 bg-white rounded-lg shadow-md">
         <div className="input-container mb-4">
-          <label
+          <InputLabel
             className="block text-gray-700 font-medium mb-2"
             htmlFor="email">
             Email
-          </label>
-          <input
+          </InputLabel>
+          <Input
             type="text"
             name="email"
             id="email"
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
           />
         </div>
 
         <div className="input-container mb-4">
-          <label
+          <InputLabel
             className="block text-gray-700 font-medium mb-2"
             htmlFor="password">
             Password
-          </label>
-          <input
+          </InputLabel>
+          <Input
             type="password"
             name="pass"
             id="password"
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
           />
         </div>
 
         <div className="button-container mt-6">
-          <input
+          <Input
             type="submit"
             value="Login"
-            className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1"
+            className="w-full px-4 py-2 text-white bg-cyan-500 rounded-md hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-1"
           />
         </div>
 
         <div className="signup-container mt-4 text-center">
           <p className="text-gray-600">
             Don't have an account?{" "}
-            <a href="/signup" className="text-blue-500 hover:underline">
+            <a href="/signup" className="text-cyan-500 hover:underline">
               Sign up
             </a>
           </p>
