@@ -38,7 +38,7 @@ const MyBooks = () => {
                     </button>
                     <MyCard
                       bookDetails={book.data.bookDetails}
-                      bookContent={editingBook.data.content}
+                      bookContent={book.data.content}
                     />
                   </div>
                 ))}

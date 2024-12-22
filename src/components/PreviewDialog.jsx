@@ -153,7 +153,9 @@ const PreviewDialog = ({
               display: "flex",
               justifyContent: "space-between",
             }}>
-            {!isPreview && (
+            {isPreview ? (
+              <></>
+            ) : (
               <Button
                 sx={{
                   backgroundColor: blueGrey[200],
@@ -164,15 +166,6 @@ const PreviewDialog = ({
                 Save
               </Button>
             )}
-            <Button
-              sx={{
-                backgroundColor: blueGrey[200],
-                color: blueGrey[900],
-                "&:hover": { backgroundColor: blueGrey[300] },
-              }}
-              onClick={bookDetails ? handleSave : handleFormOpen}>
-              Save
-            </Button>
             <Button
               sx={{
                 backgroundColor: blueGrey[200],
