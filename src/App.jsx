@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import React, { Suspense, useEffect, useMemo } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -6,15 +6,17 @@ import {
 } from "react-router-dom";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./store/store";
-import { Home } from "./pages/home/Home";
-import Navbar from "./components/Navbar";
-import Favourites from "./pages/favourites/Favourites";
-import Books from "./pages/books/Books";
-import Write from "./pages/write/Write";
-import Login from "./pages/login/Login";
-import Signup from "./pages/signup/Signup";
 import { logoutAsync } from "./store/Features/auth/authSlice";
-import MyBooks from "./pages/myBooks/MyBooks";
+import Loader from "./components/Loader";
+
+const Home = React.lazy(() => import("./pages/home/Home"));
+const Navbar = React.lazy(() => import("./components/Navbar"));
+const Favourites = React.lazy(() => import("./pages/favourites/Favourites"));
+const Books = React.lazy(() => import("./pages/books/Books"));
+const Write = React.lazy(() => import("./pages/write/Write"));
+const Login = React.lazy(() => import("./pages/login/Login"));
+const Signup = React.lazy(() => import("./pages/signup/Signup"));
+const MyBooks = React.lazy(() => import("./pages/myBooks/MyBooks"));
 
 let logoutTimer;
 
@@ -52,34 +54,56 @@ const ProtectedRoute = ({ element }) => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navbar />,
+    element: (
+      <Suspense fallback={<Loader isLoading={true} />}>
+        <Navbar />
+      </Suspense>
+    ),
     errorElement: <>Page does not exist</>,
     children: [
       {
         path: "/",
-        element: <ProtectedRoute element={<Home />} />, // Protect the Home page
+        element: (
+          <Suspense fallback={<Loader isLoading={true} />}>
+            <ProtectedRoute element={<Home />} />
+          </Suspense>
+        ),
       },
       {
         path: "/favourites",
-        element: <ProtectedRoute element={<Favourites />} />,
+        element: (
+          <Suspense fallback={<Loader isLoading={true} />}>
+            <ProtectedRoute element={<Favourites />} />
+          </Suspense>
+        ),
       },
       {
         path: "/books",
-        element: <ProtectedRoute element={<Books />} />,
+        element: (
+          <Suspense fallback={<Loader isLoading={true} />}>
+            <ProtectedRoute element={<Books />} />
+          </Suspense>
+        ),
       },
       {
         path: "/write",
         element: (
-          <ProtectedRoute
-            element={
-              <Write bookContent={[]} book_id={null} bookDetails={null} />
-            }
-          />
+          <Suspense fallback={<Loader isLoading={true} />}>
+            <ProtectedRoute
+              element={
+                <Write bookContent={[]} book_id={null} bookDetails={null} />
+              }
+            />
+          </Suspense>
         ),
       },
       {
         path: "/mybooks",
-        element: <ProtectedRoute element={<MyBooks />} />,
+        element: (
+          <Suspense fallback={<Loader isLoading={true} />}>
+            <ProtectedRoute element={<MyBooks />} />
+          </Suspense>
+        ),
       },
     ],
   },
