@@ -5,6 +5,7 @@ import {
   getFavourites,
 } from "../../../api/mongodb/api";
 import { setIsLoading } from "../currentState/currentStateSlice";
+import { showAlert } from "../alert/alertSlice";
 
 export const addFavouriteAsync = createAsyncThunk(
   "addFavourite",
@@ -13,9 +14,20 @@ export const addFavouriteAsync = createAsyncThunk(
     try {
       const response = await addFavourite({ ...data });
       if (response) dispatch(getFavouritesAsync(data.user));
-
+      dispatch(
+        showAlert({
+          severity: "success",
+          message: "Added to Favourites!!!",
+        })
+      );
       return response;
     } catch (error) {
+      dispatch(
+        showAlert({
+          severity: "error",
+          message: `Unable to add to Favourites. ${error.message}`,
+        })
+      );
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
@@ -32,9 +44,20 @@ export const deleteFavouriteAsync = createAsyncThunk(
     try {
       const response = await deleteFavourite(data.book_id);
       if (response) dispatch(getFavouritesAsync(data.user));
-
+      dispatch(
+        showAlert({
+          severity: "success",
+          message: "Deleted from Favourites!!!",
+        })
+      );
       return response;
     } catch (error) {
+      dispatch(
+        showAlert({
+          severity: "error",
+          message: `Unable to delete from Favourites. ${error.message}`,
+        })
+      );
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
@@ -65,7 +88,7 @@ export const favouritesSlice = createSlice({
   name: "favourites",
   initialState: { favourites: [] },
   reducers: {
-    setFavouritesEmpty: (state, action) => {
+    setFavouritesEmpty: (state) => {
       state.favourites = [];
     },
   },

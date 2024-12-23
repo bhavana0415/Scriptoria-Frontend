@@ -14,6 +14,7 @@ import {
   updateBookAsync,
 } from "../store/Features/writeContent/writeContentSlice";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const PreviewDialog = ({
   open,
@@ -22,11 +23,12 @@ const PreviewDialog = ({
   book_id,
   bookDetails,
   isPreview,
+  setEditingBook,
 }) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const imageInputRef = useRef(null);
-
+  const navigate = useNavigate();
   const [formOpen, setFormOpen] = useState(false);
   const [image, setImage] = useState("");
   const [myBookDetails, setBookDetails] = useState(
@@ -62,6 +64,7 @@ const PreviewDialog = ({
         user: user.userId,
       };
       dispatch(addBookAsync({ ...data }));
+      navigate("/mybooks");
     } else {
       const data = {
         data: {
@@ -75,6 +78,7 @@ const PreviewDialog = ({
     }
     setFormOpen(false);
     handleClose();
+    setEditingBook(null);
   };
 
   const handleLabelClick = () => {
@@ -208,7 +212,6 @@ const PreviewDialog = ({
               style={{
                 display: "none",
               }}
-              id="customFile"
             />
             {image === "" && (
               <label
@@ -283,106 +286,6 @@ const PreviewDialog = ({
 };
 
 export default PreviewDialog;
-
-// // import React from 'react';
-// import Dialog from "@mui/material/Dialog";
-// import DialogTitle from "@mui/material/DialogTitle";
-// import DialogContent from "@mui/material/DialogContent";
-// import DialogActions from "@mui/material/DialogActions";
-// import Button from "@mui/material/Button";
-// import { blueGrey } from "@mui/material/colors";
-// import Typography from "@mui/material/Typography";
-// import Box from "@mui/material/Box";
-// import PropTypes from "prop-types";
-// import { useDispatch, useSelector } from "react-redux";
-// import { addBookAsync } from "../store/Features/writeContent/writeContentSlice";
-
-// const PreviewDialog = ({ open, content, handleClose }) => {
-//   const user = useSelector((state) => state.auth.user);
-//   const dispatch = useDispatch();
-
-//   PreviewDialog.propTypes = {
-//     open: PropTypes.bool.isRequired,
-//     content: PropTypes.array.isRequired,
-//     handleClose: PropTypes.func.isRequired,
-//   };
-
-//   const saveBook = () => {
-//     dispatch(addBookAsync(content, user.userId));
-//   }
-
-//   return (
-//     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
-//       <DialogTitle
-//         sx={{
-//           backgroundColor: blueGrey[900],
-//           color: blueGrey[50],
-//           fontFamily: "sans-serif",
-//         }}
-//         className="relative items-center">
-//         Preview
-//       </DialogTitle>
-//       <DialogContent dividers sx={{ backgroundColor: "white", color: "black" }}>
-//         <div className="px-10 py-5">
-//           {content.map((item, index) => {
-//             if (item.type === "Image") {
-//               return (
-//                 <div key={item} className="flex justify-center items-center">
-//                   <img src={item.text} alt="img" />
-//                 </div>
-//               );
-//             } else {
-//               return (
-//                 <div
-//                   key={item}
-//                   className={`flex ${
-//                     item.type === "Chapter" ? "justify-center" : ""
-//                   } items-center`}>
-//                   <ContextTypography
-//                     item={item}
-//                     content={content}
-//                     index={index}
-//                   />
-//                 </div>
-//               );
-//             }
-//           })}
-//         </div>
-//       </DialogContent>
-//       <DialogActions sx={{ backgroundColor: blueGrey[900] }}>
-//         <Box
-//           sx={{
-//             flexGrow: 1,
-//             display: "flex",
-//             justifyContent: "space-between",
-//           }}>
-//           <Button
-//             sx={{
-//               backgroundColor: blueGrey[200],
-//               color: blueGrey[900],
-//               "&:hover": { backgroundColor: blueGrey[300] },
-//             }}
-//             onClick={saveBook}
-//             variant="none">
-//             Save
-//           </Button>
-//           <Button
-//             sx={{
-//               backgroundColor: blueGrey[200],
-//               color: blueGrey[900],
-//               "&:hover": { backgroundColor: blueGrey[300] },
-//             }}
-//             variant="none"
-//             onClick={handleClose}>
-//             Close
-//           </Button>
-//         </Box>
-//       </DialogActions>
-//     </Dialog>
-//   );
-// };
-
-// export default PreviewDialog;
 
 const ContextTypography = ({ item, content, index }) => {
   ContextTypography.propTypes = {

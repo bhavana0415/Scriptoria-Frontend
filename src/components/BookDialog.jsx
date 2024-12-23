@@ -1,4 +1,3 @@
-// import React from 'react';
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -39,10 +38,12 @@ const BookDialog = ({ open, handleClose, book }) => {
               sx={{ fontFamily: "cursive" }}>
               <p className="text-sm py-2">by {book.authors}</p>
             </Typography>
-            <Typography variant="body1" paragraph 
-            dangerouslySetInnerHTML={{ __html: book.description }}
-            >
-            </Typography>
+            <Typography
+              variant="body1"
+              paragraph
+              dangerouslySetInnerHTML={{
+                __html: book.description,
+              }}></Typography>
             <Typography variant="body2" color="textSecondary">
               <p className="absolute bottom-2">
                 {book.pages} pages | Published: {book.year}
@@ -74,7 +75,6 @@ const BookDialog = ({ open, handleClose, book }) => {
               color: teal[900],
               "&:hover": { backgroundColor: teal[300] },
             }}
-            // onClick={handleClose}
             variant="none"
             target="_blank"
             href={`${book.url}/read`}>

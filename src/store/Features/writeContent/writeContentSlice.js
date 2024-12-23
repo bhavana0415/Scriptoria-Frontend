@@ -6,6 +6,7 @@ import {
   deleteBook,
 } from "../../../api/mongodb/api";
 import { setIsLoading } from "../currentState/currentStateSlice";
+import { showAlert } from "../alert/alertSlice";
 
 export const getBooksAsync = createAsyncThunk(
   "getBooks",
@@ -31,9 +32,20 @@ export const addBookAsync = createAsyncThunk(
     try {
       const response = await addBook({ ...data });
       if (response) dispatch(getBooksAsync(data.user));
-
+      dispatch(
+        showAlert({
+          severity: "success",
+          message: "Added to My Books!!!",
+        })
+      );
       return response;
     } catch (error) {
+      dispatch(
+        showAlert({
+          severity: "error",
+          message: `Unable to add to My Books. ${error.message}`,
+        })
+      );
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
@@ -50,9 +62,20 @@ export const updateBookAsync = createAsyncThunk(
     try {
       const response = await updateBook({ ...data });
       if (response) dispatch(getBooksAsync(data.user));
-
+      dispatch(
+        showAlert({
+          severity: "success",
+          message: "Updated Book successfully!!!",
+        })
+      );
       return response;
     } catch (error) {
+      dispatch(
+        showAlert({
+          severity: "error",
+          message: `Unable to updated Book. ${error.message}`,
+        })
+      );
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
@@ -69,9 +92,20 @@ export const deleteBookAsync = createAsyncThunk(
     try {
       const response = await deleteBook(data.bookId);
       if (response) dispatch(getBooksAsync(data.user));
-
+      dispatch(
+        showAlert({
+          severity: "success",
+          message: "Deleted from My Books!!!",
+        })
+      );
       return response;
     } catch (error) {
+      dispatch(
+        showAlert({
+          severity: "error",
+          message: `Unable to delete from My Books. ${error.message}`,
+        })
+      );
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );

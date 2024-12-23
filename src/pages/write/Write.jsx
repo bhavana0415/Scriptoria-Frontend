@@ -4,7 +4,7 @@ import AutoTextarea from "../../components/AutoTextarea";
 import PreviewDialog from "../../components/PreviewDialog";
 import { Tooltip } from "@mui/material";
 
-const Write = ({ bookContent, book_id, bookDetails }) => {
+const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
   const [content, setContent] = useState(bookContent);
 
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -76,7 +76,10 @@ const Write = ({ bookContent, book_id, bookDetails }) => {
         <div className="w-full md:w-5/6 mx-2 my-2">
           <div className="w-full flex justify-end">
             <button
-              className="bg-pink-500 mr-2 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-full"
+              disabled={content.length == 0}
+              className={`bg-pink-500 mr-2 ${
+                content.length == 0 ? "" : "hover:bg-pink-700"
+              } text-white font-bold py-2 px-4 rounded-full`}
               onClick={() => setPreviewOpen(true)}>
               Preview
             </button>
@@ -185,6 +188,7 @@ const Write = ({ bookContent, book_id, bookDetails }) => {
       </div>
       {previewOpen && (
         <PreviewDialog
+          setEditingBook={setEditingBook}
           bookDetails={bookDetails}
           book_id={book_id}
           open={previewOpen}

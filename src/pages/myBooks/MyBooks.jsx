@@ -47,32 +47,37 @@ const MyBooks = () => {
 
   return (
     <div className="min-h-screen w-[100%]">
-      <div className="w-full h-20 bg-background-500 flex items-center"></div>
       <div className="w-[100%] flex flex-col items-center justify-center">
         {editingBook ? (
           <EditBook
             bookContent={editingBook.data.content}
             book_id={editingBook._id}
             bookDetails={editingBook.data.bookDetails}
+            setEditingBook={setEditingBook}
           />
         ) : (
           <>
+            <div className="w-full h-20 bg-background-500 flex items-center"></div>
             {books.length > 0 &&
               books.map((book, index) => (
                 <div key={index} className="relative min-w-[550px]">
                   <button
                     className="absolute top-0 right-3 text-white rounded-full p-2 transition-transform transform hover:scale-125"
                     onClick={() => handleDeleteClick(book)}>
-                    <DeleteForeverIcon fontSize="small" />
+                    <DeleteForeverIcon
+                      fontSize="small"
+                      className="text-foreground"
+                    />
                   </button>
                   <button
                     className="absolute bottom-6 right-3 text-white rounded-full p-2 transition-transform transform hover:scale-125"
                     onClick={() => handleEditClick(book)}>
-                    <CreateIcon fontSize="small" />
+                    <CreateIcon fontSize="small" className="text-foreground" />
                   </button>
                   <MyCard
                     bookDetails={book.data.bookDetails}
                     bookContent={book.data.content}
+                    setEditingBook={setEditingBook}
                   />
                 </div>
               ))}
@@ -94,8 +99,11 @@ const MyBooks = () => {
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
+                <Button className="text-cyan-700" onClick={handleClose}>
+                  Cancel
+                </Button>
                 <Button
+                  className="text-cyan-700"
                   onClick={() => deleteBookConfirm(deleteBook)}
                   disabled={deleteBook == null}>
                   Delete
@@ -111,13 +119,14 @@ const MyBooks = () => {
 
 export default MyBooks;
 
-const EditBook = ({ bookContent, book_id, bookDetails }) => {
+const EditBook = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
   return (
     <div className="w-[100%]">
       <Write
         bookContent={bookContent}
         book_id={book_id}
         bookDetails={bookDetails}
+        setEditingBook={setEditingBook}
       />
     </div>
   );

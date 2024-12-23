@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { addRecent, deleteRecent, getRecents } from "../../../api/mongodb/api";
 import { setIsLoading } from "../currentState/currentStateSlice";
+import { showAlert } from "../alert/alertSlice";
 
 export const addRecentAsync = createAsyncThunk(
   "addRecent",
@@ -9,9 +10,20 @@ export const addRecentAsync = createAsyncThunk(
     try {
       const response = await addRecent({ ...data });
       if (response) dispatch(getRecentsAsync(data.user));
-
+      dispatch(
+        showAlert({
+          severity: "success",
+          message: "Added to Recent Books!!!",
+        })
+      );
       return response;
     } catch (error) {
+      dispatch(
+        showAlert({
+          severity: "error",
+          message: `Unable to add to Recent Books. ${error.message}`,
+        })
+      );
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
@@ -28,9 +40,20 @@ export const deleteRecentAsync = createAsyncThunk(
     try {
       const response = await deleteRecent(data.bookId);
       if (response) dispatch(getRecentsAsync(data.user));
-
+      dispatch(
+        showAlert({
+          severity: "success",
+          message: "Deleted from Recent Books!!!",
+        })
+      );
       return response;
     } catch (error) {
+      dispatch(
+        showAlert({
+          severity: "error",
+          message: `Unable to delete from Recent Books. ${error.message}`,
+        })
+      );
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
