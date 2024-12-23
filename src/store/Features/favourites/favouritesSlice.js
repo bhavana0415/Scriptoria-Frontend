@@ -29,9 +29,8 @@ export const deleteFavouriteAsync = createAsyncThunk(
   "deleteFavourite",
   async (data, { rejectWithValue, dispatch }) => {
     dispatch(setIsLoading(true));
-    const book_id = data.book_id;
     try {
-      const response = await deleteFavourite(book_id);
+      const response = await deleteFavourite(data.book_id);
       if (response) dispatch(getFavouritesAsync(data.user));
 
       return response;

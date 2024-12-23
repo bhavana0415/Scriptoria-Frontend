@@ -23,11 +23,11 @@ export const addRecentAsync = createAsyncThunk(
 
 export const deleteRecentAsync = createAsyncThunk(
   "deleteRecent",
-  async ({ bookId, user }, { rejectWithValue, dispatch }) => {
+  async (data, { rejectWithValue, dispatch }) => {
     dispatch(setIsLoading(true));
     try {
-      const response = await deleteRecent(bookId);
-      if (response) dispatch(getRecentsAsync(user));
+      const response = await deleteRecent(data.bookId);
+      if (response) dispatch(getRecentsAsync(data.user));
 
       return response;
     } catch (error) {

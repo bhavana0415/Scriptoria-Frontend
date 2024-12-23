@@ -51,6 +51,24 @@ const Card = ({ book, type }) => {
   };
 
   const handleClickOpen = async () => {
+    try {
+      dispatch(setIsLoading(true));
+      const response = await fetchBooks(`book/${book.id}`);
+      if (response) {
+        setBookDetails(response);
+        setOpen(true);
+        addToRecent();
+      } else {
+        setNotificatioOpen(true);
+      }
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+
+  const addToRecent = () => {
     if (recentlyViewed.findIndex((bk) => bk.book_id === book.id) == -1) {
       const data = {
         book_id: book.id,
@@ -62,20 +80,6 @@ const Card = ({ book, type }) => {
         user: user.userId,
       };
       dispatch(addRecentAsync({ ...data }));
-    }
-    try {
-      dispatch(setIsLoading(true));
-      const response = await fetchBooks(`book/${book.id}`);
-      if (response) {
-        setBookDetails(response);
-        setOpen(true);
-      } else {
-        setNotificatioOpen(true);
-      }
-    } catch (error) {
-      console.log("error", error);
-    } finally {
-      dispatch(setIsLoading(false));
     }
   };
 

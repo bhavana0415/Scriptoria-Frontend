@@ -1,5 +1,7 @@
 import { store } from "../../store/store";
 
+const host = import.meta.env.VITE_BACKEND_API_URL;
+
 const getCommonHeader = () => {
   const state = store.getState();
   const token = state.auth.user?.token;
@@ -17,7 +19,7 @@ const getHeader = () => {
 };
 
 export const getBooks = async ({ userId }) => {
-  const url = `http://localhost:5000/api/books/user/${userId}`;
+  const url = `${host}/books/user/${userId}`;
   const headers = getCommonHeader();
   try {
     const response = await fetch(url, {
@@ -36,7 +38,7 @@ export const getBooks = async ({ userId }) => {
 };
 
 export const addBook = async (data) => {
-  const url = `http://localhost:5000/api/books`;
+  const url = `${host}/books`;
   const headers = getCommonHeader();
   try {
     const response = await fetch(url, {
@@ -60,7 +62,7 @@ export const addBook = async (data) => {
 
 export const updateBook = async (data) => {
   const bookId = data.bookId;
-  const url = `http://localhost:5000/api/books/${bookId}`;
+  const url = `${host}/books/${bookId}`;
   const headers = getCommonHeader();
   try {
     const response = await fetch(url, {
@@ -82,8 +84,8 @@ export const updateBook = async (data) => {
   }
 };
 
-export const deleteBook = async ({ bookId }) => {
-  const url = `http://localhost:5000/api/books/${bookId}`;
+export const deleteBook = async (bookId) => {
+  const url = `${host}/books/${bookId}`;
   const headers = getCommonHeader();
   try {
     const response = await fetch(url, {
@@ -94,7 +96,7 @@ export const deleteBook = async ({ bookId }) => {
       const data = await response.json();
       return data;
     } else {
-      throw new Error("Failed to fetch Books");
+      throw new Error("Failed to delete book");
     }
   } catch (error) {
     throw new Error(error);
@@ -102,7 +104,7 @@ export const deleteBook = async ({ bookId }) => {
 };
 
 export const addRecent = async (data) => {
-  const apiUrl = `http://localhost:5000/api/recents`;
+  const apiUrl = `${host}/recents`;
   const headers = getCommonHeader();
   try {
     const response = await fetch(apiUrl, {
@@ -121,8 +123,8 @@ export const addRecent = async (data) => {
   }
 };
 
-export const deleteRecent = async ({ bookId }) => {
-  const url = `http://localhost:5000/api/recents/${bookId}`;
+export const deleteRecent = async (bookId) => {
+  const url = `${host}/recents/${bookId}`;
   const headers = getCommonHeader();
   try {
     const response = await fetch(url, {
@@ -141,7 +143,7 @@ export const deleteRecent = async ({ bookId }) => {
 };
 
 export const getRecents = async ({ userId }) => {
-  const url = `http://localhost:5000/api/recents/user/${userId}`;
+  const url = `${host}/recents/user/${userId}`;
   const headers = getCommonHeader();
   try {
     const response = await fetch(url, {
@@ -160,7 +162,7 @@ export const getRecents = async ({ userId }) => {
 };
 
 export const addFavourite = async (data) => {
-  const apiUrl = `http://localhost:5000/api/favourites`;
+  const apiUrl = `${host}/favourites`;
   const headers = getCommonHeader();
   try {
     const response = await fetch(apiUrl, {
@@ -180,7 +182,7 @@ export const addFavourite = async (data) => {
 };
 
 export const deleteFavourite = async (bookId) => {
-  const url = `http://localhost:5000/api/favourites/${bookId}`;
+  const url = `${host}/favourites/${bookId}`;
   const headers = getCommonHeader();
   try {
     const response = await fetch(url, {
@@ -199,7 +201,7 @@ export const deleteFavourite = async (bookId) => {
 };
 
 export const getFavourites = async ({ userId }) => {
-  const url = `http://localhost:5000/api/favourites/user/${userId}`;
+  const url = `${host}/favourites/user/${userId}`;
   const headers = getCommonHeader();
   try {
     const response = await fetch(url, {
@@ -218,7 +220,7 @@ export const getFavourites = async ({ userId }) => {
 };
 
 export const signup = async ({ name, email, password, image }) => {
-  const url = `http://localhost:5000/api/users/signup`;
+  const url = `${host}/users/signup`;
   const headers = getHeader();
   try {
     const response = await fetch(url, {
@@ -238,7 +240,7 @@ export const signup = async ({ name, email, password, image }) => {
 };
 
 export const login = async ({ email, password }) => {
-  const url = `http://localhost:5000/api/users/login`;
+  const url = `${host}/users/login`;
   const headers = getHeader();
   try {
     const response = await fetch(url, {
@@ -258,7 +260,7 @@ export const login = async ({ email, password }) => {
 };
 
 export const getUsers = async () => {
-  const url = `http://localhost:5000/api/users`;
+  const url = `${host}/users`;
   try {
     const response = await fetch(url, {
       method: "GET",

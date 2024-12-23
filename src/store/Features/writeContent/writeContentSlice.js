@@ -64,11 +64,11 @@ export const updateBookAsync = createAsyncThunk(
 
 export const deleteBookAsync = createAsyncThunk(
   "deleteBook",
-  async ({ bookId, user }, { rejectWithValue, dispatch }) => {
+  async (data, { rejectWithValue, dispatch }) => {
     dispatch(setIsLoading(true));
     try {
-      const response = await deleteBook(bookId);
-      if (response) dispatch(getBooksAsync(user));
+      const response = await deleteBook(data.bookId);
+      if (response) dispatch(getBooksAsync(data.user));
 
       return response;
     } catch (error) {
