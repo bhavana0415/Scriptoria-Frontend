@@ -2,13 +2,10 @@ import { useRef, useState } from "react";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import AutoTextarea from "../../components/AutoTextarea";
 import PreviewDialog from "../../components/PreviewDialog";
-import { useSelector } from "react-redux";
 import { Tooltip } from "@mui/material";
 
-const Write = () => {
-  const writeContent = useSelector((state) => state.writeContent.writeContent);
-
-  const [content, setContent] = useState(writeContent);
+const Write = ({ bookContent, book_id, bookDetails }) => {
+  const [content, setContent] = useState(bookContent);
 
   const [previewOpen, setPreviewOpen] = useState(false);
   const imageInputRef = useRef(null);
@@ -75,8 +72,7 @@ const Write = () => {
         )}
       </div>
       <div className="flex w-full min-h-screen mt-2">
-        <div className="md:w-1/6 px-2 flex flex-col">
-        </div>
+        <div className="md:w-1/6 px-2 flex flex-col"></div>
         <div className="w-full md:w-5/6 mx-2 my-2">
           <div className="w-full flex justify-end">
             <button
@@ -189,9 +185,12 @@ const Write = () => {
       </div>
       {previewOpen && (
         <PreviewDialog
+          bookDetails={bookDetails}
+          book_id={book_id}
           open={previewOpen}
           content={content}
           handleClose={handleClose}
+          isPreview={false}
         />
       )}
     </div>

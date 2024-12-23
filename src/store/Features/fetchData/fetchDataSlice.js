@@ -1,5 +1,3 @@
-"use client";
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchBooks } from "../../../api/dbBooks/api";
 import { setIsLoading } from "../currentState/currentStateSlice";
@@ -7,6 +5,7 @@ import { setIsLoading } from "../currentState/currentStateSlice";
 export const fetchBooksAsync = createAsyncThunk(
   "fetchBooks",
   async (searches, { rejectWithValue, dispatch }) => {
+    dispatch(setIsLoading(true));
     try {
       dispatch(setIsLoading(true));
       const promises = searches.map(async (search) => {
@@ -17,8 +16,6 @@ export const fetchBooksAsync = createAsyncThunk(
       });
 
       const results = await Promise.all(promises);
-      console.log(results);
-      console.log(results.flat());
       return results.flat();
     } catch (error) {
       if (error instanceof Error) {
@@ -34,6 +31,7 @@ export const fetchBooksAsync = createAsyncThunk(
 export const fetchRecentBooksAsync = createAsyncThunk(
   "fetchRecentBooks",
   async (_, { rejectWithValue, dispatch }) => {
+    dispatch(setIsLoading(true));
     try {
       const response = await fetchBooks();
       if (response) {
@@ -68,6 +66,7 @@ export const fetchData = createSlice({
       })
       .addCase(fetchBooksAsync.rejected, (state, action) => {
         state.error = action.payload;
+        state.books = null;
       })
       .addCase(fetchRecentBooksAsync.fulfilled, (state, action) => {
         if (action.payload && Array.isArray(action.payload)) {
@@ -77,6 +76,7 @@ export const fetchData = createSlice({
       })
       .addCase(fetchRecentBooksAsync.rejected, (state, action) => {
         state.error = action.payload;
+        state.books = null;
       });
   },
 });

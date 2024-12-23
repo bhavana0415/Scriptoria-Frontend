@@ -5,13 +5,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsLoading } from "../store/Features/currentState/currentStateSlice";
 import BookDialog from "./BookDialog";
 import { fetchBooks } from "../api/dbBooks/api";
-import { setFavourites } from "../store/Features/favourites/favouritesSlice";
-import { setRecentlyViewed } from "../store/Features/recentlyViewed/recentlyViewedSlice";
 import Snackbar from "@mui/material/Snackbar";
 import { IconButton } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
+import {
+  addFavouriteAsync,
+  deleteFavouriteAsync,
+} from "../store/Features/favourites/favouritesSlice";
+import { addRecentAsync } from "../store/Features/recentlyViewed/recentlyViewedSlice";
 
-const Card = ({ book }) => {
+const Card = ({ book, type }) => {
+  if (type == "mongo") {
+    book = {
+      ...book,
+      id: book.book_id,
+    };
+  } else {
+    book = {
+      ...book,
+      id: book.id,
+    };
+  }
+  const user = useSelector((state) => state.auth.user);
   const [rating, setRating] = useState(3);
   const [open, setOpen] = useState(false);
   const [notificatioOpen, setNotificatioOpen] = useState(false);
@@ -36,17 +51,13 @@ const Card = ({ book }) => {
   };
 
   const handleClickOpen = async () => {
-    if (recentlyViewed.findIndex((bk) => book.id == bk.id) == -1) {
-      const recentViews = [...recentlyViewed, book];
-      dispatch(setRecentlyViewed(recentViews));
-    }
     try {
       dispatch(setIsLoading(true));
       const response = await fetchBooks(`book/${book.id}`);
       if (response) {
-        console.log(response);
         setBookDetails(response);
         setOpen(true);
+        addToRecent();
       } else {
         setNotificatioOpen(true);
       }
@@ -57,26 +68,57 @@ const Card = ({ book }) => {
     }
   };
 
+  const addToRecent = () => {
+    if (recentlyViewed.findIndex((bk) => bk.book_id === book.id) == -1) {
+      const data = {
+        book_id: book.id,
+        title: book.title,
+        subtitle: book.subtitle,
+        authors: book.authors,
+        image: book.image,
+        url: book.url,
+        user: user.userId,
+      };
+      dispatch(addRecentAsync({ ...data }));
+    }
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
 
   const checkIfFav = () => {
     const favs = [...favourites];
-    return favs.findIndex((f) => f.id === book.id) !== -1;
+    return favs.findIndex((f) => f.book_id === book.id) !== -1;
   };
 
   const addFavourite = () => {
-    dispatch(setFavourites([...favourites, book]));
+    const data = {
+      book_id: book.id,
+      title: book.title,
+      subtitle: book.subtitle,
+      authors: book.authors,
+      image: book.image,
+      url: book.url,
+      user: user.userId,
+    };
+    dispatch(addFavouriteAsync({ ...data }));
   };
 
   const removeFavourite = () => {
-    const favs = favourites.filter((f) => f.id != book.id);
-    dispatch(setFavourites(favs));
+    const remBook =
+      favourites[favourites.findIndex((f) => f.book_id === book.id)];
+    const data = {
+      book_id: remBook._id,
+      user: user.userId,
+    };
+    dispatch(deleteFavouriteAsync({ ...data }));
   };
 
   useEffect(() => {
-    setRating(calculateRating(Number(book.id.replace(/\D/g, ""))));
+    if (book?.id) {
+      setRating(calculateRating(Number(book.id.replace(/\D/g, ""))));
+    }
   }, [book.id]);
 
   const action = (
@@ -85,7 +127,7 @@ const Card = ({ book }) => {
         size="small"
         aria-label="close"
         color="inherit"
-        onClick={()=>setNotificatioOpen(false)}>
+        onClick={() => setNotificatioOpen(false)}>
         <CloseIcon fontSize="small" />
       </IconButton>
     </>
@@ -160,7 +202,7 @@ const Card = ({ book }) => {
         <Snackbar
           open={notificatioOpen}
           autoHideDuration={3000}
-          onClose={()=>setNotificatioOpen(false)}
+          onClose={() => setNotificatioOpen(false)}
           message="Unable to fetch Book"
           action={action}
         />
