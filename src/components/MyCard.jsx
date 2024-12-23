@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PreviewDialog from "./PreviewDialog";
 
-const MyCard = ({ bookDetails, bookContent }) => {
+const MyCard = ({ bookDetails, bookContent, setEditingBook }) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const handleClose = () => {
     setPreviewOpen(false);
@@ -31,6 +31,7 @@ const MyCard = ({ bookDetails, bookContent }) => {
           content={bookContent}
           handleClose={handleClose}
           isPreview={true}
+          setEditingBook={setEditingBook}
         />
       )}
     </>

@@ -14,7 +14,6 @@ const Login = () => {
   const user = useSelector((state) => state.auth.user);
   const isLoading = useSelector((state) => state.currentState.isLoading);
 
-  // Handle side effects when user is logged in
   useEffect(() => {
     if (user) {
       dispatch(getFavouritesAsync(user.userId));

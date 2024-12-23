@@ -20,9 +20,9 @@ import { setCheckedItems } from "../../store/Features/currentState/currentStateS
 const MenuProps = {
   PaperProps: {
     sx: {
-      bgcolor: pink[100], // background color of dropdown
+      bgcolor: pink[100],
       "& .MuiMenuItem-root": {
-        color: pink[900], // text color of menu items
+        color: pink[900],
       },
     },
   },

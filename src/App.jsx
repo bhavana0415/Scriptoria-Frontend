@@ -8,6 +8,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./store/store";
 import { logoutAsync } from "./store/Features/auth/authSlice";
 import Loader from "./components/Loader";
+import { showAlert } from "./store/Features/alert/alertSlice";
 
 const Home = React.lazy(() => import("./pages/home/Home"));
 const Navbar = React.lazy(() => import("./components/Navbar"));
@@ -41,7 +42,10 @@ const ProtectedRoute = ({ element }) => {
     } else {
       logoutTimer = setTimeout(() => {
         dispatch(logoutAsync());
-        alert("Session expired. Please log in again.");
+        showAlert({
+          severity: "info",
+          message: `Your session has expired. Please log in again.`,
+        });
       }, timeRemaining);
     }
 

@@ -15,14 +15,14 @@ import { fetchBooksAsync } from "../store/Features/fetchData/fetchDataSlice";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-// import { Tooltip } from "@mui/material";
 import logoImg from "/logo.png";
 const pages = ["Books", "My Books", "Favourites"];
 import Avatar from "@mui/material/Avatar";
 import { logoutAsync } from "../store/Features/auth/authSlice";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
+import AlertBox from "./Alert";
 
 function Navbar() {
   const currentMode = useSelector((state) => state.currentState.currentMode);
@@ -67,6 +67,7 @@ function Navbar() {
 
   return (
     <>
+      <AlertBox />
       <header className="w-full h-fit text-slate-700 fixed top-0 z-50 flex flex-col lg:flex-row shadow-b bg-background border-b-2 border-slate-500">
         <a
           href="/"
@@ -172,7 +173,7 @@ function Navbar() {
                     minWidth: 50,
                   },
                   "& .MuiMenu-list": {
-                    padding: 0, // Removes padding for the `ul` element
+                    padding: 0,
                   },
                 }}>
                 <MenuItem

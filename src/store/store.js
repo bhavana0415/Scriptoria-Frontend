@@ -5,6 +5,7 @@ import favouritesSlice from "./Features/favourites/favouritesSlice";
 import writeContentSlice from "./Features/writeContent/writeContentSlice";
 import recentlyViewedSlice from "./Features/recentlyViewed/recentlyViewedSlice";
 import authSlice from "./Features/auth/authSlice";
+import alertSlice from "./Features/alert/alertSlice";
 
 const localStorageMiddleware = (store) => (next) => (action) => {
   const result = next(action);
@@ -12,7 +13,6 @@ const localStorageMiddleware = (store) => (next) => (action) => {
   return result;
 };
 
-// Function to load state from localStorage
 const reHydrateStore = () => {
   const data = localStorage.getItem("reduxState");
   if (data) {
@@ -29,6 +29,7 @@ export const store = configureStore({
     writeContent: writeContentSlice,
     recentlyViewed: recentlyViewedSlice,
     auth: authSlice,
+    alert: alertSlice,
   },
   preloadedState: reHydrateStore(),
   middleware: (getDefaultMiddleware) =>

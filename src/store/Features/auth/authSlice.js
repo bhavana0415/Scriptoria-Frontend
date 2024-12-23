@@ -1,18 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { signup, login, getUsers } from "../../../api/mongodb/api";
 import { setIsLoading } from "../currentState/currentStateSlice";
-import {
-  getBooksAsync,
-  setBooksEmpty,
-} from "../writeContent/writeContentSlice";
-import {
-  getRecentsAsync,
-  setRecentlyViewedEmpty,
-} from "../recentlyViewed/recentlyViewedSlice";
-import {
-  getFavouritesAsync,
-  setFavouritesEmpty,
-} from "../favourites/favouritesSlice";
+import { setBooksEmpty } from "../writeContent/writeContentSlice";
+import { setRecentlyViewedEmpty } from "../recentlyViewed/recentlyViewedSlice";
+import { setFavouritesEmpty } from "../favourites/favouritesSlice";
+import { showAlert } from "../alert/alertSlice";
 
 export const signupAsync = createAsyncThunk(
   "signup",
@@ -20,9 +12,20 @@ export const signupAsync = createAsyncThunk(
     dispatch(setIsLoading(true));
     try {
       const response = await signup({ name, email, password, image });
-
+      dispatch(
+        showAlert({
+          severity: "success",
+          message: "Registeration successful!!!",
+        })
+      );
       return response;
     } catch (error) {
+      dispatch(
+        showAlert({
+          severity: "error",
+          message: `Unable to register. ${error.message || "Try again"}`,
+        })
+      );
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
@@ -38,8 +41,20 @@ export const loginAsync = createAsyncThunk(
     dispatch(setIsLoading(true));
     try {
       const response = await login({ email, password });
+      dispatch(
+        showAlert({
+          severity: "success",
+          message: "Login successful!!!",
+        })
+      );
       return response;
     } catch (error) {
+      dispatch(
+        showAlert({
+          severity: "error",
+          message: `Unable to login. ${error.message || "Try again"}`,
+        })
+      );
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
@@ -73,6 +88,12 @@ export const logoutAsync = createAsyncThunk(
     dispatch(setBooksEmpty());
     dispatch(setRecentlyViewedEmpty());
     dispatch(setFavouritesEmpty());
+    dispatch(
+      showAlert({
+        severity: "success",
+        message: "Logout successful!!!",
+      })
+    );
     return true;
   }
 );
@@ -84,7 +105,7 @@ export const auth = createSlice({
     error: null,
   },
   reducers: {
-    setUserOnLogout: (state, action) => {
+    setUserOnLogout: (state) => {
       state.user = null;
     },
   },
@@ -98,7 +119,7 @@ export const auth = createSlice({
         state.error = action.payload;
         state.user = null;
       })
-      .addCase(logoutAsync.fulfilled, (state, action) => {
+      .addCase(logoutAsync.fulfilled, (state) => {
         state.user = null;
         state.error = null;
       });
