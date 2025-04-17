@@ -126,20 +126,22 @@ const PreviewDialog = ({
 
   function downloadBook() {
     let jsPdf = new jsPDF("p", "pt", "letter");
-    var htmlElement = pdfRef.current;
+    var htmlElement = pdfRef.current.cloneNode(true);
+    htmlElement.style.width = "1000px";
+
     const opt = {
       callback: function (jsPdf) {
         jsPdf.setTextColor(0, 0, 0);
         jsPdf.save(`${myBookDetails.bookName}.pdf`);
       },
-      margin: [20, 20, 20, 20], // Increased margins for better fit
+      margin: [20, 20, 20, 20],
       autoPaging: "text",
       html2canvas: {
         allowTaint: true,
         dpi: 100,
         letterRendering: true,
         logging: false,
-        scale: 0.68, // Adjusted scale for better fit
+        scale: 0.57,
       },
     };
 
