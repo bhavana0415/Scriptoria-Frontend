@@ -3,6 +3,7 @@ import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import AutoTextarea from "../../components/AutoTextarea";
 import PreviewDialog from "../../components/PreviewDialog";
 import { Tooltip } from "@mui/material";
+import { setIsLoading } from "../../store/Features/currentState/currentStateSlice";
 
 const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
   const [content, setContent] = useState(bookContent);
@@ -35,19 +36,29 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
     setContent(newContent);
   };
 
-  const convertImage = (file, index) => {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      if (typeof reader.result === "string") {
-        handleChange(index, reader.result);
-      } else {
-        console.error("Unsupported file format");
-      }
-    };
-    reader.onerror = (error) => {
-      console.log("Error", error);
-    };
+  const convertImage = async (file, index) => {
+    if (!file) return;
+
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "scriptoria");
+    data.append("cloud_name", "dpmtu5hlx");
+
+    const url = "https://api.cloudinary.com/v1_1/dpmtu5hlx/image/upload";
+    try {
+      setIsLoading(true);
+      const res = await fetch(url, {
+        method: "POST",
+        body: data,
+      });
+
+      const uploadedImageURL = await res.json();
+      handleChange(index, uploadedImageURL.secure_url);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleLabelClick = () => {

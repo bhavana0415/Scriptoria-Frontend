@@ -107,7 +107,7 @@ const Books = () => {
                     },
                   }}>
                   <MenuItem value={""}></MenuItem>
-                  <MenuItem value={"author"}>Author</MenuItem>
+                  <MenuItem value={"authors"}>Author</MenuItem>
                   <MenuItem value={"title"}>Title</MenuItem>
                 </Select>
               </FormControl>
