@@ -88,12 +88,6 @@ export const logoutAsync = createAsyncThunk(
     dispatch(setBooksEmpty());
     dispatch(setRecentlyViewedEmpty());
     dispatch(setFavouritesEmpty());
-    dispatch(
-      showAlert({
-        severity: "success",
-        message: "Logout successful!!!",
-      })
-    );
     return true;
   }
 );
