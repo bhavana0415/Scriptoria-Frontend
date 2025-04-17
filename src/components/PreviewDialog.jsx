@@ -15,7 +15,6 @@ import {
 } from "../store/Features/writeContent/writeContentSlice";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { setIsLoading } from "../store/Features/currentState/currentStateSlice";
 import { showAlert } from "../store/Features/alert/alertSlice";
