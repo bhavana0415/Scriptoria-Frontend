@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Alert, Snackbar } from "@mui/material";
 import { hideAlert } from "../store/Features/alert/alertSlice";
 
-const App = () => {
+const AlertBox = () => {
   const dispatch = useDispatch();
   const alert = useSelector((state) => state.alert);
 
@@ -12,7 +12,10 @@ const App = () => {
 
   return (
     <div>
-      <Snackbar open={alert.open} autoHideDuration={5000} onClose={handleClose}>
+      <Snackbar
+        open={alert.open}
+        autoHideDuration={10000}
+        onClose={handleClose}>
         <Alert severity={alert.severity} onClose={handleClose}>
           {alert.message}
         </Alert>
@@ -21,4 +24,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default AlertBox;

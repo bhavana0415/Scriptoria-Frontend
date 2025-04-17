@@ -136,7 +136,7 @@ const Card = ({ book, type }) => {
   return (
     <div
       key={book.id}
-      className="justify-center items-center shadow-sm shadow-cyan-500 p-4 rounded-lg h-full">
+      className="justify-center items-center shadow-sm shadow-cyan-500 p-4 rounded-lg h-full max-w-[350px]">
       <div className={`relative rounded-xl flex flex-col h-full`}>
         <button onClick={handleClickOpen}>
           <div className="relative transform transition duration-500 hover:scale-105 flex items-center justify-center overflow-hidden rounded-xl bg-fuchsia-300 h-64">

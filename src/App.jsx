@@ -9,6 +9,7 @@ import { store } from "./store/store";
 import { logoutAsync } from "./store/Features/auth/authSlice";
 import Loader from "./components/Loader";
 import { showAlert } from "./store/Features/alert/alertSlice";
+import AlertBox from "./components/Alert";
 
 const Home = React.lazy(() => import("./pages/home/Home"));
 const Navbar = React.lazy(() => import("./components/Navbar"));
@@ -117,6 +118,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
+      <AlertBox />
       <RouterProvider router={router} />
     </Provider>
   );

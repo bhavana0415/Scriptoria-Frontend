@@ -22,7 +22,6 @@ import { logoutAsync } from "../store/Features/auth/authSlice";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Typography } from "@mui/material";
-import AlertBox from "./Alert";
 
 function Navbar() {
   const currentMode = useSelector((state) => state.currentState.currentMode);
@@ -67,7 +66,6 @@ function Navbar() {
 
   return (
     <>
-      <AlertBox />
       <header className="w-full h-fit text-slate-700 fixed top-0 z-50 flex flex-col lg:flex-row shadow-b bg-background border-b-2 border-slate-500">
         <a
           href="/"

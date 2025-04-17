@@ -9,7 +9,7 @@ const MyCard = ({ bookDetails, bookContent, setEditingBook }) => {
 
   return (
     <>
-      <div className="justify-center items-center shadow-sm shadow-cyan-500 p-6 mb-4 rounded-lg h-full w-[500px]">
+      <div className="justify-center items-center shadow-sm shadow-cyan-500 p-6 mb-4 rounded-lg h-full w-[250px]">
         <div className={`relative rounded-xl flex flex-col h-full`}>
           <div className="relative transform transition duration-500 hover:scale-105 flex items-center justify-center overflow-hidden rounded-xl bg-fuchsia-300 h-64">
             <img

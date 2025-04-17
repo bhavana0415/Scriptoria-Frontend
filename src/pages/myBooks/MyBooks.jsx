@@ -57,30 +57,34 @@ const MyBooks = () => {
           />
         ) : (
           <>
-            <div className="w-full h-20 bg-background-500 flex items-center"></div>
-            {books.length > 0 &&
-              books.map((book, index) => (
-                <div key={index} className="relative min-w-[550px]">
-                  <button
-                    className="absolute top-0 right-3 text-white rounded-full p-2 transition-transform transform hover:scale-125"
-                    onClick={() => handleDeleteClick(book)}>
-                    <DeleteForeverIcon
-                      fontSize="small"
-                      className="text-foreground"
+            <div className="w-full mt-20 bg-background-500 flex flex-wrap justify-center items-center">
+              {books.length > 0 &&
+                books.map((book, index) => (
+                  <div key={index} className="relative min-w-[300px]">
+                    <button
+                      className="absolute top-0 right-3 text-white rounded-full p-2 transition-transform transform hover:scale-125"
+                      onClick={() => handleDeleteClick(book)}>
+                      <DeleteForeverIcon
+                        fontSize="small"
+                        className="text-foreground"
+                      />
+                    </button>
+                    <button
+                      className="absolute bottom-6 right-3 text-white rounded-full p-2 transition-transform transform hover:scale-125"
+                      onClick={() => handleEditClick(book)}>
+                      <CreateIcon
+                        fontSize="small"
+                        className="text-foreground"
+                      />
+                    </button>
+                    <MyCard
+                      bookDetails={book.data.bookDetails}
+                      bookContent={book.data.content}
+                      setEditingBook={setEditingBook}
                     />
-                  </button>
-                  <button
-                    className="absolute bottom-6 right-3 text-white rounded-full p-2 transition-transform transform hover:scale-125"
-                    onClick={() => handleEditClick(book)}>
-                    <CreateIcon fontSize="small" className="text-foreground" />
-                  </button>
-                  <MyCard
-                    bookDetails={book.data.bookDetails}
-                    bookContent={book.data.content}
-                    setEditingBook={setEditingBook}
-                  />
-                </div>
-              ))}
+                  </div>
+                ))}
+            </div>
             <a
               href="/write"
               className="font-medium text-foreground border-2 border-cyan-500 rounded p-4 transform transition-transform duration-300 hover:scale-105 cursor-pointer">
@@ -91,19 +95,22 @@ const MyBooks = () => {
               TransitionComponent={Transition}
               keepMounted
               onClose={handleClose}
-              aria-describedby="alert-dialog-slide-description">
-              <DialogTitle>Delete Book</DialogTitle>
-              <DialogContent>
+              aria-describedby="alert-dialog-slide-description"
+              className="opacity-1">
+              <DialogTitle className="bg-background text-foreground">
+                Delete Book
+              </DialogTitle>
+              <DialogContent className="mt-5">
                 <DialogContentText id="alert-dialog-slide-description">
                   Are you sure you want to delete this book?
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button className="text-cyan-700" onClick={handleClose}>
+                <Button color="primary" onClick={handleClose}>
                   Cancel
                 </Button>
                 <Button
-                  className="text-cyan-700"
+                  color="error"
                   onClick={() => deleteBookConfirm(deleteBook)}
                   disabled={deleteBook == null}>
                   Delete

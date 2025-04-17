@@ -58,22 +58,21 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
 
   return (
     <div>
-      <div className="w-full h-20 bg-background-500 flex"></div>
-      <div className="fixed hidden md:flex md:flex-col md:w-1/6 px-2 ">
-        {["Chapter", "Heading", "Subheading", "Paragraph", "Image"].map(
-          (item) => (
-            <div
-              key={item}
-              className="border-2 border-pink-600 rounded-lg m-2 cursor-pointer"
-              onClick={() => handleSelectButton(item)}>
-              <button className="cursor-pointer m-2">Add {item}</button>
-            </div>
-          )
-        )}
-      </div>
-      <div className="flex w-full min-h-screen mt-2">
-        <div className="md:w-1/6 px-2 flex flex-col"></div>
-        <div className="w-full md:w-5/6 mx-2 my-2">
+      <div className="w-full h-20 bg-background-500"></div>
+      <div className="flex flex-row">
+        <div className="w-1/3 md:w-1/6 px-2 ">
+          {["Chapter", "Heading", "Subheading", "Paragraph", "Image"].map(
+            (item) => (
+              <div
+                key={item}
+                className="border-2 border-pink-600 rounded-lg m-2 cursor-pointer"
+                onClick={() => handleSelectButton(item)}>
+                <button className="cursor-pointer m-2">Add {item}</button>
+              </div>
+            )
+          )}
+        </div>
+        <div className="w-2/3 md:w-5/6 m-2 min-h-screen">
           <div className="w-full flex justify-end">
             <button
               disabled={content.length == 0}
@@ -88,24 +87,12 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
               placement="top">
               <span>
                 <button
-                  className="bg-pink-500 mr-20 text-white font-bold py-2 px-4 rounded-full"
+                  className="bg-pink-500 mr-2 text-white font-bold py-2 px-4 rounded-full"
                   disabled={true}>
                   Publish
                 </button>
               </span>
             </Tooltip>
-          </div>
-          <div className="w-full flex flex-wrap px-2 md:hidden lg:hidden h-fit">
-            {["Chapter", "Heading", "Subheading", "Paragraph", "Image"].map(
-              (item) => (
-                <div
-                  key={item}
-                  className="border-2 border-pink-600 rounded-lg m-2 cursor-pointer"
-                  onClick={() => handleSelectButton(item)}>
-                  <button className="cursor-pointer m-2">Add {item}</button>
-                </div>
-              )
-            )}
           </div>
           <div className="mx-auto max-w-screen-lg justify-center px-2 py-4">
             {content.map((item, index) => {

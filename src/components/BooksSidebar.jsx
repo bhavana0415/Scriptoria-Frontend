@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Checkbox from "@mui/material/Checkbox";
 import { pink } from "@mui/material/colors";
+import OpenWithIcon from "@mui/icons-material/OpenWith";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
-const BooksSidebar = ({ data, checked, setChecked }) => {
+const BooksSidebar = ({ children, data, checked, setChecked }) => {
   const [openGenre, setOpenGenre] = useState([]);
   const [openSubGenre, setOpenSubGenre] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSvgClick = (index) => {
     if (openGenre.includes(index)) {
@@ -40,96 +43,121 @@ const BooksSidebar = ({ data, checked, setChecked }) => {
   };
 
   return (
-    <div className="w-full flex flex-col">
-      <div className="grow flex flex-col border-left">
-        {data.map((genre, index) => (
-          <div key={genre.genre}>
-            {checkMenuItemDisplay(genre.genre) && (
-              <div>
-                <div className="flex items-center justify-between py-1 pl-2 border-g-bottom">
+    <div className="relative min-h-screen lg:flex">
+      <button
+        onClick={() => setMenuOpen(!menuOpen)}
+        className={`absolute left-2 top-2 shadow-lg rounded-full p-2 m-4 lg:hidden`}
+        aria-label="Toggle Menu">
+        {!menuOpen && <OpenWithIcon />}
+      </button>
+      <aside
+        className={`bg-background min-w-[225px] w-fit space-y-6 pt-2 px-0 absolute inset-y-0 left-0 transform lg:relative lg:translate-x-0 transition-transform duration-200 ease-in-out overflow-y-auto ${
+          menuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+        style={{ zIndex: 9 }}>
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className={`w-full flex justify-end`}
+          aria-label="Toggle Menu">
+          {menuOpen && <HighlightOffIcon />}
+        </button>
+
+        <div className="w-full flex flex-col">
+          <div className="grow flex flex-col border-left">
+            {data.map((genre, index) => (
+              <div key={genre.genre}>
+                {checkMenuItemDisplay(genre.genre) && (
                   <div>
-                    <div className="text-foreground pt-2 pb-2 font-bold text-md">
-                      {genre.genre}
-                    </div>
-                  </div>
-                  {genre.genre && (
-                    <>
-                      {openGenre.includes(index) ? (
-                        <ArrowDropUpIcon
-                          className="h-6 w-6"
-                          onClick={() => handleSvgClick(index)}
-                        />
-                      ) : (
-                        <ArrowDropDownIcon
-                          className="h-6 w-6"
-                          onClick={() => handleSvgClick(index)}
-                        />
-                      )}
-                    </>
-                  )}
-                </div>
-                {genre.genre && openGenre.includes(index) && (
-                  <div className="border-g-bottom">
-                    {genre.subGenres.map((subgenre, ind) => (
-                      <div key={subgenre.name}>
-                        <div className="flex items-center justify-between pl-4 border-g-bottom">
-                          <div>
-                            <div className="text-foreground pt-2 pb-2 text-md">
-                              {subgenre.name}
-                            </div>
-                          </div>
-                          {subgenre.name && (
-                            <>
-                              {openSubGenre.includes(index + " " + ind) ? (
-                                <ArrowDropUpIcon
-                                  className="h-6 w-6"
-                                  onClick={() =>
-                                    handleSubSvgClick(index + " " + ind)
-                                  }
-                                />
-                              ) : (
-                                <ArrowDropDownIcon
-                                  className="h-6 w-6"
-                                  onClick={() =>
-                                    handleSubSvgClick(index + " " + ind)
-                                  }
-                                />
-                              )}
-                            </>
-                          )}
+                    <div className="flex items-center justify-between py-1 pl-2 border-g-bottom">
+                      <div>
+                        <div className="text-foreground pt-2 pb-2 font-bold text-md">
+                          {genre.genre}
                         </div>
-                        {subgenre.name &&
-                          openSubGenre.includes(index + " " + ind) && (
-                            <div className="border-g-bottom">
-                              {subgenre.subSubGenres.map((subSubGenre) => (
-                                <div
-                                  key={subSubGenre}
-                                  className="flex items-center text-sm pl-4">
-                                  <Checkbox
-                                    onClick={() => handleCheck(subSubGenre)}
-                                    checked={checked && checked.includes(subSubGenre)}
-                                    sx={{
-                                      color: pink[800],
-                                      "&.Mui-checked": {
-                                        color: pink[600],
-                                      },
-                                    }}
-                                  />
-                                  <span>{subSubGenre}</span>
-                                </div>
-                              ))}
-                            </div>
-                          )}
                       </div>
-                    ))}
+                      {genre.genre && (
+                        <>
+                          {openGenre.includes(index) ? (
+                            <ArrowDropUpIcon
+                              className="h-6 w-6"
+                              onClick={() => handleSvgClick(index)}
+                            />
+                          ) : (
+                            <ArrowDropDownIcon
+                              className="h-6 w-6"
+                              onClick={() => handleSvgClick(index)}
+                            />
+                          )}
+                        </>
+                      )}
+                    </div>
+                    {genre.genre && openGenre.includes(index) && (
+                      <div className="border-g-bottom">
+                        {genre.subGenres.map((subgenre, ind) => (
+                          <div key={subgenre.name}>
+                            <div className="flex items-center justify-between pl-4 border-g-bottom">
+                              <div>
+                                <div className="text-foreground italic pt-2 pb-2 text-md">
+                                  {subgenre.name}
+                                </div>
+                              </div>
+                              {subgenre.name && (
+                                <>
+                                  {openSubGenre.includes(index + " " + ind) ? (
+                                    <ArrowDropUpIcon
+                                      className="h-6 w-6"
+                                      onClick={() =>
+                                        handleSubSvgClick(index + " " + ind)
+                                      }
+                                    />
+                                  ) : (
+                                    <ArrowDropDownIcon
+                                      className="h-6 w-6"
+                                      onClick={() =>
+                                        handleSubSvgClick(index + " " + ind)
+                                      }
+                                    />
+                                  )}
+                                </>
+                              )}
+                            </div>
+                            {subgenre.name &&
+                              openSubGenre.includes(index + " " + ind) && (
+                                <div className="border-g-bottom">
+                                  {subgenre.subSubGenres.map((subSubGenre) => (
+                                    <div
+                                      key={subSubGenre}
+                                      className="flex items-center text-sm pl-4">
+                                      <Checkbox
+                                        onClick={() => handleCheck(subSubGenre)}
+                                        checked={
+                                          checked &&
+                                          checked.includes(subSubGenre)
+                                        }
+                                        sx={{
+                                          color: pink[800],
+                                          "&.Mui-checked": {
+                                            color: pink[600],
+                                          },
+                                        }}
+                                      />
+                                      <span>{subSubGenre}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
-            )}
+            ))}
+            <div className="w-full h-60"></div>
           </div>
-        ))}
-        <div className="w-full h-60"></div>
-      </div>
+        </div>
+      </aside>
+      <div className="w-full p-6">{children}</div>
     </div>
   );
 };

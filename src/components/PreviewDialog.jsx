@@ -218,7 +218,7 @@ const PreviewDialog = ({
                 onClick={handleLabelClick}
                 className="custom-file-input-label w-36 h-8 border border-cyan-500 rounded-md flex items-center justify-center cursor-pointer"
                 htmlFor="customFile">
-                Choose file
+                Choose cover
               </label>
             )}
             {image !== "" && (
