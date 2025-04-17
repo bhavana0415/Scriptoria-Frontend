@@ -60,7 +60,9 @@ const MyBooks = () => {
             <div className="w-full mt-20 bg-background-500 flex flex-wrap justify-center items-center">
               {books.length > 0 &&
                 books.map((book, index) => (
-                  <div key={index} className="relative min-w-[300px]">
+                  <div
+                    key={index}
+                    className="relative min-w-[350px] flex justify-center">
                     <button
                       className="absolute top-0 right-3 text-white rounded-full p-2 transition-transform transform hover:scale-125"
                       onClick={() => handleDeleteClick(book)}>

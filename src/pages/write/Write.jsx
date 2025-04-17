@@ -4,9 +4,11 @@ import AutoTextarea from "../../components/AutoTextarea";
 import PreviewDialog from "../../components/PreviewDialog";
 import { Tooltip } from "@mui/material";
 import { setIsLoading } from "../../store/Features/currentState/currentStateSlice";
+import { useDispatch } from "react-redux";
 
 const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
   const [content, setContent] = useState(bookContent);
+  const dispatch = useDispatch();
 
   const [previewOpen, setPreviewOpen] = useState(false);
   const imageInputRef = useRef(null);
@@ -46,7 +48,7 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
 
     const url = "https://api.cloudinary.com/v1_1/dpmtu5hlx/image/upload";
     try {
-      setIsLoading(true);
+      dispatch(setIsLoading(true));
       const res = await fetch(url, {
         method: "POST",
         body: data,
@@ -57,7 +59,7 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
-      setIsLoading(false);
+      dispatch(setIsLoading(false));
     }
   };
 
@@ -71,7 +73,7 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
     <div>
       <div className="w-full h-20 bg-background-500"></div>
       <div className="flex flex-row">
-        <div className="w-1/3 md:w-1/6 px-2 ">
+        <div className="w-1/3 md:w-1/6 px-2 fixed">
           {["Chapter", "Heading", "Subheading", "Paragraph", "Image"].map(
             (item) => (
               <div
@@ -83,6 +85,7 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
             )
           )}
         </div>
+        <div className="w-1/3 md:w-1/6 px-2 "></div>
         <div className="w-2/3 md:w-5/6 m-2 min-h-screen">
           <div className="w-full flex justify-end">
             <button
@@ -176,6 +179,7 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
                       item={item}
                       ind={index}
                       handleChange={handleChange}
+                      className="overflow-scroll"
                     />
                   </div>
                 );

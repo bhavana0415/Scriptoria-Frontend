@@ -11,16 +11,11 @@ const AlertBox = () => {
   };
 
   return (
-    <div>
-      <Snackbar
-        open={alert.open}
-        autoHideDuration={10000}
-        onClose={handleClose}>
-        <Alert severity={alert.severity} onClose={handleClose}>
-          {alert.message}
-        </Alert>
-      </Snackbar>
-    </div>
+    <Snackbar open={alert.open} autoHideDuration={10000} onClose={handleClose}>
+      <Alert severity={alert.severity} onClose={handleClose}>
+        {alert.message}
+      </Alert>
+    </Snackbar>
   );
 };
 
