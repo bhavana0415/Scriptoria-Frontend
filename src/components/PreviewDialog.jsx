@@ -124,47 +124,27 @@ const PreviewDialog = ({
     }
   };
 
-  const downloadBook = () => {
-    const input = pdfRef.current;
-    html2canvas(input, { useCORS: true, scale: 2 }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4", false);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-      let heightLeft = imgHeight;
-      let position = 0;
+  function downloadBook() {
+    let jsPdf = new jsPDF("p", "pt", "letter");
+    var htmlElement = pdfRef.current;
+    const opt = {
+      callback: function (jsPdf) {
+        jsPdf.setTextColor(0, 0, 0);
+        jsPdf.save(`${myBookDetails.bookName}.pdf`);
+      },
+      margin: [20, 20, 20, 20], // Increased margins for better fit
+      autoPaging: "text",
+      html2canvas: {
+        allowTaint: true,
+        dpi: 100,
+        letterRendering: true,
+        logging: false,
+        scale: 0.68, // Adjusted scale for better fit
+      },
+    };
 
-      // Add the first page
-      pdf.addImage(
-        imgData,
-        "PNG",
-        0,
-        position,
-        pdfWidth,
-        (imgHeight * pdfWidth) / imgWidth
-      );
-      heightLeft -= pdfHeight;
-
-      // Add more pages if necessary
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(
-          imgData,
-          "PNG",
-          0,
-          position,
-          pdfWidth,
-          (imgHeight * pdfWidth) / imgWidth
-        );
-        heightLeft -= pdfHeight;
-      }
-
-      pdf.save(`${myBookDetails.bookName}.pdf`);
-    });
-  };
+    jsPdf.html(htmlElement, opt);
+  }
 
   return (
     <>
