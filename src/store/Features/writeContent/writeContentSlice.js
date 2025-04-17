@@ -49,8 +49,6 @@ export const addBookAsync = createAsyncThunk(
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
-    } finally {
-      dispatch(setIsLoading(false));
     }
   }
 );
@@ -109,8 +107,6 @@ export const deleteBookAsync = createAsyncThunk(
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
-    } finally {
-      dispatch(setIsLoading(false));
     }
   }
 );

@@ -15,6 +15,10 @@ import {
 } from "../store/Features/writeContent/writeContentSlice";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import { setIsLoading } from "../store/Features/currentState/currentStateSlice";
+import { showAlert } from "../store/Features/alert/alertSlice";
 
 const PreviewDialog = ({
   open,
@@ -40,6 +44,7 @@ const PreviewDialog = ({
           description: "",
         }
   );
+  const pdfRef = useRef();
 
   const handleFormOpen = () => setFormOpen(true);
   const handleFormClose = () => setFormOpen(false);
@@ -52,7 +57,10 @@ const PreviewDialog = ({
   const handleSave = () => {
     const { bookName, image, description } = myBookDetails;
     if (!bookName || !image || !description) {
-      alert("Please fill all fields!");
+      showAlert({
+        severity: "error",
+        message: `Please fill all fields!`,
+      });
       return;
     }
     if (!book_id) {
@@ -87,23 +95,75 @@ const PreviewDialog = ({
     }
   };
 
-  const convertImage = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      if (typeof reader.result === "string") {
-        setImage(reader.result);
-        setBookDetails((prev) => ({
-          ...prev,
-          image: reader.result,
-        }));
-      } else {
-        console.error("Unsupported file format");
+  const convertImage = async (file) => {
+    if (!file) return;
+
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "scriptoria");
+    data.append("cloud_name", "dpmtu5hlx");
+
+    const url = "https://api.cloudinary.com/v1_1/dpmtu5hlx/image/upload";
+    try {
+      dispatch(setIsLoading(true));
+      const res = await fetch(url, {
+        method: "POST",
+        body: data,
+      });
+
+      const uploadedImageURL = await res.json();
+      setImage(uploadedImageURL.secure_url);
+      setBookDetails((prev) => ({
+        ...prev,
+        image: uploadedImageURL.secure_url,
+      }));
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+
+  const downloadBook = () => {
+    const input = pdfRef.current;
+    html2canvas(input, { useCORS: true, scale: 2 }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4", false);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      // Add the first page
+      pdf.addImage(
+        imgData,
+        "PNG",
+        0,
+        position,
+        pdfWidth,
+        (imgHeight * pdfWidth) / imgWidth
+      );
+      heightLeft -= pdfHeight;
+
+      // Add more pages if necessary
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(
+          imgData,
+          "PNG",
+          0,
+          position,
+          pdfWidth,
+          (imgHeight * pdfWidth) / imgWidth
+        );
+        heightLeft -= pdfHeight;
       }
-    };
-    reader.onerror = (error) => {
-      console.error("Error reading file", error);
-    };
+
+      pdf.save(`${myBookDetails.bookName}.pdf`);
+    });
   };
 
   return (
@@ -120,7 +180,7 @@ const PreviewDialog = ({
         <DialogContent
           dividers
           sx={{ backgroundColor: "white", color: "black" }}>
-          <div className="px-10 py-5">
+          <div className="px-10 py-5" ref={pdfRef}>
             {content &&
               content.map((item, index) => {
                 if (item.type === "Image") {
@@ -157,7 +217,15 @@ const PreviewDialog = ({
               justifyContent: "space-between",
             }}>
             {isPreview ? (
-              <></>
+              <Button
+                sx={{
+                  backgroundColor: blueGrey[200],
+                  color: blueGrey[900],
+                  "&:hover": { backgroundColor: blueGrey[300] },
+                }}
+                onClick={downloadBook}>
+                Download
+              </Button>
             ) : (
               <Button
                 sx={{
@@ -218,7 +286,7 @@ const PreviewDialog = ({
                 onClick={handleLabelClick}
                 className="custom-file-input-label w-36 h-8 border border-cyan-500 rounded-md flex items-center justify-center cursor-pointer"
                 htmlFor="customFile">
-                Choose file
+                Choose cover
               </label>
             )}
             {image !== "" && (

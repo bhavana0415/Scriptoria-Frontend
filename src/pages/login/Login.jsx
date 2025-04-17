@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAsync } from "../../store/Features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -7,12 +7,15 @@ import { getRecentsAsync } from "../../store/Features/recentlyViewed/recentlyVie
 import { getBooksAsync } from "../../store/Features/writeContent/writeContentSlice";
 import Loader from "../../components/Loader";
 import { Input, InputLabel } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const isLoading = useSelector((state) => state.currentState.isLoading);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -56,13 +59,28 @@ const Login = () => {
             htmlFor="password">
             Password
           </InputLabel>
-          <Input
-            type="password"
-            name="pass"
-            id="password"
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
-          />
+          <div className="relative">
+            <Input
+              type={showPassword ? "text" : "password"}
+              name="pass"
+              id="password"
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+            />
+            <div className="absolute right-2 top-2">
+              {showPassword ? (
+                <VisibilityOffIcon
+                  fontSize="small"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                />
+              ) : (
+                <VisibilityIcon
+                  fontSize="small"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                />
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="button-container mt-6">
