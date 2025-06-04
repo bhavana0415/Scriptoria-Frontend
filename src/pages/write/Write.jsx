@@ -214,14 +214,16 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
         />
       )}
       {book_id && (
-        <button
-          disabled={content.length == 0}
-          className={`bg-pink-500 mr-2 ${
-            content.length == 0 ? "" : "hover:bg-pink-700"
-          } text-white font-bold py-2 px-4 rounded-full`}
-          onClick={saveBook}>
-          Save changes
-        </button>
+        <div className="w-full flex justify-end">
+          <button
+            disabled={content.length == 0}
+            className={`bg-pink-500 mr-6 ${
+              content.length == 0 ? "" : "hover:bg-pink-700"
+            } text-white font-bold py-2 px-4 rounded-md`}
+            onClick={saveBook}>
+            Save Changes
+          </button>
+        </div>
       )}
     </div>
   );
