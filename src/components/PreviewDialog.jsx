@@ -369,8 +369,7 @@ const ContextTypography = ({ item, content, index }) => {
   } else {
     return (
       <Typography sx={{ paddingY: "2px" }} variant="body1">
-        <>&emsp;</>
-        {item.text}
+        <pre>&emsp;{item.text}</pre>
       </Typography>
     );
   }
