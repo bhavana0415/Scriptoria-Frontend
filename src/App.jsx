@@ -22,6 +22,7 @@ const MyBooks = React.lazy(() => import("./pages/myBooks/MyBooks"));
 
 let logoutTimer;
 
+// eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ element }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.user?.token);
