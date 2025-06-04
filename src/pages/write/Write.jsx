@@ -4,7 +4,8 @@ import AutoTextarea from "../../components/AutoTextarea";
 import PreviewDialog from "../../components/PreviewDialog";
 import { Tooltip } from "@mui/material";
 import { setIsLoading } from "../../store/Features/currentState/currentStateSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateBookAsync } from "../../store/Features/writeContent/writeContentSlice";
 
 const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
   const [content, setContent] = useState(bookContent);
@@ -12,6 +13,7 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
 
   const [previewOpen, setPreviewOpen] = useState(false);
   const imageInputRef = useRef(null);
+  const user = useSelector((state) => state.auth.user);
 
   const handleChange = (index, value) => {
     let newContent = [...content];
@@ -67,6 +69,18 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
     if (imageInputRef.current) {
       imageInputRef.current.click();
     }
+  };
+
+  const saveBook = () => {
+    const data = {
+      data: {
+        bookDetails: bookDetails,
+        content,
+      },
+      bookId: book_id,
+      user: user.userId,
+    };
+    dispatch(updateBookAsync({ ...data }));
   };
 
   return (
@@ -198,6 +212,16 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
           handleClose={handleClose}
           isPreview={false}
         />
+      )}
+      {book_id && (
+        <button
+          disabled={content.length == 0}
+          className={`bg-pink-500 mr-2 ${
+            content.length == 0 ? "" : "hover:bg-pink-700"
+          } text-white font-bold py-2 px-4 rounded-full`}
+          onClick={saveBook}>
+          Save changes
+        </button>
       )}
     </div>
   );
