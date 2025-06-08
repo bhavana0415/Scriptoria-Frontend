@@ -31,23 +31,24 @@ const ProtectedRoute = ({ element }) => {
     if (!token) return null;
     const parts = token.split(".");
     const payload = JSON.parse(atob(parts[1]));
-    return payload.exp * 1000;
+    return payload.exp * 1000 * 24;
   }, [token]);
 
   useEffect(() => {
     if (!token || !tokenExpirationDate) return;
 
     const timeRemaining = tokenExpirationDate - Date.now();
+    let logoutTimer;
 
     if (timeRemaining <= 0) {
       dispatch(logoutAsync());
     } else {
       logoutTimer = setTimeout(() => {
-        dispatch(logoutAsync());
         showAlert({
           severity: "info",
           message: `Your session has expired. Please log in again.`,
         });
+        dispatch(logoutAsync());
       }, timeRemaining);
     }
 
