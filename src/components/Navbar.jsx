@@ -220,7 +220,7 @@ function Navbar() {
         </div>
         <nav
           aria-label="Footer Navigation"
-          className="mx-auto mb-0 flex max-w-lg flex-col gap-10 text-center sm:flex-row sm:text-left">
+          className="mx-auto mb-0 flex max-w-lg flex-col gap-2 sm:gap-10 text-center sm:flex-row sm:text-left">
           <a href="/" className="font-medium text-white">
             Home
           </a>

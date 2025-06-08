@@ -345,7 +345,9 @@ const ContextTypography = ({ item, content, index }) => {
 
   if (item.type === "Chapter") {
     return (
-      <Typography variant="h4" sx={{ paddingY: "10px", fontFamily: "serif" }}>
+      <Typography
+        variant="h4"
+        sx={{ marginTop: "4px", paddingY: "10px", fontFamily: "serif" }}>
         {`Chapter ${
           content.slice(0, index + 1).filter((it) => it.type === "Chapter")
             .length
@@ -354,13 +356,13 @@ const ContextTypography = ({ item, content, index }) => {
     );
   } else if (item.type === "Heading") {
     return (
-      <Typography variant="h5" sx={{ paddingY: "4px" }}>
+      <Typography variant="h5" sx={{ marginTop: "4px", paddingY: "4px" }}>
         {item.text}
       </Typography>
     );
   } else if (item.type === "Subheading") {
     return (
-      <Typography variant="h6" sx={{ paddingY: "2px" }}>
+      <Typography variant="h6" sx={{ marginTop: "4px", paddingY: "2px" }}>
         {item.text}
       </Typography>
     );
@@ -368,8 +370,8 @@ const ContextTypography = ({ item, content, index }) => {
     return <img className="w-[50%] h-auto" src={item.text} alt="" />;
   } else {
     return (
-      <Typography sx={{ paddingY: "2px" }} variant="body1">
-        <pre>&emsp;{item.text}</pre>
+      <Typography sx={{ marginTop: "4px", paddingY: "2px" }} variant="body1">
+        <div style={{ whiteSpace: "pre-line" }}>{item.text}</div>
       </Typography>
     );
   }
