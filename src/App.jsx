@@ -31,7 +31,7 @@ const ProtectedRoute = ({ element }) => {
     if (!token) return null;
     const parts = token.split(".");
     const payload = JSON.parse(atob(parts[1]));
-    return payload.exp * 1000 * 24;
+    return payload.exp * 1000;
   }, [token]);
 
   useEffect(() => {
