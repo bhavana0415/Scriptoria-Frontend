@@ -41,15 +41,16 @@ const ProtectedRoute = ({ element }) => {
 
     if (timeRemaining <= 0) {
       dispatch(logoutAsync());
-    } else {
-      logoutTimer = setTimeout(() => {
-        dispatch(logoutAsync());
-        showAlert({
-          severity: "info",
-          message: `Your session has expired. Please log in again.`,
-        });
-      }, timeRemaining);
+      return;
     }
+
+    const logoutTimer = setTimeout(() => {
+      showAlert({
+        severity: "info",
+        message: `Your session has expired. Please log in again.`,
+      });
+      dispatch(logoutAsync());
+    }, timeRemaining);
 
     return () => clearTimeout(logoutTimer);
   }, [token, tokenExpirationDate, dispatch]);
