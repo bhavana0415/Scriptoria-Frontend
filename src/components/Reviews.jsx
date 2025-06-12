@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 
@@ -31,6 +31,7 @@ const reviews = [
 
 const Reviews = () => {
   const [current, setCurrent] = useState(0);
+
   const previousSlide = () => {
     setCurrent((prev) => {
       if (prev == 0) {
