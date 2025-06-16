@@ -178,7 +178,7 @@ const PreviewDialog = ({
                       key={index}
                       className={`flex ${
                         item.type === "Chapter" ? "justify-center" : ""
-                      } items-center`}>
+                      } items-center text-black`}>
                       <ContextTypography
                         item={item}
                         content={content}
