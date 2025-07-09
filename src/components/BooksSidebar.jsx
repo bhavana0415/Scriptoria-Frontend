@@ -80,11 +80,25 @@ const BooksSidebar = ({ children, data, checked, setChecked }) => {
                             <ArrowDropUpIcon
                               className="h-6 w-6"
                               onClick={() => handleSvgClick(index)}
+                              aria-label="Close menu"
+                              role="button"
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  handleSvgClick(index);
+                                }
+                              }}
                             />
                           ) : (
                             <ArrowDropDownIcon
                               className="h-6 w-6"
                               onClick={() => handleSvgClick(index)}
+                              aria-label="Open menu"
+                              role="button"
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  handleSvgClick(index);
+                                }
+                              }}
                             />
                           )}
                         </>
@@ -108,6 +122,16 @@ const BooksSidebar = ({ children, data, checked, setChecked }) => {
                                       onClick={() =>
                                         handleSubSvgClick(index + " " + ind)
                                       }
+                                      aria-label="Close sub menu"
+                                      role="button"
+                                      onKeyDown={(e) => {
+                                        if (
+                                          e.key === "Enter" ||
+                                          e.key === " "
+                                        ) {
+                                          handleSubSvgClick(index + " " + ind);
+                                        }
+                                      }}
                                     />
                                   ) : (
                                     <ArrowDropDownIcon
@@ -115,6 +139,16 @@ const BooksSidebar = ({ children, data, checked, setChecked }) => {
                                       onClick={() =>
                                         handleSubSvgClick(index + " " + ind)
                                       }
+                                      aria-label="Open sub menu"
+                                      role="button"
+                                      onKeyDown={(e) => {
+                                        if (
+                                          e.key === "Enter" ||
+                                          e.key === " "
+                                        ) {
+                                          handleSubSvgClick(index + " " + ind);
+                                        }
+                                      }}
                                     />
                                   )}
                                 </>

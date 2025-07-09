@@ -65,7 +65,11 @@ export default function Slider() {
               <div className="w-full max-w-screen-lg mx-auto p-8 text-foreground">
                 <article className="my-2 flex flex-col rounded-2xl px-4 shadow-2xl md:max-w-5xl md:flex-row md:items-center">
                   <div className="shrink-0 md:mr-8 md:max-w-sm">
-                    <img className="rounded-2xl h-40" src={readerImg} alt="" />
+                    <img
+                      className="rounded-2xl h-40"
+                      src={readerImg}
+                      alt="reader image"
+                    />
                   </div>
                   <div className="py-1 sm:py-2">
                     <p className="mb-6 block text-2xl font-medium text-foreground-700">
@@ -99,7 +103,7 @@ export default function Slider() {
                     <img
                       className="rounded-2xl h-40 object-contain"
                       src={writerImg}
-                      alt=""
+                      alt="writer image"
                     />
                   </div>
                 </article>
@@ -120,7 +124,7 @@ export default function Slider() {
                         className={`rounded-xl transition duration-500 hover:scale-105 mt-${
                           ind * 4
                         } `}>
-                        <a href="/books">
+                        <a aria-label="Navigate to books page" href="/books">
                           <div className="relative flex items-center justify-center overflow-hidden rounded-xl bg-fuchsia-300 h-80 sm:h-72">
                             <img
                               className="object-fill w-full h-full"
@@ -188,7 +192,11 @@ export default function Slider() {
                     </blockquote>
                   </div>
                   <div className="w-full md:w-1/2">
-                    <img className="object-contain" src={authorImg} alt="" />
+                    <img
+                      className="object-contain"
+                      src={authorImg}
+                      alt="author image"
+                    />
                   </div>
                 </div>
               </div>
@@ -205,10 +213,14 @@ export default function Slider() {
                 }`}>
                 <div className="flex flex-col md:flex-row items-center">
                   <div className="w-full h-full md:w-2/5 flex flex-col">
-                    <img src={write1} alt="" className="rounded-lg w-96 h-52" />
+                    <img
+                      src={write1}
+                      alt="alt image"
+                      className="rounded-lg w-96 h-52"
+                    />
                     <img
                       src={write2}
-                      alt=""
+                      alt="alt image"
                       className="-mt-20 ml-16 w-96 rounded-lg"
                     />
                   </div>
@@ -290,14 +302,14 @@ export default function Slider() {
       <div className="bottom-0 flex justify-center gap-6 w-full items-center mt-2 mb-10">
         {["About us", "Discover", "Success Stories", "How it works"].map(
           (slide, index) => (
-            <div
+            <button
               key={"circle" + index}
               onClick={() => setCurrent(index)}
-              className={`cursor-pointer ${
-                index === current ? "text-foreground" : "text-stone-500"
+              className={`cursor-pointer text-foreground ${
+                index === current ? "italic text-lg" : ""
               }`}>
               {slide}
-            </div>
+            </button>
           )
         )}
       </div>

@@ -299,7 +299,10 @@ const EditorPicks = () => {
         </div>
       </section>
       <section className="bg-background text-foreground py-1 leading-6">
-        <a href="/books" className="flex justify-between m-4 cursor-pointer">
+        <a
+          aria-label="Navigate to books page"
+          href="/books"
+          className="flex justify-between m-4 cursor-pointer">
           <h2 className="text-2xl font-serif mx-4">Recently added</h2>
           <p>
             Explore

@@ -65,7 +65,14 @@ const MyBooks = () => {
                     className="relative min-w-[350px] flex justify-center">
                     <button
                       className="absolute top-0 right-3 text-white rounded-full p-2 transition-transform transform hover:scale-125"
-                      onClick={() => handleDeleteClick(book)}>
+                      onClick={() => handleDeleteClick(book)}
+                      aria-label="Delete Book"
+                      role="button"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          handleDeleteClick(book);
+                        }
+                      }}>
                       <DeleteForeverIcon
                         fontSize="small"
                         className="text-foreground"
@@ -73,7 +80,14 @@ const MyBooks = () => {
                     </button>
                     <button
                       className="absolute bottom-6 right-3 text-white rounded-full p-2 transition-transform transform hover:scale-125"
-                      onClick={() => handleEditClick(book)}>
+                      onClick={() => handleEditClick(book)}
+                      aria-label="Edit Book"
+                      role="button"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          handleEditClick(book);
+                        }
+                      }}>
                       <CreateIcon
                         fontSize="small"
                         className="text-foreground"
@@ -108,12 +122,28 @@ const MyBooks = () => {
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button color="primary" onClick={handleClose}>
+                <Button
+                  color="primary"
+                  onClick={handleClose}
+                  aria-label="Handle Close"
+                  role="button"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      handleClose();
+                    }
+                  }}>
                   Cancel
                 </Button>
                 <Button
                   color="error"
                   onClick={() => deleteBookConfirm(deleteBook)}
+                  aria-label="Conform if Delete Book"
+                  role="button"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      deleteBookConfirm(deleteBook);
+                    }
+                  }}
                   disabled={deleteBook == null}>
                   Delete
                 </Button>

@@ -4,13 +4,11 @@ import {
   deleteFavourite,
   getFavourites,
 } from "../../../api/mongodb/api";
-import { setIsLoading } from "../currentState/currentStateSlice";
 import { showAlert } from "../alert/alertSlice";
 
 export const addFavouriteAsync = createAsyncThunk(
   "addFavourite",
   async (data, { rejectWithValue, dispatch }) => {
-    dispatch(setIsLoading(true));
     try {
       const response = await addFavourite({ ...data });
       if (response) dispatch(getFavouritesAsync(data.user));
@@ -31,8 +29,6 @@ export const addFavouriteAsync = createAsyncThunk(
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
-    } finally {
-      dispatch(setIsLoading(false));
     }
   }
 );
@@ -40,7 +36,6 @@ export const addFavouriteAsync = createAsyncThunk(
 export const deleteFavouriteAsync = createAsyncThunk(
   "deleteFavourite",
   async (data, { rejectWithValue, dispatch }) => {
-    dispatch(setIsLoading(true));
     try {
       const response = await deleteFavourite(data.book_id);
       if (response) dispatch(getFavouritesAsync(data.user));
@@ -61,16 +56,13 @@ export const deleteFavouriteAsync = createAsyncThunk(
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
-    } finally {
-      dispatch(setIsLoading(false));
     }
   }
 );
 
 export const getFavouritesAsync = createAsyncThunk(
   "getFavourites",
-  async (userId, { rejectWithValue, dispatch }) => {
-    dispatch(setIsLoading(true));
+  async (userId, { rejectWithValue }) => {
     try {
       const response = await getFavourites({ userId });
       return response.favourites || [];
@@ -78,8 +70,6 @@ export const getFavouritesAsync = createAsyncThunk(
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
-    } finally {
-      dispatch(setIsLoading(false));
     }
   }
 );
@@ -91,6 +81,12 @@ export const favouritesSlice = createSlice({
     setFavouritesEmpty: (state) => {
       state.favourites = [];
     },
+    addFavouriteFast: (state, action) => {
+      state.favourites.push(action.payload);
+    },
+    removeFavouriteFast: (state, action) => {
+      state.favourites = state.favourites.filter((book) => book.book_id !== action.payload)
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -105,6 +101,6 @@ export const favouritesSlice = createSlice({
   },
 });
 
-export const { setFavouritesEmpty } = favouritesSlice.actions;
+export const { setFavouritesEmpty, addFavouriteFast, removeFavouriteFast } = favouritesSlice.actions;
 
 export default favouritesSlice.reducer;

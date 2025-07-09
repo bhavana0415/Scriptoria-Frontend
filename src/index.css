@@ -8,19 +8,19 @@ body {
 
 @layer base {
   :root {
-    --background: #9ae6fb;
-    --foreground: #092635;
-    --customColorTwo: #95D2B3;
-    --customColorThree: #D8EFD3;
+    --background: #bef1ff;
+    --foreground: #07212e;
+    --customColorTwo: #95d2b3;
+    --customColorThree: #d8efd3;
     --customColorFour: #007e81;
   }
 
   .dark {
-    --background: #092635;
-    --foreground: #9ae6fb;
-    --customColorTwo: #1B4242;
-    --customColorThree: #5C8374;
-    --customColorFour: #9EC8B9;
+    --background: #07212e;
+    --foreground: #bef1ff;
+    --customColorTwo: #1b4242;
+    --customColorThree: #5c8374;
+    --customColorFour: #9ec8b9;
   }
 }
 
@@ -70,6 +70,7 @@ body {
   }
 
   .hover\\:shadow-lg:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 }
