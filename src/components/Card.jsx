@@ -10,9 +10,14 @@ import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   addFavouriteAsync,
+  addFavouriteFast,
   deleteFavouriteAsync,
+  removeFavouriteFast,
 } from "../store/Features/favourites/favouritesSlice";
-import { addRecentAsync } from "../store/Features/recentlyViewed/recentlyViewedSlice";
+import {
+  addRecentAsync,
+  addRecentFast,
+} from "../store/Features/recentlyViewed/recentlyViewedSlice";
 
 const Card = ({ book, type }) => {
   if (type == "mongo") {
@@ -79,6 +84,7 @@ const Card = ({ book, type }) => {
         url: book.url,
         user: user.userId,
       };
+      dispatch(addRecentFast(data));
       dispatch(addRecentAsync({ ...data }));
     }
   };
@@ -102,6 +108,7 @@ const Card = ({ book, type }) => {
       url: book.url,
       user: user.userId,
     };
+    dispatch(addFavouriteFast(data));
     dispatch(addFavouriteAsync({ ...data }));
   };
 
@@ -112,6 +119,7 @@ const Card = ({ book, type }) => {
       book_id: remBook._id,
       user: user.userId,
     };
+    dispatch(removeFavouriteFast(remBook.book_id));
     dispatch(deleteFavouriteAsync({ ...data }));
   };
 
@@ -125,8 +133,14 @@ const Card = ({ book, type }) => {
     <>
       <IconButton
         size="small"
-        aria-label="close"
+        aria-label="Open Notification"
         color="inherit"
+        role="button"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            setNotificatioOpen(false);
+          }
+        }}
         onClick={() => setNotificatioOpen(false)}>
         <CloseIcon fontSize="small" />
       </IconButton>
@@ -138,7 +152,15 @@ const Card = ({ book, type }) => {
       key={book.id}
       className="justify-center items-center shadow-sm shadow-cyan-500 p-4 rounded-lg h-full max-w-[350px]">
       <div className={`relative rounded-xl flex flex-col h-full`}>
-        <button onClick={handleClickOpen}>
+        <button
+          aria-label="open"
+          role="button"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              handleClickOpen();
+            }
+          }}
+          onClick={handleClickOpen}>
           <div className="relative transform transition duration-500 hover:scale-105 flex items-center justify-center overflow-hidden rounded-xl bg-fuchsia-300 h-64">
             <img
               className="object-fill w-full h-full"
@@ -184,12 +206,26 @@ const Card = ({ book, type }) => {
             <FavoriteIcon
               fontSize="small"
               className="absolute cursor-pointer right-0 transition hover:scale-105"
+              aria-label="Remove Favourite"
+              role="button"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  removeFavourite();
+                }
+              }}
               onClick={removeFavourite}
             />
           ) : (
             <FavoriteBorderIcon
               fontSize="small"
               className="absolute cursor-pointer right-0 transition hover:scale-105"
+              aria-label="Add Favourite"
+              role="button"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  addFavourite();
+                }
+              }}
               onClick={addFavourite}
             />
           )}

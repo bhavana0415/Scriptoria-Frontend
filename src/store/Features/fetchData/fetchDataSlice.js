@@ -4,10 +4,8 @@ import { setIsLoading } from "../currentState/currentStateSlice";
 
 export const fetchBooksAsync = createAsyncThunk(
   "fetchBooks",
-  async (searches, { rejectWithValue, dispatch }) => {
-    dispatch(setIsLoading(true));
+  async (searches, { rejectWithValue }) => {
     try {
-      dispatch(setIsLoading(true));
       const promises = searches.map(async (search) => {
         const response = await fetchBooks(
           `search/${search.replace(/ /g, "-")}`
@@ -22,8 +20,6 @@ export const fetchBooksAsync = createAsyncThunk(
         return rejectWithValue(error.message);
       }
       return rejectWithValue("An unknown error occurred");
-    } finally {
-      dispatch(setIsLoading(false));
     }
   }
 );

@@ -90,12 +90,19 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
         <div className="w-1/3 md:w-1/6 px-2 fixed">
           {["Chapter", "Heading", "Subheading", "Paragraph", "Image"].map(
             (item) => (
-              <div
+              <button
                 key={item}
-                className="border-2 border-pink-600 rounded-lg m-2 cursor-pointer"
-                onClick={() => handleSelectButton(item)}>
-                <button className="cursor-pointer m-2">Add {item}</button>
-              </div>
+                className="w-full border-2 border-pink-600 rounded-lg m-2 cursor-pointer cursor-pointer p-2"
+                onClick={() => handleSelectButton(item)}
+                aria-label="Select Button"
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    handleSelectButton(item);
+                  }
+                }}>
+                Add {item}
+              </button>
             )
           )}
         </div>
@@ -104,8 +111,8 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
           <div className="w-full flex justify-end">
             <button
               disabled={content.length == 0}
-              className={`bg-pink-500 mr-2 ${
-                content.length == 0 ? "" : "hover:bg-pink-700"
+              className={`bg-pink-900 mr-2 ${
+                content.length == 0 ? "" : "hover:bg-pink-800"
               } text-white font-bold py-2 px-4 rounded-full`}
               onClick={() => setPreviewOpen(true)}>
               Preview
@@ -115,7 +122,7 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
               placement="top">
               <span>
                 <button
-                  className="bg-pink-500 mr-2 text-white font-bold py-2 px-4 rounded-full"
+                  className="bg-pink-900 mr-2 text-white font-bold py-2 px-4 rounded-full"
                   disabled={true}>
                   Publish
                 </button>
@@ -131,7 +138,14 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
                     className="w-[95%] mb-4 p-4 relative border border-cyan-500 rounded-md flex justify-center items-center">
                     <div
                       className="flex justify-end absolute -top-1 -right-6 cursor-pointer"
-                      onClick={() => removeContent(index)}>
+                      onClick={() => removeContent(index)}
+                      aria-label="Remove Content"
+                      role="button"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          removeContent(index);
+                        }
+                      }}>
                       <CancelPresentationIcon />
                     </div>
                     <input
@@ -162,7 +176,15 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
                             className="rounded-lg border border-cyan-500 w-auto"
                           />
                         </div>
-                        <button onClick={() => handleChange(index, "")}>
+                        <button
+                          onClick={() => handleChange(index, "")}
+                          aria-label="Handle Change"
+                          role="button"
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              handleChange(index, "");
+                            }
+                          }}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -186,7 +208,14 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
                   <div key={item} className="w-[95%] mb-4 relative">
                     <div
                       className="flex justify-end absolute -top-1 -right-6 cursor-pointer"
-                      onClick={() => removeContent(index)}>
+                      onClick={() => removeContent(index)}
+                      aria-label="Remove Content"
+                      role="button"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          removeContent(index);
+                        }
+                      }}>
                       <CancelPresentationIcon />
                     </div>
                     <AutoTextarea
@@ -220,7 +249,14 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
             className={`bg-pink-500 mr-6 ${
               content.length == 0 ? "" : "hover:bg-pink-700"
             } text-white font-bold py-2 px-4 rounded-md`}
-            onClick={saveBook}>
+            onClick={saveBook}
+            aria-label="Save Book"
+            role="button"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                saveBook();
+              }
+            }}>
             Save Changes
           </button>
         </div>
