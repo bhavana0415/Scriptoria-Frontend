@@ -22,7 +22,7 @@ export default function Slider() {
 
   const [current, setCurrent] = useState(0);
 
-  const getBGColor = (mode, current) => {
+  const getBGColor = () => {
     let from;
     switch (current) {
       case 0:
@@ -55,13 +55,12 @@ export default function Slider() {
     }
     const style = `
       text-${currentMode != "dark" ? "black" : "white"} bg-gradient-to-r 
-      ${mode == "dark" ? `from-${from}-900` : `from-${from}-100`} 
-      ${mode == "dark" ? `to-${to}-800` : `to-${to}-200`}
-
+      ${currentMode == "dark" ? `from-${from}-900` : `from-${from}-100`} 
+      ${currentMode == "dark" ? `to-${to}-800` : `to-${to}-200`}
       `;
-
     return style;
   };
+
   const previousSlide = () => {
     setCurrent((prev) => {
       if (prev == 0) {
@@ -89,10 +88,7 @@ export default function Slider() {
           </button>
         </div>
         <div
-          className={`overflow-hidden w-[90%] rounded-3xl h-fit ${getBGColor(
-            currentMode,
-            current
-          )}`}>
+          className={`overflow-hidden w-[90%] rounded-3xl h-fit ${getBGColor()}`}>
           <div
             className="flex transition-transform ease-out duration-[1000ms]"
             style={{
