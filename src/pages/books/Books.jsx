@@ -131,7 +131,7 @@ const Books = () => {
                 Array.isArray(checked) &&
                 checked.map((item, index) => (
                   <div key={index}>
-                    <p className="text-md flex p-1 m-1 bg-pink-800 rounded-xl">
+                    <p className="text-md flex p-1 m-2 bg-backgroundReverse text-foregroundReverse rounded-lg">
                       #{item}
                       <DeleteForeverRoundedIcon
                         className="cursor-pointer transition hover:scale-105"
@@ -188,14 +188,13 @@ const Books = () => {
                     borderColor: currentMode === "dark" ? "white" : "black",
                     "&:hover": {
                       backgroundColor:
-                        currentMode === "dark" ? pink[400] : pink[800],
+                        currentMode === "dark" ? pink[800] : pink[200],
                       color: currentMode === "dark" ? "white" : "black",
                     },
                   },
                   "& .Mui-selected": {
-                    backgroundColor:
-                      currentMode === "dark" ? pink[800] : pink[400],
-                    color: currentMode === "dark" ? "white" : "black",
+                    backgroundColor: pink[900],
+                    color: pink[100],
                   },
                 }}
               />

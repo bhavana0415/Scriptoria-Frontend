@@ -18,9 +18,9 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      // dispatch(getFavouritesAsync(user.userId));
-      // dispatch(getRecentsAsync(user.userId));
-      // dispatch(getBooksAsync(user.userId));
+      dispatch(getFavouritesAsync(user.userId));
+      dispatch(getRecentsAsync(user.userId));
+      dispatch(getBooksAsync(user.userId));
       navigate("/");
     }
   }, [user, dispatch, navigate]);
