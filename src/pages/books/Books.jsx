@@ -184,17 +184,17 @@ const Books = () => {
                     justifyContent: "center",
                   },
                   "& .MuiPaginationItem-root": {
-                    color: currentMode === "dark" ? "white" : "black",
-                    borderColor: currentMode === "dark" ? "white" : "black",
+                    color: "white",
+                    borderColor: pink[900],
+                    backgroundColor: pink[900],
                     "&:hover": {
-                      backgroundColor:
-                        currentMode === "dark" ? pink[800] : pink[200],
-                      color: currentMode === "dark" ? "white" : "black",
+                      backgroundColor: pink[100],
+                      color: pink[900],
                     },
                   },
                   "& .Mui-selected": {
-                    backgroundColor: pink[900],
-                    color: pink[100],
+                    backgroundColor: "transparent",
+                    color: currentMode == "dark" ? "white" : "black",
                   },
                 }}
               />

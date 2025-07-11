@@ -85,7 +85,7 @@ export default function Slider() {
       <div className="flex mx-auto flex justify-center items-center h-fit">
         <div className="w-10% h-auto flex justify-center items-center">
           <button onClick={previousSlide} className="focus:outline-none">
-            <ArrowCircleLeftRoundedIcon className="h-20 w-20" />
+            <ArrowCircleLeftRoundedIcon sx={{ fontSize: 40 }} />
           </button>
         </div>
         <div
@@ -235,7 +235,7 @@ export default function Slider() {
         </div>
         <div className="w-10% h-auto flex justify-center items-center">
           <button onClick={nextSlide} className="focus:outline-none">
-            <ArrowCircleRightRoundedIcon />
+            <ArrowCircleRightRoundedIcon sx={{ fontSize: 40 }} />
           </button>
         </div>
       </div>
