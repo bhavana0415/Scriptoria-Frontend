@@ -22,45 +22,6 @@ export default function Slider() {
 
   const [current, setCurrent] = useState(0);
 
-  const getBGColor = () => {
-    let from;
-    switch (current) {
-      case 0:
-        from = "green";
-        break;
-      case 1:
-        from = "pink";
-        break;
-      case 2:
-        from = "cyan";
-        break;
-      case 3:
-        from = "purple";
-        break;
-    }
-    let to;
-    switch (current) {
-      case 0:
-        to = "sky";
-        break;
-      case 1:
-        to = "rose";
-        break;
-      case 2:
-        to = "teal";
-        break;
-      case 3:
-        to = "indigo";
-        break;
-    }
-    const style = `
-      text-${currentMode != "dark" ? "black" : "white"} bg-gradient-to-r 
-      ${currentMode == "dark" ? `from-${from}-900` : `from-${from}-100`} 
-      ${currentMode == "dark" ? `to-${to}-800` : `to-${to}-200`}
-      `;
-    return style;
-  };
-
   const previousSlide = () => {
     setCurrent((prev) => {
       if (prev == 0) {
@@ -87,14 +48,18 @@ export default function Slider() {
             <ArrowCircleLeftRoundedIcon sx={{ fontSize: 40 }} />
           </button>
         </div>
-        <div
-          className={`overflow-hidden w-[90%] rounded-3xl h-fit ${getBGColor()}`}>
+        <div className="overflow-hidden w-[90%] rounded-3xl h-fit">
           <div
             className="flex transition-transform ease-out duration-[1000ms]"
             style={{
               transform: `translateX(-${current * 100}%)`,
             }}>
-            <article className={`min-w-full flex items-center justify-center`}>
+            <article
+              className={`min-w-full bg-gradient-to-r ${
+                currentMode == "dark" ? "from-green-900" : "from-green-100"
+              } ${
+                currentMode == "dark" ? "to-sky-800" : "to-sky-200"
+              } flex items-center justify-center`}>
               <div className="w-full max-w-screen-lg mx-auto p-8 text-foreground">
                 <section className="p-2 flex flex-col md:max-w-5xl shadow-lg rounded-lg">
                   <p className="mb-6 block text-2xl font-medium text-foreground-700 flex">
@@ -141,7 +106,12 @@ export default function Slider() {
                 </section>
               </div>
             </article>
-            <article className={`min-w-full flex items-center justify-center`}>
+            <article
+              className={`min-w-full bg-gradient-to-r ${
+                currentMode == "dark" ? "from-pink-900" : "from-pink-100"
+              } ${
+                currentMode == "dark" ? "to-rose-800" : "to-rose-200"
+              } flex items-center justify-center`}>
               <section className="w-full md:w-3/5 grid gap-1 grid-cols-3 px-4">
                 {images.map((img, ind) => (
                   <Link
@@ -172,7 +142,11 @@ export default function Slider() {
               </section>
             </article>
             <article
-              className={`min-w-full flex flex-col items-center justify-center`}>
+              className={`min-w-full bg-gradient-to-r ${
+                currentMode == "dark" ? "from-cyan-900" : "from-cyan-100"
+              } ${
+                currentMode == "dark" ? "to-teal-800" : "to-teal-200"
+              } flex flex-col items-center justify-center`}>
               <img
                 className="object-cover float-right"
                 src={authorImg}
@@ -188,7 +162,12 @@ export default function Slider() {
                 educational literature
               </blockquote>
             </article>
-            <article className={`min-w-full flex items-center justify-center`}>
+            <article
+              className={`min-w-full bg-gradient-to-r ${
+                currentMode == "dark" ? "from-purple-900" : "from-purple-100"
+              } ${
+                currentMode == "dark" ? "to-indigo-800" : "to-indigo-200"
+              } flex items-center justify-center`}>
               <section className="max-w-fit">
                 <article className="flex space-x-2 items-center w-fit">
                   <div className="w-16 h-16 p-2 m-2 flex justify-center items-center bg-indigo-300 rounded-full">
@@ -242,7 +221,7 @@ export default function Slider() {
               key={"circle" + index}
               onClick={() => setCurrent(index)}
               className={`cursor-pointer text-foreground ${
-                index === current ? "italic text-lg" : ""
+                index === current ? "italic font-bold text-lg" : ""
               }`}>
               {slide}
             </button>
