@@ -6,7 +6,6 @@ import { getFavouritesAsync } from "../../store/Features/favourites/favouritesSl
 import { getRecentsAsync } from "../../store/Features/recentlyViewed/recentlyViewedSlice";
 import { getBooksAsync } from "../../store/Features/writeContent/writeContentSlice";
 import Loader from "../../components/Loader";
-import { Input, InputLabel } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
@@ -38,67 +37,75 @@ const Login = () => {
       <form
         onSubmit={handleSubmit}
         className="max-w-sm mx-auto p-6 bg-white rounded-lg shadow-md">
-        <div className="input-container mb-4">
-          <InputLabel
-            className="block text-gray-700 font-medium mb-2"
-            htmlFor="email">
-            Email
-          </InputLabel>
-          <Input
-            type="text"
-            name="email"
-            id="email"
+        <label
+          className="block text-stone-800 font-medium mb-2"
+          htmlFor="email">
+          Email
+        </label>
+        <input
+          type="text"
+          name="email"
+          id="email"
+          required
+          className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+        />
+        <label
+          className="block text-stone-800 font-medium mb-2"
+          htmlFor="password">
+          Password
+        </label>
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="pass"
+            id="password"
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+            className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
           />
+          <button className="absolute right-2 top-2 text-cyan-800">
+            {showPassword ? (
+              <VisibilityOffIcon
+                fontSize="small"
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label="Hide Password"
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setShowPassword((prev) => !prev);
+                  }
+                }}
+              />
+            ) : (
+              <VisibilityIcon
+                fontSize="small"
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label="Show Password"
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setShowPassword((prev) => !prev);
+                  }
+                }}
+              />
+            )}
+          </button>
         </div>
+        <button
+          type="submit"
+          value="Login"
+          className="w-full px-4 py-2 bg-cyan-900 text-cyan-100 rounded-md hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-1">
+          Login
+        </button>
 
-        <div className="input-container mb-4">
-          <InputLabel
-            className="block text-gray-700 font-medium mb-2"
-            htmlFor="password">
-            Password
-          </InputLabel>
-          <div className="relative">
-            <Input
-              type={showPassword ? "text" : "password"}
-              name="pass"
-              id="password"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
-            />
-            <div className="absolute right-2 top-2">
-              {showPassword ? (
-                <VisibilityOffIcon
-                  fontSize="small"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                />
-              ) : (
-                <VisibilityIcon
-                  fontSize="small"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div className="button-container mt-6">
-          <Input
-            type="submit"
-            value="Login"
-            className="w-full px-4 py-2 text-white bg-cyan-500 rounded-md hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-1"
-          />
-        </div>
-
-        <div className="signup-container mt-4 text-center">
-          <p className="text-gray-600">
-            Don't have an account?{" "}
-            <a href="/signup" className="text-cyan-500 hover:underline">
-              Sign up
-            </a>
-          </p>
-        </div>
+        <p className="text-gray-900 mt-6 font-thin">
+          Don&apos;t have an account?{" "}
+          <a
+            aria-label="Navigate to sign up"
+            href="/signup"
+            className="text-cyan-900 underline">
+            Sign up
+          </a>
+        </p>
       </form>
       <Loader isLoading={isLoading} />
     </div>

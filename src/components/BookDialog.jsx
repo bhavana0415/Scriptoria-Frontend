@@ -22,6 +22,13 @@ const BookDialog = ({ open, handleClose, book }) => {
         <CancelPresentationIcon
           className="absolute right-4 cursor-pointer"
           onClick={handleClose}
+          aria-label="Close Presentation"
+          role="button"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              handleClose();
+            }
+          }}
         />
       </DialogTitle>
       <DialogContent
@@ -29,7 +36,7 @@ const BookDialog = ({ open, handleClose, book }) => {
         sx={{ backgroundColor: teal[100], color: teal[900] }}>
         <div className="flex relative">
           <div className="md:w-1/3 px-2">
-            <img src={book.image} alt="" />
+            <img src={book.image} alt="Book image" />
           </div>
           <div className="md:w-2/3 px-2">
             <Typography

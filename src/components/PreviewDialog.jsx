@@ -178,7 +178,7 @@ const PreviewDialog = ({
                       key={index}
                       className={`flex ${
                         item.type === "Chapter" ? "justify-center" : ""
-                      } items-center`}>
+                      } items-center text-black`}>
                       <ContextTypography
                         item={item}
                         content={content}
@@ -213,6 +213,13 @@ const PreviewDialog = ({
                   backgroundColor: blueGrey[200],
                   color: blueGrey[900],
                   "&:hover": { backgroundColor: blueGrey[300] },
+                }}
+                aria-label="Handle form"
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    bookDetails ? handleSave() : handleFormOpen();
+                  }
                 }}
                 onClick={bookDetails ? handleSave : handleFormOpen}>
                 Save
@@ -265,6 +272,13 @@ const PreviewDialog = ({
             {image === "" && (
               <label
                 onClick={handleLabelClick}
+                aria-label="Chose cover"
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    handleLabelClick();
+                  }
+                }}
                 className="custom-file-input-label w-36 h-8 border border-cyan-500 rounded-md flex items-center justify-center cursor-pointer"
                 htmlFor="customFile">
                 Choose cover
@@ -281,6 +295,13 @@ const PreviewDialog = ({
                 </div>
                 <button
                   onClick={() => setImage("")}
+                  aria-label="Set Image Empty"
+                  role="button"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      setImage("");
+                    }
+                  }}
                   className="absolute top-0 right-0">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -315,6 +336,13 @@ const PreviewDialog = ({
               backgroundColor: blueGrey[200],
               color: blueGrey[900],
               "&:hover": { backgroundColor: blueGrey[300] },
+            }}
+            aria-label="Handle Save"
+            role="button"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                handleSave();
+              }
             }}
             onClick={handleSave}>
             Save
@@ -367,7 +395,9 @@ const ContextTypography = ({ item, content, index }) => {
       </Typography>
     );
   } else if (item.type === "Image") {
-    return <img className="w-[50%] h-auto" src={item.text} alt="" />;
+    return (
+      <img className="w-[50%] h-auto" src={item.text} alt="out book image" />
+    );
   } else {
     return (
       <Typography sx={{ marginTop: "4px", paddingY: "2px" }} variant="body1">

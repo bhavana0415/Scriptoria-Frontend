@@ -16,6 +16,13 @@ const MyCard = ({ bookDetails, bookContent, setEditingBook }) => {
               className="object-fill w-full h-full"
               src={bookDetails.image}
               alt="Book Cover"
+              aria-label="Open Preview"
+              role="button"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  setPreviewOpen(true);
+                }
+              }}
               onClick={() => setPreviewOpen(true)}
             />
           </div>

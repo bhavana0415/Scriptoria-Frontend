@@ -41,12 +41,6 @@ export const loginAsync = createAsyncThunk(
     dispatch(setIsLoading(true));
     try {
       const response = await login({ email, password });
-      dispatch(
-        showAlert({
-          severity: "success",
-          message: "Login successful!!!",
-        })
-      );
       return response;
     } catch (error) {
       dispatch(

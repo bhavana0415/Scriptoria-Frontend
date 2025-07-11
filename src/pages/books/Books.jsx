@@ -75,7 +75,7 @@ const Books = () => {
 
   return (
     <div>
-      <div className="w-full h-20 bg-background-500 flex"></div>
+      <div className="w-full h-20 bg-background flex"></div>
       <BooksSidebar data={data} checked={checked} setChecked={setChecked}>
         <div className="flex w-full min-h-screen mt-2">
           <div className="px-2"></div>
@@ -85,8 +85,10 @@ const Books = () => {
                 <InputLabel
                   id="demo-select-small-label"
                   sx={{
-                    color: pink[500],
-                    "&.Mui-focused": { color: pink[500] },
+                    color: pink[currentMode == "dark" ? 100 : 900],
+                    "&.Mui-focused": {
+                      color: pink[currentMode == "dark" ? 100 : 900],
+                    },
                   }}>
                   Filter By
                 </InputLabel>
@@ -98,12 +100,13 @@ const Books = () => {
                   onChange={(e) => setFilter(e.target.value)}
                   MenuProps={MenuProps}
                   sx={{
-                    color: pink[500],
+                    color: pink[currentMode == "dark" ? 100 : 900],
+                    backgroundColor: "transparent",
                     "& .MuiOutlinedInput-notchedOutline": {
-                      borderColor: pink[500],
+                      borderColor: pink[currentMode == "dark" ? 100 : 900],
                     },
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      borderColor: pink[500],
+                      borderColor: pink[currentMode == "dark" ? 100 : 900],
                     },
                   }}>
                   <MenuItem value={""}></MenuItem>
@@ -112,14 +115,14 @@ const Books = () => {
                 </Select>
               </FormControl>
               <div className="relative w-full flex items-center px-2">
-                <SearchRoundedIcon className="absolute left-4 text-foregroundReverse" />
+                <SearchRoundedIcon className="absolute left-4 text-white" />
                 <input
                   type="text"
                   placeholder={`Search by ${filter} ...`}
                   value={filterValue}
                   disabled={filter == ""}
                   onChange={(e) => setFilterValue(e.target.value)}
-                  className="h-full w-full pl-12 pr-4 rounded-lg focus:outline-none bg-pink-600 text-foregroundReverse"
+                  className="h-full w-full pl-12 pr-4 rounded-lg focus:outline-none bg-pink-900 text-white"
                 />
               </div>
             </div>
@@ -128,11 +131,18 @@ const Books = () => {
                 Array.isArray(checked) &&
                 checked.map((item, index) => (
                   <div key={index}>
-                    <p className="text-md flex p-1 m-1 bg-pink-600 rounded-xl">
+                    <p className="text-md flex p-1 m-1 bg-pink-800 rounded-xl">
                       #{item}
                       <DeleteForeverRoundedIcon
                         className="cursor-pointer transition hover:scale-105"
                         onClick={() => handleCheck(item)}
+                        aria-label="Handle Check"
+                        role="button"
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            handleCheck(item);
+                          }
+                        }}
                       />
                     </p>
                   </div>

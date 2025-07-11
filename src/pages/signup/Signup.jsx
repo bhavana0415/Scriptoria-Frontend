@@ -39,88 +39,83 @@ const Signup = () => {
       <form
         onSubmit={handleSubmit}
         className="max-w-sm mx-auto p-6 bg-white rounded-lg shadow-md">
-        <div className="input-container mb-4">
-          <label
-            className="block text-gray-700 font-medium mb-2"
-            htmlFor="name">
-            Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
-          />
+        <label className="block text-stone-800 font-medium mb-2" htmlFor="name">
+          Name
+        </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          required
+          className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+        />
+        <label
+          className="block text-stone-800 font-medium mb-2"
+          htmlFor="email">
+          Email
+        </label>
+        <input
+          type="text"
+          name="email"
+          id="email"
+          required
+          className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+        />
+        <label
+          className="block text-stone-800 font-medium mb-2"
+          htmlFor="password">
+          Password
+        </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          required
+          className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+        />
+
+        <label className="block text-stone-800 font-medium mb-2">
+          Choose an Avatar
+        </label>
+        <div className="grid grid-cols-4 gap-4 mb-4">
+          {avatars.map((avatar, index) => (
+            <img
+              key={index}
+              src={avatar}
+              alt={`Avatar ${index + 1}`}
+              onClick={() => setSelectedAvatar(avatar)}
+              className={`w-16 h-16 cursor-pointer border-2 rounded-full ${
+                selectedAvatar === avatar
+                  ? "border-cyan-500"
+                  : "border-transparent"
+              }`}
+              aria-label="Select Avatar"
+              role="button"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  setSelectedAvatar(avatar);
+                }
+              }}
+            />
+          ))}
         </div>
 
-        <div className="input-container mb-4">
-          <label
-            className="block text-gray-700 font-medium mb-2"
-            htmlFor="email">
-            Email
-          </label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
-          />
-        </div>
+        <button
+          type="submit"
+          value="Sign Up"
+          className="w-full px-4 py-2 bg-cyan-900 text-cyan-100 rounded-md hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-1">
+          Sign Up
+        </button>
 
-        <div className="input-container mb-4">
-          <label
-            className="block text-gray-700 font-medium mb-2"
-            htmlFor="password">
-            Password
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
-          />
-        </div>
-
-        <div className="avatar-selection mb-6">
-          <label className="block text-gray-700 font-medium mb-2">
-            Choose an Avatar
-          </label>
-          <div className="grid grid-cols-4 gap-4">
-            {avatars.map((avatar, index) => (
-              <img
-                key={index}
-                src={avatar}
-                alt={`Avatar ${index + 1}`}
-                onClick={() => setSelectedAvatar(avatar)}
-                className={`w-16 h-16 cursor-pointer border-2 rounded-md ${
-                  selectedAvatar === avatar
-                    ? "border-cyan-500"
-                    : "border-transparent"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="button-container mt-6">
-          <input
-            type="submit"
-            value="Sign Up"
-            className="w-full px-4 py-2 text-white bg-cyan-500 rounded-md hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-1"
-          />
-        </div>
-
-        <div className="signup-container mt-4 text-center">
-          <p className="text-gray-600">
-            Already have an account?{" "}
-            <a href="/login" className="text-cyan-500 hover:underline">
-              Login
-            </a>
-          </p>
-        </div>
+        <p className="text-gray-900 mt-6 font-thin text-center">
+          Already have an account?{" "}
+          <a
+            aria-label="Navigate to login"
+            href="/login"
+            className="text-cyan-900 underline">
+            Login
+          </a>
+        </p>
       </form>
       <Loader isLoading={isLoading} />
     </div>

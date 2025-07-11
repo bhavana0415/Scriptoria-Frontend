@@ -5,7 +5,6 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import {
   setCheckedItems,
   setCurrentMode,
@@ -28,7 +27,6 @@ function Navbar() {
   const isLoading = useSelector((state) => state.currentState.isLoading);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [searchValue, setSearchValue] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
@@ -51,7 +49,7 @@ function Navbar() {
     dispatch(setCheckedItems([searchValue]));
     dispatch(fetchBooksAsync([searchValue]));
     setSearchValue("");
-    navigate("/books");
+    window.location.href = "/books";
   };
 
   const logout = () => {
@@ -69,6 +67,7 @@ function Navbar() {
       <header className="w-full h-fit text-slate-700 fixed top-0 z-50 flex flex-col lg:flex-row shadow-b bg-background border-b-2 border-slate-500">
         <a
           href="/"
+          aria-label="Navigate to landing page"
           className="flex items-center whitespace-nowrap text-2xl font-black justify-center m-4">
           <p className="font-customFont italic text-foreground">
             SCRIPTORIA&nbsp;&nbsp;
@@ -79,7 +78,7 @@ function Navbar() {
           className="absolute top-4 right-4 cursor-pointer lg:hidden"
           htmlFor="navbar-open">
           <svg
-            className="h-7 w-7"
+            className="h-7 w-7 text-foreground"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -154,6 +153,13 @@ function Navbar() {
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
+                aria-label="Handle click"
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    handleClick();
+                  }
+                }}
               />
               <Menu
                 id="basic-menu"
@@ -176,6 +182,13 @@ function Navbar() {
                 }}>
                 <MenuItem
                   onClick={logout}
+                  aria-label="Logout"
+                  role="button"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      logout();
+                    }
+                  }}
                   sx={{
                     padding: "2px",
                     color: "red",
@@ -200,7 +213,15 @@ function Navbar() {
               <AutoAwesomeIcon className="text-foregroundReverse" />
             </a>
           </div> */}
-          <button onClick={changeMode}>
+          <button
+            onClick={changeMode}
+            aria-label="Change mode"
+            role="button"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                changeMode();
+              }
+            }}>
             {currentMode ? (
               <LightModeIcon className="text-foreground mx-2" />
             ) : (
@@ -215,22 +236,34 @@ function Navbar() {
           <img
             className="h-full object-contain rounded-full"
             src={logoImg}
-            alt=""
+            alt="logo image"
           />
         </div>
         <nav
           aria-label="Footer Navigation"
           className="mx-auto mb-0 flex max-w-lg flex-col gap-2 sm:gap-10 text-center sm:flex-row sm:text-left">
-          <a href="/" className="font-medium text-white">
+          <a
+            aria-label="Navigate to home page"
+            href="/"
+            className="font-medium text-white">
             Home
           </a>
-          <a href="#" className="font-medium text-white">
+          <a
+            aria-label="Navigate to support page"
+            href="#"
+            className="font-medium text-white">
             Support
           </a>
-          <a href="#" className="font-medium text-white">
+          <a
+            aria-label="Navigate to privacy page"
+            href="#"
+            className="font-medium text-white">
             Privacy Policy
           </a>
-          <a href="#" className="font-medium text-white">
+          <a
+            aria-label="Navigate to terms and conditions page"
+            href="#"
+            className="font-medium text-white">
             Terms & Conditions
           </a>
         </nav>
