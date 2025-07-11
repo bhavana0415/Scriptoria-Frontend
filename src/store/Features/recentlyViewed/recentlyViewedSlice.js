@@ -47,7 +47,7 @@ export const getRecentsAsync = createAsyncThunk(
 
 export const recentlyViewedSlice = createSlice({
   name: "recentlyViewed",
-  initialState: { recentlyViewed: [] },
+  initialState: { recentlyViewed: null },
   reducers: {
     setRecentlyViewedEmpty: (state) => {
       state.recentlyViewed = [];

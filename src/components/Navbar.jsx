@@ -14,7 +14,7 @@ import { fetchBooksAsync } from "../store/Features/fetchData/fetchDataSlice";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import logoImg from "/logo.png";
+import logoImg from "/logo.webp";
 const pages = ["Books", "My Books", "Favourites"];
 import Avatar from "@mui/material/Avatar";
 import { logoutAsync } from "../store/Features/auth/authSlice";

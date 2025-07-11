@@ -1,7 +1,8 @@
-import React from "react";
 import Card from "./Card";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getFavouritesAsync } from "../store/Features/favourites/favouritesSlice";
+import { useEffect } from "react";
 
 const recentBooks = [
   {
@@ -230,9 +231,19 @@ const editorPics = [
 ];
 
 const EditorPicks = () => {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.auth.user);
   const recentlyViewed = useSelector(
     (state) => state.recentlyViewed.recentlyViewed
   );
+
+  useEffect(() => {
+    if (recentlyViewed == null && user?.userId) {
+      dispatch(getFavouritesAsync(user.userId));
+    }
+  }, [recentlyViewed, user, dispatch]);
+
   return (
     <>
       <section className="bg-gray-700 py-10 leading-6 text-gray-100 sm:py-16 lg:py-24">
@@ -344,7 +355,7 @@ const EditorPicks = () => {
         </div>
       </section>
       {recentlyViewed && recentlyViewed.length > 0 && (
-        <section className="bg-background text-foreground py-1 leading-6">
+        <section className="bg-background text-foreground py-1 leading-6 overflow-x-hidden">
           <div className="flex justify-between m-4">
             <h2 className="text-2xl font-serif mx-4">Recently Viewed</h2>
           </div>

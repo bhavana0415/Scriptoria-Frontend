@@ -131,7 +131,7 @@ const Books = () => {
                 Array.isArray(checked) &&
                 checked.map((item, index) => (
                   <div key={index}>
-                    <p className="text-md flex p-1 m-1 bg-pink-800 rounded-xl">
+                    <p className="text-md flex p-1 m-2 bg-backgroundReverse text-foregroundReverse rounded-lg">
                       #{item}
                       <DeleteForeverRoundedIcon
                         className="cursor-pointer transition hover:scale-105"
@@ -184,18 +184,17 @@ const Books = () => {
                     justifyContent: "center",
                   },
                   "& .MuiPaginationItem-root": {
-                    color: currentMode === "dark" ? "white" : "black",
-                    borderColor: currentMode === "dark" ? "white" : "black",
+                    color: "white",
+                    borderColor: pink[900],
+                    backgroundColor: pink[900],
                     "&:hover": {
-                      backgroundColor:
-                        currentMode === "dark" ? pink[400] : pink[800],
-                      color: currentMode === "dark" ? "white" : "black",
+                      backgroundColor: pink[100],
+                      color: pink[900],
                     },
                   },
                   "& .Mui-selected": {
-                    backgroundColor:
-                      currentMode === "dark" ? pink[800] : pink[400],
-                    color: currentMode === "dark" ? "white" : "black",
+                    backgroundColor: "transparent",
+                    color: currentMode == "dark" ? "white" : "black",
                   },
                 }}
               />
