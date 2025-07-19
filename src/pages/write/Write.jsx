@@ -24,6 +24,15 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
     setContent(newContent);
   };
 
+  const handleTypeChange = (index, type) => {
+    let newContent = [...content];
+    newContent[index] = {
+      ...newContent[index],
+      type,
+    };
+    setContent(newContent);
+  };
+
   const handleSelectButton = (type) => {
     let newContent = [...content];
     newContent.push({ type: type, text: "" });
@@ -87,12 +96,12 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
     <div>
       <div className="w-full h-20 bg-background-500"></div>
       <div className="flex flex-row">
-        <div className="w-1/3 md:w-1/6 px-2 fixed">
+        <div className="w-1/4 md:w-1/6 px-2 fixed">
           {["Chapter", "Heading", "Subheading", "Paragraph", "Image"].map(
             (item) => (
               <button
                 key={item}
-                className="w-full border-2 border-pink-600 rounded-lg m-2 cursor-pointer cursor-pointer p-2"
+                className="w-full overflow-hidden text-ellipsis border-2 border-pink-600 rounded-lg m-2 cursor-pointer cursor-pointer p-2"
                 onClick={() => handleSelectButton(item)}
                 aria-label="Select Button"
                 role="button"
@@ -106,8 +115,8 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
             )
           )}
         </div>
-        <div className="w-1/3 md:w-1/6 px-2 "></div>
-        <div className="w-2/3 md:w-5/6 m-2 min-h-screen">
+        <div className="w-1/4 md:w-1/6 px-2 "></div>
+        <div className="w-3/4 md:w-5/6 m-2 min-h-screen">
           <div className="w-full flex justify-end">
             <button
               disabled={content.length == 0}
@@ -134,7 +143,7 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
               if (item.type === "Image") {
                 return (
                   <div
-                    key={item}
+                    key={item.type + index}
                     className="w-[95%] mb-4 p-4 relative border border-cyan-500 rounded-md flex justify-center items-center">
                     <div
                       className="flex justify-end absolute -top-1 -right-6 cursor-pointer"
@@ -205,7 +214,9 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
                 );
               } else {
                 return (
-                  <div key={item} className="w-[95%] mb-4 relative">
+                  <div
+                    key={item.type + index}
+                    className="w-[95%] mb-4 relative">
                     <div
                       className="flex justify-end absolute -top-1 -right-6 cursor-pointer"
                       onClick={() => removeContent(index)}
@@ -222,6 +233,7 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
                       item={item}
                       ind={index}
                       handleChange={handleChange}
+                      changeType={handleTypeChange}
                       className="overflow-scroll"
                     />
                   </div>
