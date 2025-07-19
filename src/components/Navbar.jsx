@@ -1,5 +1,5 @@
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { Outlet } from "react-router-dom";
@@ -32,16 +32,8 @@ function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  useEffect(() => {
-    if (currentMode == "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [currentMode]);
-
   const changeMode = () => {
-    dispatch(setCurrentMode(currentMode == "dark" ? "light" : "dark"));
+    dispatch(setCurrentMode());
   };
 
   const handleClickEnter = (e) => {
@@ -92,7 +84,7 @@ function Navbar() {
         </label>
         <nav
           aria-label="Header Navigation"
-          className="py-0 peer-checked:max-h-fit flex max-h-0 w-full flex-col items-center overflow-hidden transition duration-500 lg:ml-24 lg:max-h-full lg:flex-row justify-center bg-background">
+          className="py-0 peer-checked:max-h-fit flex max-h-0 w-full flex-col items-center overflow-hidden transition duration-500 lg:ml-24 lg:max-h-full lg:flex-row justify-center">
           <ul className="flex w-full items-center m-2 flex-row justify-center">
             {pages.map((item, index) => (
               <li key={index} className="mx-2">

@@ -1,11 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const isBrowser = () => typeof window !== "undefined";
+
+const getInitialMode = () => {
+  if (isBrowser()) {
+    return (localStorage.getItem("theme") || "light")
+  }
+  return "light";
+};
+
 export const currentStateSlice = createSlice({
   name: 'currentState',
-  initialState: { currentMode: 'dark', currentHeader: 'Home', isLoading: false, checkedItems: [] },
+  initialState: { currentMode: getInitialMode(), currentHeader: 'Home', isLoading: false, checkedItems: [] },
   reducers: {
-    setCurrentMode: (state, action) => {
-      state.currentMode = action.payload;
+    setCurrentMode: (state) => {
+      const theme = state.currentMode === 'dark' ? 'light' : 'dark'
+      state.currentMode = theme;
+      if (isBrowser()) {
+        localStorage.setItem("theme", theme);
+      }
     },
     setCurrentHeader: (state, action) => {
       state.currentHeader = action.payload;

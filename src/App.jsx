@@ -10,6 +10,7 @@ import { logoutAsync } from "./store/Features/auth/authSlice";
 import Loader from "./components/Loader";
 import { showAlert } from "./store/Features/alert/alertSlice";
 import AlertBox from "./components/Alert";
+import ThemeInitializer from "./lib/ThemeInitializer";
 
 const Home = React.lazy(() => import("./pages/home/Home"));
 const Navbar = React.lazy(() => import("./components/Navbar"));
@@ -19,8 +20,6 @@ const Write = React.lazy(() => import("./pages/write/Write"));
 const Login = React.lazy(() => import("./pages/login/Login"));
 const Signup = React.lazy(() => import("./pages/signup/Signup"));
 const MyBooks = React.lazy(() => import("./pages/myBooks/MyBooks"));
-
-let logoutTimer;
 
 // eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ element }) => {
@@ -121,6 +120,7 @@ function App() {
   return (
     <Provider store={store}>
       <AlertBox />
+      <ThemeInitializer />
       <RouterProvider router={router} />
     </Provider>
   );
