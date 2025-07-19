@@ -158,11 +158,20 @@ function Navbar() {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
+                disableScrollLock
                 MenuListProps={{
                   "aria-labelledby": "basic-button",
                 }}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
                 sx={{
-                  padding: "0",
+                  padding: 0,
                   "& .MuiPaper-root": {
                     borderRadius: 2,
                     padding: 0,
@@ -182,8 +191,10 @@ function Navbar() {
                     }
                   }}
                   sx={{
-                    padding: "2px",
+                    // padding: "0",
+                    padding: "0.5rem",
                     color: "red",
+                    backgroundColor: "white",
                     "&:hover": {
                       backgroundColor: "#ffebee",
                     },
