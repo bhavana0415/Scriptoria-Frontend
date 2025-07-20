@@ -136,7 +136,7 @@ const Books = () => {
                   <p
                     key={index}
                     className="text-md flex p-1 bg-backgroundReverse text-foregroundReverse rounded-lg">
-                    #{item}
+                    {item}
                     <DeleteForeverRoundedIcon
                       className="cursor-pointer transition hover:scale-105"
                       onClick={() => handleCheck(item)}

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,6 @@ import {
   addBookAsync,
   updateBookAsync,
 } from "../store/Features/writeContent/writeContentSlice";
-import { setIsLoading } from "../store/Features/currentState/currentStateSlice";
 import { showAlert } from "../store/Features/alert/alertSlice";
 
 const PreviewDialog = ({
@@ -36,6 +35,7 @@ const PreviewDialog = ({
   const navigate = useNavigate();
   const [formOpen, setFormOpen] = useState(false);
   const [image, setImage] = useState("");
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [myBookDetails, setBookDetails] = useState(
     bookDetails
       ? bookDetails
@@ -58,10 +58,12 @@ const PreviewDialog = ({
   const handleSave = () => {
     const { bookName, image, description } = myBookDetails;
     if (!bookName || !image || !description) {
-      showAlert({
-        severity: "error",
-        message: `Please fill all fields!`,
-      });
+      dispatch(
+        showAlert({
+          severity: "error",
+          message: `Please fill all fields!`,
+        })
+      );
       return;
     }
     if (!book_id) {
@@ -96,7 +98,7 @@ const PreviewDialog = ({
     }
   };
 
-  const convertImage = async (file) => {
+  const convertImage = useCallback(async (file) => {
     if (!file) return;
 
     const data = new FormData();
@@ -106,7 +108,7 @@ const PreviewDialog = ({
 
     const url = "https://api.cloudinary.com/v1_1/dpmtu5hlx/image/upload";
     try {
-      dispatch(setIsLoading(true));
+      setUploadingImage(true);
       const res = await fetch(url, {
         method: "POST",
         body: data,
@@ -121,9 +123,9 @@ const PreviewDialog = ({
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
-      dispatch(setIsLoading(false));
+      setUploadingImage(false);
     }
-  };
+  }, []);
 
   function downloadBook() {
     let jsPdf = new jsPDF("p", "pt", "letter");
@@ -170,7 +172,7 @@ const PreviewDialog = ({
     return () => {
       window.removeEventListener("paste", handlePaste);
     };
-  }, []);
+  }, [convertImage]);
 
   return (
     <>
@@ -294,7 +296,7 @@ const PreviewDialog = ({
                 display: "none",
               }}
             />
-            {image === "" && (
+            {image === "" && !uploadingImage && (
               <>
                 <label
                   onClick={handleLabelClick}
@@ -318,7 +320,7 @@ const PreviewDialog = ({
                 />
               </>
             )}
-            {image !== "" && (
+            {image !== "" && !uploadingImage && (
               <div className="relative w-fit">
                 <div style={{ display: "inline-block" }}>
                   <img
@@ -351,6 +353,12 @@ const PreviewDialog = ({
                     />
                   </svg>
                 </button>
+              </div>
+            )}
+            {uploadingImage && (
+              <div className="text-base flex">
+                <p className="w-6 h-6 rounded-full animate-spin border-4 border-solid border-pink-500 border-t-transparent"></p>
+                Uploading...
               </div>
             )}
           </div>
