@@ -1,3 +1,9 @@
+import { useRef, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import jsPDF from "jspdf";
+
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -7,15 +13,11 @@ import TextField from "@mui/material/TextField";
 import { blueGrey } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
 import {
   addBookAsync,
   updateBookAsync,
 } from "../store/Features/writeContent/writeContentSlice";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-import jsPDF from "jspdf";
 import { setIsLoading } from "../store/Features/currentState/currentStateSlice";
 import { showAlert } from "../store/Features/alert/alertSlice";
 
@@ -71,7 +73,7 @@ const PreviewDialog = ({
         user: user.userId,
       };
       dispatch(addBookAsync({ ...data }));
-      navigate("/mybooks");
+      navigate("/inkwell");
     } else {
       const data = {
         data: {
@@ -146,6 +148,29 @@ const PreviewDialog = ({
 
     jsPdf.html(htmlElement, opt);
   }
+
+  useEffect(() => {
+    const handlePaste = (event) => {
+      const items = event.clipboardData?.items;
+      if (!items) return;
+
+      for (const item of items) {
+        if (item.type.indexOf("image") !== -1) {
+          const blob = item.getAsFile();
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            convertImage(e.target.result);
+          };
+          reader.readAsDataURL(blob);
+        }
+      }
+    };
+
+    window.addEventListener("paste", handlePaste);
+    return () => {
+      window.removeEventListener("paste", handlePaste);
+    };
+  }, []);
 
   return (
     <>
@@ -257,7 +282,7 @@ const PreviewDialog = ({
             onChange={handleInputChange}
             fullWidth
           />
-          <div className="w-[95%] mb-4 p-4 relative border border-cyan-500 rounded-md flex justify-center items-center">
+          <div className="w-[95%] mb-4 p-4 relative border border-cyan-500 rounded-md flex flex-col justify-center items-center">
             <input
               ref={imageInputRef}
               type="file"
@@ -270,19 +295,28 @@ const PreviewDialog = ({
               }}
             />
             {image === "" && (
-              <label
-                onClick={handleLabelClick}
-                aria-label="Chose cover"
-                role="button"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    handleLabelClick();
-                  }
-                }}
-                className="custom-file-input-label w-36 h-8 border border-cyan-500 rounded-md flex items-center justify-center cursor-pointer"
-                htmlFor="customFile">
-                Choose cover
-              </label>
+              <>
+                <label
+                  onClick={handleLabelClick}
+                  aria-label="Chose cover"
+                  role="button"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      handleLabelClick();
+                    }
+                  }}
+                  className="custom-file-input-label w-36 h-8 border border-cyan-500 rounded-md flex items-center justify-center cursor-pointer"
+                  htmlFor="customFile">
+                  Choose cover
+                </label>
+                <p className="w-full text-center"> - Or - </p>
+                <textarea
+                  className="w-full rounded-[7px] border border-cyan-500 bg-transparent px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-cyan-500 focus:border-t-transparent focus:outline-none disabled:border-0"
+                  rows="1"
+                  placeholder="Paste an image (Ctrl+V or Cmd+V) here..."
+                  style={{ overflow: "hidden" }}
+                />
+              </>
             )}
             {image !== "" && (
               <div className="relative w-fit">
@@ -360,6 +394,16 @@ const PreviewDialog = ({
       </Dialog>
     </>
   );
+};
+
+PreviewDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  content: PropTypes.arrayOf(PropTypes.any).isRequired,
+  handleClose: PropTypes.func.isRequired,
+  book_id: PropTypes.string,
+  bookDetails: PropTypes.any,
+  isPreview: PropTypes.bool,
+  setEditingBook: PropTypes.func.isRequired,
 };
 
 export default PreviewDialog;

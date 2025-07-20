@@ -1,13 +1,15 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
-import { useSelector } from "react-redux";
 import DrawIcon from "@mui/icons-material/Draw";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import Diversity2Icon from "@mui/icons-material/Diversity2";
 import PublishIcon from "@mui/icons-material/Publish";
 import CelebrationIcon from "@mui/icons-material/Celebration";
-import { Link } from "react-router-dom";
+
 import authorImg from "/author.svg";
 
 const images = [

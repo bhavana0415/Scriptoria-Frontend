@@ -1,4 +1,6 @@
-export default function Loader({ isLoading, message }) {
+import PropTypes from "prop-types";
+
+export default function Loader({ isLoading }) {
   if (!isLoading) {
     return null;
   }
@@ -90,3 +92,7 @@ export default function Loader({ isLoading, message }) {
     </div>
   );
 }
+
+Loader.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};

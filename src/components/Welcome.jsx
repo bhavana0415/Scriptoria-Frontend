@@ -1,6 +1,6 @@
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 
-export const Welcome = () => {
+const Welcome = () => {
   return (
     <section className="pt-20">
       <article className="flex flex-row justify-center items-center">
@@ -39,7 +39,7 @@ export const Welcome = () => {
       </article>
       <section className="w-full flex justify-center items-center py-4">
         <a
-          href="/books"
+          href="/library"
           aria-label="Navigate to books page"
           className="shadow-pink-600/30 mt-10 mx-2 inline-flex h-12 items-center rounded-full bg-pink-500 px-6 py-3 text-xl font-light text-white shadow-md transition hover:translate-y-1 hover:scale-105 hover:bg-pink-600 hover:shadow-lg">
           Start Reading <NorthEastIcon />
@@ -54,3 +54,5 @@ export const Welcome = () => {
     </section>
   );
 };
+
+export default Welcome;

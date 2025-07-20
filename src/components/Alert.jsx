@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
+
 import { Alert, Snackbar } from "@mui/material";
+
 import { hideAlert } from "../store/Features/alert/alertSlice";
 
 const AlertBox = () => {

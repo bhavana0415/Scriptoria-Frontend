@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { useDispatch, useSelector } from "react-redux";
-import { setIsLoading } from "../store/Features/currentState/currentStateSlice";
-import BookDialog from "./BookDialog";
-import { fetchBooks } from "../api/dbBooks/api";
 import Snackbar from "@mui/material/Snackbar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+
+import BookDialog from "./BookDialog";
+import { fetchBooks } from "../api/dbBooks/api";
+
+import { setIsLoading } from "../store/Features/currentState/currentStateSlice";
 import {
   addFavouriteAsync,
   addFavouriteFast,
@@ -245,6 +249,11 @@ const Card = ({ book, type }) => {
       )}
     </div>
   );
+};
+
+Card.propTypes = {
+  type: PropTypes.any.isRequired,
+  book: PropTypes.any.isRequired,
 };
 
 export default Card;

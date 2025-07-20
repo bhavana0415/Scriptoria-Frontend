@@ -11,7 +11,6 @@ export const addFavouriteAsync = createAsyncThunk(
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await addFavourite({ ...data });
-      if (response) dispatch(getFavouritesAsync(data.user));
       dispatch(
         showAlert({
           severity: "success",
@@ -29,6 +28,8 @@ export const addFavouriteAsync = createAsyncThunk(
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
+    } finally {
+      dispatch(getFavouritesAsync(data.user));
     }
   }
 );
@@ -38,7 +39,6 @@ export const deleteFavouriteAsync = createAsyncThunk(
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await deleteFavourite(data.book_id);
-      if (response) dispatch(getFavouritesAsync(data.user));
       dispatch(
         showAlert({
           severity: "success",
@@ -56,6 +56,8 @@ export const deleteFavouriteAsync = createAsyncThunk(
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
+    } finally {
+      dispatch(getFavouritesAsync(data.user));
     }
   }
 );

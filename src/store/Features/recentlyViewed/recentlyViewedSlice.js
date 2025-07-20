@@ -6,12 +6,13 @@ export const addRecentAsync = createAsyncThunk(
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await addRecent({ ...data });
-      if (response) dispatch(getRecentsAsync(data.user));
       return response;
     } catch (error) {
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
+    } finally {
+      dispatch(getRecentsAsync(data.user));
     }
   }
 );
@@ -21,12 +22,13 @@ export const deleteRecentAsync = createAsyncThunk(
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await deleteRecent(data.bookId);
-      if (response) dispatch(getRecentsAsync(data.user));
       return response;
     } catch (error) {
       return rejectWithValue(
         error instanceof Error ? error.message : "An unknown error occurred"
       );
+    } finally {
+      dispatch(getRecentsAsync(data.user));
     }
   }
 );

@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAsync } from "../../store/Features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+
+import Loader from "../../components/Loader";
+
+import { loginAsync } from "../../store/Features/auth/authSlice";
 import { getFavouritesAsync } from "../../store/Features/favourites/favouritesSlice";
 import { getRecentsAsync } from "../../store/Features/recentlyViewed/recentlyViewedSlice";
 import { getBooksAsync } from "../../store/Features/writeContent/writeContentSlice";
-import Loader from "../../components/Loader";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -62,7 +65,9 @@ const Login = () => {
             required
             className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
           />
-          <button className="absolute right-2 top-2 text-cyan-800">
+          <button
+            className="absolute right-2 top-2 text-cyan-800"
+            type="button">
             {showPassword ? (
               <VisibilityOffIcon
                 fontSize="small"

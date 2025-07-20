@@ -1,4 +1,6 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
+
 import PreviewDialog from "./PreviewDialog";
 
 const MyCard = ({ bookDetails, bookContent, setEditingBook }) => {
@@ -43,6 +45,12 @@ const MyCard = ({ bookDetails, bookContent, setEditingBook }) => {
       )}
     </>
   );
+};
+
+MyCard.propTypes = {
+  bookDetails: PropTypes.any.isRequired,
+  bookContent: PropTypes.arrayOf(PropTypes.any).isRequired,
+  setEditingBook: PropTypes.func.isRequired,
 };
 
 export default MyCard;

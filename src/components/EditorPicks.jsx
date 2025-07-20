@@ -1,8 +1,11 @@
-import Card from "./Card";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import { useDispatch, useSelector } from "react-redux";
-import { getFavouritesAsync } from "../store/Features/favourites/favouritesSlice";
 import { useEffect } from "react";
+
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+
+import Card from "./Card";
+
+import { getFavouritesAsync } from "../store/Features/favourites/favouritesSlice";
 
 const recentBooks = [
   {
@@ -312,7 +315,7 @@ const EditorPicks = () => {
       <section className="bg-background text-foreground py-1 leading-6">
         <a
           aria-label="Navigate to books page"
-          href="/books"
+          href="/library"
           className="flex justify-between m-4 cursor-pointer">
           <h2 className="text-2xl font-serif mx-4">Recently added</h2>
           <p>

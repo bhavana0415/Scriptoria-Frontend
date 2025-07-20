@@ -1,26 +1,29 @@
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Outlet } from "react-router-dom";
+
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import WaterDropIcon from "@mui/icons-material/WaterDrop";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { Typography } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+
+import Loader from "./Loader";
+import logoImg from "/logo.webp";
+
 import {
   setCheckedItems,
   setCurrentMode,
 } from "../store/Features/currentState/currentStateSlice";
-import Loader from "./Loader";
 import { fetchBooksAsync } from "../store/Features/fetchData/fetchDataSlice";
-import AutoStoriesIcon from "@mui/icons-material/AutoStories";
-import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import logoImg from "/logo.webp";
-const pages = ["Books", "My Books", "Favourites"];
-import Avatar from "@mui/material/Avatar";
 import { logoutAsync } from "../store/Features/auth/authSlice";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import { Typography } from "@mui/material";
+
+const pages = ["Library", "InkWell", "Treasures"];
 
 function Navbar() {
   const currentMode = useSelector((state) => state.currentState.currentMode);
@@ -41,7 +44,7 @@ function Navbar() {
     dispatch(setCheckedItems([searchValue]));
     dispatch(fetchBooksAsync([searchValue]));
     setSearchValue("");
-    window.location.href = "/books";
+    window.location.href = "/library";
   };
 
   const logout = () => {
@@ -60,7 +63,7 @@ function Navbar() {
         <a
           href="/"
           aria-label="Navigate to landing page"
-          className="flex items-center whitespace-nowrap text-2xl font-black justify-center m-4">
+          className="flex items-center whitespace-nowrap text-2xl font-black justify-center my-2 mx-4">
           <p className="font-customFont italic text-foreground">
             SCRIPTORIA&nbsp;&nbsp;
           </p>
@@ -91,14 +94,14 @@ function Navbar() {
                 <a
                   className="text-foreground font-serif"
                   href={`/${item.replace(/\s+/g, "").toLowerCase()}`}>
-                  {item === "Books" ? (
+                  {item === "Library" ? (
                     <span className="flex flex-row">
                       <LibraryBooksIcon />
                       <p className="hidden lg:flex">{item}</p>
                     </span>
-                  ) : item === "My Books" ? (
+                  ) : item === "InkWell" ? (
                     <span className="flex flex-row items-center">
-                      <AutoStoriesIcon />
+                      <WaterDropIcon />
                       <p className="hidden lg:flex">{item}</p>
                     </span>
                   ) : (
@@ -114,99 +117,100 @@ function Navbar() {
           <div className="w-full mx-4">
             <form
               onSubmit={handleClickEnter}
-              className="relative h-10 w-full rounded-full m-2 flex items-center">
+              className="relative h-10 w-full rounded-full my-2 flex items-center">
               <SearchRoundedIcon className="absolute left-4 text-foregroundReverse" />
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder="Search Book..."
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 className="h-full w-full pl-12 pr-4 rounded-full focus:outline-none bg-backgroundReverse text-foregroundReverse"
               />
             </form>
           </div>
-          {user == null ? (
-            <div className="my-4 flex items-center lg:my-0 lg:ml-auto lg:space-x-2 lg:space-y-0">
-              <a
-                href="#"
-                title=""
-                className="whitespace-nowrap p-1 border-2 border-foreground rounded font-medium my-0 mx-1 text-foreground">
-                {" "}
-                Login{" "}
-              </a>
-            </div>
-          ) : (
-            <div>
-              <Avatar
-                alt="Remy Sharp"
-                src={user.image}
-                id="basic-button"
-                aria-controls={open ? "basic-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
-                aria-label="Handle click"
-                role="button"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    handleClick();
-                  }
-                }}
-              />
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                disableScrollLock
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "center",
-                }}
-                sx={{
-                  padding: 0,
-                  "& .MuiPaper-root": {
-                    borderRadius: 2,
-                    padding: 0,
-                    minWidth: 50,
-                  },
-                  "& .MuiMenu-list": {
-                    padding: 0,
-                  },
-                }}>
-                <MenuItem
-                  onClick={logout}
-                  aria-label="Logout"
+          <div className="flex flex-row my-2">
+            {user == null ? (
+              <div className="my-4 flex items-center lg:my-0 lg:ml-auto lg:space-x-2 lg:space-y-0">
+                <a
+                  href="#"
+                  title=""
+                  className="whitespace-nowrap p-1 border-2 border-foreground rounded font-medium my-0 mx-1 text-foreground">
+                  {" "}
+                  Login{" "}
+                </a>
+              </div>
+            ) : (
+              <div>
+                <Avatar
+                  alt="Remy Sharp"
+                  src={user.image}
+                  id="basic-button"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                  aria-label="Handle click"
                   role="button"
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
-                      logout();
+                      handleClick();
                     }
                   }}
+                />
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  disableScrollLock
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
                   sx={{
-                    // padding: "0",
-                    padding: "0.5rem",
-                    color: "red",
-                    backgroundColor: "white",
-                    "&:hover": {
-                      backgroundColor: "#ffebee",
+                    padding: 0,
+                    "& .MuiPaper-root": {
+                      borderRadius: 2,
+                      padding: 0,
+                      minWidth: 50,
+                    },
+                    "& .MuiMenu-list": {
+                      padding: 0,
                     },
                   }}>
-                  <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                    Logout
-                  </Typography>
-                </MenuItem>
-              </Menu>
-            </div>
-          )}
-          {/* 
+                  <MenuItem
+                    onClick={logout}
+                    aria-label="Logout"
+                    role="button"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        logout();
+                      }
+                    }}
+                    sx={{
+                      // padding: "0",
+                      padding: "0.5rem",
+                      color: "red",
+                      backgroundColor: "white",
+                      "&:hover": {
+                        backgroundColor: "#ffebee",
+                      },
+                    }}>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                      Logout
+                    </Typography>
+                  </MenuItem>
+                </Menu>
+              </div>
+            )}
+            {/* 
           <div className="m-4">
             <a
               href="#"
@@ -216,21 +220,22 @@ function Navbar() {
               <AutoAwesomeIcon className="text-foregroundReverse" />
             </a>
           </div> */}
-          <button
-            onClick={changeMode}
-            aria-label="Change mode"
-            role="button"
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                changeMode();
-              }
-            }}>
-            {currentMode ? (
-              <LightModeIcon className="text-foreground mx-2" />
-            ) : (
-              <DarkModeIcon className="text-foreground" />
-            )}
-          </button>
+            <button
+              onClick={changeMode}
+              aria-label="Change mode"
+              role="button"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  changeMode();
+                }
+              }}>
+              {currentMode ? (
+                <LightModeIcon className="text-foreground mx-2" />
+              ) : (
+                <DarkModeIcon className="text-foreground" />
+              )}
+            </button>
+          </div>
         </nav>
       </header>
       <Outlet />

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 
 const AutoTextarea = ({ item, ind, handleChange, changeType }) => {
   const textAreaRef = useRef(null);
@@ -23,16 +24,23 @@ const AutoTextarea = ({ item, ind, handleChange, changeType }) => {
         {`${item.type}`}
       </label>
       <div className="absolute -top-3 w-full h-fit flex flex-row-reverse gap-1 sm:gap-2">
-        {["Chapter", "Heading", "Subheading", "Paragraph"].map((item) => (
-          <button key={item} onClick={() => changeType(ind, item)}>
+        {["Chapter", "Heading", "Subheading", "Paragraph"].map((type) => (
+          <button key={type} onClick={() => changeType(ind, type)}>
             <p className="rounded-full w-6 h-6 border-2 border-pink-900 bg-pink-100 text-pink-900 cursor-pointer flex justify-center items-center">
-              {item.charAt(0)}
+              {type.charAt(0)}
             </p>
           </button>
         ))}
       </div>
     </div>
   );
+};
+
+AutoTextarea.propTypes = {
+  item: PropTypes.any.isRequired,
+  ind: PropTypes.number.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  changeType: PropTypes.func.isRequired,
 };
 
 export default AutoTextarea;

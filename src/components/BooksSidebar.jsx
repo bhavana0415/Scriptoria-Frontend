@@ -1,4 +1,6 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
+
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Checkbox from "@mui/material/Checkbox";
@@ -46,18 +48,18 @@ const BooksSidebar = ({ children, data, checked, setChecked }) => {
     <div className="relative min-h-screen lg:flex">
       <button
         onClick={() => setMenuOpen(!menuOpen)}
-        className={`absolute left-2 top-2 shadow-lg rounded-full p-2 m-4 lg:hidden`}
+        className={`absolute top-2 rounded-full p-2 lg:hidden`}
         aria-label="Toggle Menu">
         {!menuOpen && <OpenWithIcon />}
       </button>
       <aside
-        className={`bg-background min-w-[225px] w-fit space-y-6 pt-2 px-0 absolute inset-y-0 left-0 transform lg:relative lg:translate-x-0 transition-transform duration-200 ease-in-out overflow-y-auto ${
+        className={`bg-background min-w-[225px] w-fit space-y-6 pt-2 px-0 absolute inset-y-0 left-0 transform lg:relative lg:translate-x-0 transition-transform duration-200 ease-in-out overflow-y-auto border border-r-2 border-slate-500  ${
           menuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{ zIndex: 9 }}>
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className={`w-full flex justify-end`}
+          className={`w-full flex justify-end pt-2 pr-2`}
           aria-label="Toggle Menu">
           {menuOpen && <HighlightOffIcon />}
         </button>
@@ -194,6 +196,13 @@ const BooksSidebar = ({ children, data, checked, setChecked }) => {
       <div className="w-full p-6">{children}</div>
     </div>
   );
+};
+
+BooksSidebar.propTypes = {
+  children: PropTypes.node,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
+  checked: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setChecked: PropTypes.func.isRequired,
 };
 
 export default BooksSidebar;

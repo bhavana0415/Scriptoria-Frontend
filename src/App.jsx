@@ -5,12 +5,15 @@ import {
   Navigate,
 } from "react-router-dom";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import { store } from "./store/store";
-import { logoutAsync } from "./store/Features/auth/authSlice";
+import PropTypes from "prop-types";
+
 import Loader from "./components/Loader";
-import { showAlert } from "./store/Features/alert/alertSlice";
 import AlertBox from "./components/Alert";
 import ThemeInitializer from "./lib/ThemeInitializer";
+
+import { store } from "./store/store";
+import { logoutAsync } from "./store/Features/auth/authSlice";
+import { showAlert } from "./store/Features/alert/alertSlice";
 
 const Home = React.lazy(() => import("./pages/home/Home"));
 const Navbar = React.lazy(() => import("./components/Navbar"));
@@ -21,7 +24,6 @@ const Login = React.lazy(() => import("./pages/login/Login"));
 const Signup = React.lazy(() => import("./pages/signup/Signup"));
 const MyBooks = React.lazy(() => import("./pages/myBooks/MyBooks"));
 
-// eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ element }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.user?.token);
@@ -57,6 +59,10 @@ const ProtectedRoute = ({ element }) => {
   return token ? element : <Navigate to="/login" replace />;
 };
 
+ProtectedRoute.propTypes = {
+  element: PropTypes.element.isRequired,
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -76,7 +82,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/favourites",
+        path: "/treasures",
         element: (
           <Suspense fallback={<Loader isLoading={true} />}>
             <ProtectedRoute element={<Favourites />} />
@@ -84,7 +90,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/books",
+        path: "/library",
         element: (
           <Suspense fallback={<Loader isLoading={true} />}>
             <ProtectedRoute element={<Books />} />
@@ -104,7 +110,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/mybooks",
+        path: "/inkwell",
         element: (
           <Suspense fallback={<Loader isLoading={true} />}>
             <ProtectedRoute element={<MyBooks />} />
@@ -116,7 +122,8 @@ const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
 ]);
-function App() {
+
+const App = () => {
   return (
     <Provider store={store}>
       <AlertBox />
@@ -124,6 +131,6 @@ function App() {
       <RouterProvider router={router} />
     </Provider>
   );
-}
+};
 
 export default App;

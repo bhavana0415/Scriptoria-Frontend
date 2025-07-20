@@ -1,18 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { forwardRef, useState } from "react";
-import MyCard from "../../components/MyCard";
-import Write from "../write/Write";
+import { useState } from "react";
+
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { deleteBookAsync } from "../../store/Features/writeContent/writeContentSlice";
 
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Slide from "@mui/material/Slide";
-import { Button } from "@mui/material";
+import MyCard from "../../components/MyCard";
+import EditBook from "./EditBook";
+import DeleteBook from "./DeleteBook";
+
+import { deleteBookAsync } from "../../store/Features/writeContent/writeContentSlice";
 
 const MyBooks = () => {
   const books = useSelector((state) => state.writeContent.books);
@@ -106,49 +102,12 @@ const MyBooks = () => {
               className="font-medium text-foreground border-2 border-cyan-500 rounded p-4 transform transition-transform duration-300 hover:scale-105 cursor-pointer">
               Write your own new book
             </a>
-            <Dialog
+            <DeleteBook
               open={open}
-              TransitionComponent={Transition}
-              keepMounted
-              onClose={handleClose}
-              aria-describedby="alert-dialog-slide-description"
-              className="opacity-1">
-              <DialogTitle className="bg-background text-foreground">
-                Delete Book
-              </DialogTitle>
-              <DialogContent className="mt-5">
-                <DialogContentText id="alert-dialog-slide-description">
-                  Are you sure you want to delete this book?
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button
-                  color="primary"
-                  onClick={handleClose}
-                  aria-label="Handle Close"
-                  role="button"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      handleClose();
-                    }
-                  }}>
-                  Cancel
-                </Button>
-                <Button
-                  color="error"
-                  onClick={() => deleteBookConfirm(deleteBook)}
-                  aria-label="Conform if Delete Book"
-                  role="button"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      deleteBookConfirm(deleteBook);
-                    }
-                  }}
-                  disabled={deleteBook == null}>
-                  Delete
-                </Button>
-              </DialogActions>
-            </Dialog>
+              handleClose={handleClose}
+              deleteBookConfirm={deleteBookConfirm}
+              deleteBook={deleteBook}
+            />
           </>
         )}
       </div>
@@ -157,20 +116,3 @@ const MyBooks = () => {
 };
 
 export default MyBooks;
-
-const EditBook = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
-  return (
-    <div className="w-[100%]">
-      <Write
-        bookContent={bookContent}
-        book_id={book_id}
-        bookDetails={bookDetails}
-        setEditingBook={setEditingBook}
-      />
-    </div>
-  );
-};
-
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});

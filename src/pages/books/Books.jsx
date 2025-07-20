@@ -1,20 +1,23 @@
 import { useEffect, useMemo, useState } from "react";
-import Pagination from "@mui/material/Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import Card from "../../components/Card";
-import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { data } from "./data";
-import BooksSidebar from "../../components/BooksSidebar";
-import {
-  fetchBooksAsync,
-  fetchRecentBooksAsync,
-} from "../../store/Features/fetchData/fetchDataSlice";
+
+import Pagination from "@mui/material/Pagination";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import { pink } from "@mui/material/colors";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+
+import Card from "../../components/Card";
+import { data } from "./data";
+import BooksSidebar from "../../components/BooksSidebar";
+
+import {
+  fetchBooksAsync,
+  fetchRecentBooksAsync,
+} from "../../store/Features/fetchData/fetchDataSlice";
 import { setCheckedItems } from "../../store/Features/currentState/currentStateSlice";
 
 const MenuProps = {
@@ -34,7 +37,7 @@ const Books = () => {
   const books = useSelector((state) => state.fetchData.books);
   const [page, setPage] = useState(1);
   const [checked, setChecked] = useState(checkedItems ?? []);
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState("title");
   const [filterValue, setFilterValue] = useState("");
   const dispatch = useDispatch();
 
@@ -75,7 +78,7 @@ const Books = () => {
 
   return (
     <div>
-      <div className="w-full h-20 bg-background flex"></div>
+      <div className="w-full h-10 bg-background flex"></div>
       <BooksSidebar data={data} checked={checked} setChecked={setChecked}>
         <div className="flex w-full min-h-screen mt-2">
           <div className="px-2"></div>
@@ -130,22 +133,22 @@ const Books = () => {
               {checked &&
                 Array.isArray(checked) &&
                 checked.map((item, index) => (
-                  <div key={index}>
-                    <p className="text-md flex p-1 m-2 bg-backgroundReverse text-foregroundReverse rounded-lg">
-                      #{item}
-                      <DeleteForeverRoundedIcon
-                        className="cursor-pointer transition hover:scale-105"
-                        onClick={() => handleCheck(item)}
-                        aria-label="Handle Check"
-                        role="button"
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter" || e.key === " ") {
-                            handleCheck(item);
-                          }
-                        }}
-                      />
-                    </p>
-                  </div>
+                  <p
+                    key={index}
+                    className="text-md flex p-1 bg-backgroundReverse text-foregroundReverse rounded-lg">
+                    #{item}
+                    <DeleteForeverRoundedIcon
+                      className="cursor-pointer transition hover:scale-105"
+                      onClick={() => handleCheck(item)}
+                      aria-label="Handle Check"
+                      role="button"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          handleCheck(item);
+                        }
+                      }}
+                    />
+                  </p>
                 ))}
             </div>
             <div className="mx-auto grid max-w-screen-lg justify-center px-4 xsm:grid-col-1 sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 justify-center">

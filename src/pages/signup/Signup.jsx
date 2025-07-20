@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signupAsync } from "../../store/Features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+
 import Loader from "../../components/Loader";
+
+import { signupAsync } from "../../store/Features/auth/authSlice";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -23,7 +25,6 @@ const Signup = () => {
           navigate("/login");
         } else {
           console.error(typeof result.payload || "Signup failed");
-          alert(result.payload);
         }
       }
     );

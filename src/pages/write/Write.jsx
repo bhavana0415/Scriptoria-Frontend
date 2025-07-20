@@ -1,10 +1,14 @@
 import { useRef, useState } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
+import { Tooltip } from "@mui/material";
+
 import AutoTextarea from "../../components/AutoTextarea";
 import PreviewDialog from "../../components/PreviewDialog";
-import { Tooltip } from "@mui/material";
+
 import { setIsLoading } from "../../store/Features/currentState/currentStateSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { updateBookAsync } from "../../store/Features/writeContent/writeContentSlice";
 
 const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
@@ -275,6 +279,13 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
       )}
     </div>
   );
+};
+
+Write.propTypes = {
+  bookContent: PropTypes.arrayOf(PropTypes.any).isRequired,
+  book_id: PropTypes.string.isRequired,
+  bookDetails: PropTypes.any.isRequired,
+  setEditingBook: PropTypes.func.isRequired,
 };
 
 export default Write;

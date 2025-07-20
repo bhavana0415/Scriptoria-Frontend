@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -50,7 +52,8 @@ const BookDialog = ({ open, handleClose, book }) => {
               paragraph
               dangerouslySetInnerHTML={{
                 __html: book.description,
-              }}></Typography>
+              }}
+            />
             <Typography variant="body2" color="textSecondary">
               <p className="absolute bottom-2">
                 {book.pages} pages | Published: {book.year}
@@ -91,6 +94,12 @@ const BookDialog = ({ open, handleClose, book }) => {
       </DialogActions>
     </Dialog>
   );
+};
+
+BookDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  book: PropTypes.any.isRequired,
 };
 
 export default BookDialog;
