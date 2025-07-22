@@ -100,7 +100,9 @@ const MyBooks = () => {
             <a
               href="/write"
               className="font-medium text-foreground border-2 border-cyan-500 rounded p-4 transform transition-transform duration-300 hover:scale-105 cursor-pointer">
-              Write your own new book
+              {books.length == 0
+                ? "Create Your First Book"
+                : "Add a New Volume"}
             </a>
             <DeleteBook
               open={open}

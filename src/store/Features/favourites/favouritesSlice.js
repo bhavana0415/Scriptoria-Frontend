@@ -11,12 +11,6 @@ export const addFavouriteAsync = createAsyncThunk(
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await addFavourite({ ...data });
-      dispatch(
-        showAlert({
-          severity: "success",
-          message: "Added to Favourites!!!",
-        })
-      );
       return response;
     } catch (error) {
       dispatch(
@@ -39,12 +33,6 @@ export const deleteFavouriteAsync = createAsyncThunk(
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await deleteFavourite(data.book_id);
-      dispatch(
-        showAlert({
-          severity: "success",
-          message: "Deleted from Favourites!!!",
-        })
-      );
       return response;
     } catch (error) {
       dispatch(

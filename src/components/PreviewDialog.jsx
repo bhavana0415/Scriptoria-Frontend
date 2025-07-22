@@ -45,6 +45,7 @@ const PreviewDialog = ({
           description: "",
         }
   );
+  const [errors, setErrors] = useState([]);
   const pdfRef = useRef();
 
   const handleFormOpen = () => setFormOpen(true);
@@ -57,7 +58,15 @@ const PreviewDialog = ({
 
   const handleSave = () => {
     const { bookName, image, description } = myBookDetails;
+
     if (!bookName || !image || !description) {
+      setErrors(() => {
+        let errs = [];
+        if (!bookName) errs.push("bookName");
+        if (!image) errs.push("image");
+        if (!description) errs.push("description");
+        return errs;
+      });
       dispatch(
         showAlert({
           severity: "error",
@@ -66,6 +75,7 @@ const PreviewDialog = ({
       );
       return;
     }
+
     if (!book_id) {
       const data = {
         data: {
@@ -272,7 +282,7 @@ const PreviewDialog = ({
             color: blueGrey[50],
             fontFamily: "sans-serif",
           }}>
-          Book Information
+          Book Details
         </DialogTitle>
         <DialogContent
           dividers
@@ -282,9 +292,29 @@ const PreviewDialog = ({
             name="bookName"
             value={myBookDetails.bookName}
             onChange={handleInputChange}
+            error={errors.includes("bookName")}
+            helperText={errors.includes("bookName") ? "Required *" : ""}
             fullWidth
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: errors.includes("bookName") ? "red" : "default",
+                },
+                "&:hover fieldset": {
+                  borderColor: errors.includes("bookName") ? "red" : "default",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: errors.includes("bookName")
+                    ? "red"
+                    : "primary.main",
+                },
+              },
+            }}
           />
-          <div className="w-[95%] mb-4 p-4 relative border border-cyan-500 rounded-md flex flex-col justify-center items-center">
+          <div
+            className={`w-full mb-4 p-4 relative border-2 border-${
+              errors.includes("image") ? "red-500" : "cyan-500"
+            } rounded-md flex flex-col justify-center items-center`}>
             <input
               ref={imageInputRef}
               type="file"
@@ -367,9 +397,30 @@ const PreviewDialog = ({
             name="description"
             value={myBookDetails.description}
             onChange={handleInputChange}
+            error={errors.includes("description")}
+            helperText={errors.includes("description") ? "Required *" : ""}
+            fullWidth
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: errors.includes("description")
+                    ? "red"
+                    : "default",
+                },
+                "&:hover fieldset": {
+                  borderColor: errors.includes("description")
+                    ? "red"
+                    : "default",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: errors.includes("description")
+                    ? "red"
+                    : "primary.main",
+                },
+              },
+            }}
             multiline
             rows={4}
-            fullWidth
           />
         </DialogContent>
         <DialogActions sx={{ backgroundColor: blueGrey[900] }}>

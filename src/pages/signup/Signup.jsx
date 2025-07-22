@@ -6,12 +6,20 @@ import Loader from "../../components/Loader";
 
 import { signupAsync } from "../../store/Features/auth/authSlice";
 
+const errorsInitial = {
+  name: [],
+  email: [],
+  password: [],
+  avatar: [],
+};
+
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoading = useSelector((state) => state.currentState.isLoading);
 
   const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const [errors, setErrors] = useState(errorsInitial);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -24,7 +32,21 @@ const Signup = () => {
         if (signupAsync.fulfilled.match(result)) {
           navigate("/login");
         } else {
-          console.error(typeof result.payload || "Signup failed");
+          const errs = { ...errorsInitial };
+          const errorsList = result.payload.split("; ");
+          errorsList.forEach((err) => {
+            const lowerErr = err.toLowerCase();
+            if (lowerErr.includes("name")) {
+              errs["name"].push(err);
+            } else if (lowerErr.includes("email")) {
+              errs["email"].push(err);
+            } else if (lowerErr.includes("password")) {
+              errs["password"].push(err);
+            } else if (lowerErr.includes("avatar")) {
+              errs["avatar"].push(err);
+            }
+          });
+          setErrors(errs);
         }
       }
     );
@@ -48,8 +70,12 @@ const Signup = () => {
           name="name"
           id="name"
           required
-          className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+          className="w-full p-2 mb-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
         />
+        <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
+          {errors.name.length > 0 &&
+            errors.name.map((er) => <li key={er}>{er}</li>)}
+        </ul>
         <label
           className="block text-stone-800 font-medium mb-2"
           htmlFor="email">
@@ -60,8 +86,12 @@ const Signup = () => {
           name="email"
           id="email"
           required
-          className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+          className="w-full p-2 mb-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
         />
+        <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
+          {errors.email.length > 0 &&
+            errors.email.map((er) => <li key={er}>{er}</li>)}
+        </ul>
         <label
           className="block text-stone-800 font-medium mb-2"
           htmlFor="password">
@@ -72,9 +102,12 @@ const Signup = () => {
           name="password"
           id="password"
           required
-          className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+          className="w-full p-2 mb-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
         />
-
+        <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
+          {errors.password.length > 0 &&
+            errors.password.map((er) => <li key={er}>{er}</li>)}
+        </ul>
         <label className="block text-stone-800 font-medium mb-2">
           Choose an Avatar
         </label>
@@ -100,6 +133,10 @@ const Signup = () => {
             />
           ))}
         </div>
+        <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
+          {errors.avatar.length > 0 &&
+            errors.avatar.map((er) => <li key={er}>{er}</li>)}
+        </ul>
 
         <button
           type="submit"

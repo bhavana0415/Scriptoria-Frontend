@@ -15,15 +15,16 @@ export const signupAsync = createAsyncThunk(
       dispatch(
         showAlert({
           severity: "success",
-          message: "Registeration successful!!!",
+          message: "Registeration successful!",
         })
       );
       return response;
     } catch (error) {
+      const errMsg = (error.message.includes('User exists already')) ? error.message : "Invalid input"
       dispatch(
         showAlert({
           severity: "error",
-          message: `Unable to register. ${error.message || "Try again"}`,
+          message: `Unable to register. ${errMsg}`,
         })
       );
       return rejectWithValue(

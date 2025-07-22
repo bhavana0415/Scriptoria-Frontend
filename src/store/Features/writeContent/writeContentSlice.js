@@ -32,12 +32,6 @@ export const addBookAsync = createAsyncThunk(
     try {
       const response = await addBook({ ...data });
       if (response) dispatch(getBooksAsync(data.user));
-      dispatch(
-        showAlert({
-          severity: "success",
-          message: "Added to My Books!!!",
-        })
-      );
       return response;
     } catch (error) {
       dispatch(
@@ -63,7 +57,7 @@ export const updateBookAsync = createAsyncThunk(
       dispatch(
         showAlert({
           severity: "success",
-          message: "Updated Book successfully!!!",
+          message: "Updated Book successfully!",
         })
       );
       return response;
@@ -93,7 +87,7 @@ export const deleteBookAsync = createAsyncThunk(
       dispatch(
         showAlert({
           severity: "success",
-          message: "Deleted from My Books!!!",
+          message: "Deleted Book from collection!",
         })
       );
       return response;
