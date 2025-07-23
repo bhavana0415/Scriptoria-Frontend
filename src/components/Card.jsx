@@ -170,6 +170,7 @@ const Card = ({ book, type }) => {
               className="object-fill w-full h-full"
               src={book.image}
               alt="Book Cover"
+              loading="lazy"
             />
           </div>
         </button>

@@ -6,20 +6,18 @@ import Loader from "../../components/Loader";
 
 import { signupAsync } from "../../store/Features/auth/authSlice";
 
-const errorsInitial = {
-  name: [],
-  email: [],
-  password: [],
-  avatar: [],
-};
-
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoading = useSelector((state) => state.currentState.isLoading);
 
   const [selectedAvatar, setSelectedAvatar] = useState(null);
-  const [errors, setErrors] = useState(errorsInitial);
+  const [errors, setErrors] = useState({
+    name: [],
+    email: [],
+    password: [],
+    avatar: [],
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,7 +30,12 @@ const Signup = () => {
         if (signupAsync.fulfilled.match(result)) {
           navigate("/login");
         } else {
-          const errs = { ...errorsInitial };
+          const errs = {
+            name: [],
+            email: [],
+            password: [],
+            avatar: [],
+          };
           const errorsList = result.payload.split("; ");
           errorsList.forEach((err) => {
             const lowerErr = err.toLowerCase();
