@@ -18,6 +18,10 @@ const Login = () => {
   const user = useSelector((state) => state.auth.user);
   const isLoading = useSelector((state) => state.currentState.isLoading);
   const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState({
+    email: [],
+    password: [],
+  });
 
   useEffect(() => {
     if (user) {
@@ -32,14 +36,35 @@ const Login = () => {
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.pass.value;
-    dispatch(loginAsync({ email, password }));
+    dispatch(loginAsync({ email, password })).then((result) => {
+      if (loginAsync.fulfilled.match(result)) {
+        navigate("/");
+      } else {
+        const errs = {
+          email: [],
+          password: [],
+        };
+        const errorsList = result.payload.split("; ");
+        errorsList.forEach((err) => {
+          const lowerErr = err.toLowerCase();
+          if (lowerErr.includes("user")) {
+            errs["email"].push(
+              "User not registered. Please enter valid user or register."
+            );
+          } else if (lowerErr.includes("password")) {
+            errs["password"].push("Incorrect Password. Please try again.");
+          }
+        });
+        setErrors(errs);
+      }
+    });
   };
 
   return (
-    <div className="h-full w-full flex justify-center items-center p-20 text-cyan-900">
+    <div className="h-full w-full flex justify-center items-center py-20 text-cyan-900">
       <form
         onSubmit={handleSubmit}
-        className="max-w-sm mx-auto p-6 bg-white rounded-lg shadow-md">
+        className="max-w-sm mx-auto min-w-1/4 p-6 bg-white rounded-lg shadow-md">
         <label
           className="block text-stone-800 font-medium mb-2"
           htmlFor="email">
@@ -52,6 +77,10 @@ const Login = () => {
           required
           className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
         />
+        <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
+          {errors.email.length > 0 &&
+            errors.email.map((er) => <li key={er}>{er}</li>)}
+        </ul>
         <label
           className="block text-stone-800 font-medium mb-2"
           htmlFor="password">
@@ -94,6 +123,10 @@ const Login = () => {
               />
             )}
           </button>
+          <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
+            {errors.password.length > 0 &&
+              errors.password.map((er) => <li key={er}>{er}</li>)}
+          </ul>
         </div>
         <button
           type="submit"

@@ -47,7 +47,7 @@ export const loginAsync = createAsyncThunk(
       dispatch(
         showAlert({
           severity: "error",
-          message: `Unable to login. ${error.message || "Try again"}`,
+          message: `Invalid credentials`,
         })
       );
       return rejectWithValue(

@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+
 import Loader from "../../components/Loader";
 
 import { signupAsync } from "../../store/Features/auth/authSlice";
@@ -12,6 +15,7 @@ const Signup = () => {
   const isLoading = useSelector((state) => state.currentState.isLoading);
 
   const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({
     name: [],
     email: [],
@@ -47,6 +51,8 @@ const Signup = () => {
               errs["password"].push(err);
             } else if (lowerErr.includes("avatar")) {
               errs["avatar"].push(err);
+            } else if (lowerErr.includes("user")) {
+              errs["email"].push("User already exists. Please login");
             }
           });
           setErrors(errs);
@@ -100,21 +106,52 @@ const Signup = () => {
           htmlFor="password">
           Password
         </label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          required
-          className="w-full p-2 mb-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
-        />
-        <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
-          {errors.password.length > 0 &&
-            errors.password.map((er) => <li key={er}>{er}</li>)}
-        </ul>
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            id="password"
+            required
+            className="w-full p-2 mb-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+          />
+          <button
+            className="absolute right-2 top-2 text-cyan-800"
+            type="button">
+            {showPassword ? (
+              <VisibilityOffIcon
+                fontSize="small"
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label="Hide Password"
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setShowPassword((prev) => !prev);
+                  }
+                }}
+              />
+            ) : (
+              <VisibilityIcon
+                fontSize="small"
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label="Show Password"
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setShowPassword((prev) => !prev);
+                  }
+                }}
+              />
+            )}
+          </button>
+          <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
+            {errors.password.length > 0 &&
+              errors.password.map((er) => <li key={er}>{er}</li>)}
+          </ul>
+        </div>
         <label className="block text-stone-800 font-medium mb-2">
           Choose an Avatar
         </label>
-        <div className="grid grid-cols-4 gap-4 mb-4">
+        <div className="grid grid-cols-4 gap-4 mb-2">
           {avatars.map((avatar, index) => (
             <img
               key={index}
@@ -144,7 +181,7 @@ const Signup = () => {
         <button
           type="submit"
           value="Sign Up"
-          className="w-full px-4 py-2 bg-cyan-900 text-cyan-100 rounded-md hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-1">
+          className="w-full px-4 py-2 my-4 bg-cyan-900 text-cyan-100 rounded-md hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-1">
           Sign Up
         </button>
 

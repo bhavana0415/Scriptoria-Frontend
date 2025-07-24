@@ -288,12 +288,12 @@ const PreviewDialog = ({
           dividers
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <TextField
-            label="Book Name"
+            label="Book Name *"
             name="bookName"
             value={myBookDetails.bookName}
             onChange={handleInputChange}
             error={errors.includes("bookName")}
-            helperText={errors.includes("bookName") ? "Required *" : ""}
+            helperText={errors.includes("bookName") ? "Required" : ""}
             fullWidth
             sx={{
               "& .MuiOutlinedInput-root": {
@@ -318,7 +318,7 @@ const PreviewDialog = ({
             <input
               ref={imageInputRef}
               type="file"
-              accept="image/*"
+              accept=".png, .jpg, .jpeg"
               onChange={(e) =>
                 e.target.files && convertImage(e.target.files[0])
               }
@@ -393,12 +393,12 @@ const PreviewDialog = ({
             )}
           </div>
           <TextField
-            label="Description"
+            label="Description *"
             name="description"
             value={myBookDetails.description}
             onChange={handleInputChange}
             error={errors.includes("description")}
-            helperText={errors.includes("description") ? "Required *" : ""}
+            helperText={errors.includes("description") ? "Required" : ""}
             fullWidth
             sx={{
               "& .MuiOutlinedInput-root": {

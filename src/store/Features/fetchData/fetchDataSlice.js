@@ -6,15 +6,17 @@ export const fetchBooksAsync = createAsyncThunk(
   "fetchBooks",
   async (searches, { rejectWithValue }) => {
     try {
-      const promises = searches.map(async (search) => {
-        const response = await fetchBooks(
-          `search/${search.replace(/ /g, "-")}`
-        );
-        return response.books ? response.books : [];
-      });
+      const promises = searches.map((search) =>
+        fetchBooks(`search/${search.replace(/ /g, "-")}`)
+      );
 
-      const results = await Promise.all(promises);
-      return results.flat();
+      const results = await Promise.allSettled(promises);
+
+      const books = results
+        .filter((result) => result.status === "fulfilled")
+        .flatMap((result) => result.value.books || []);
+
+      return books;
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error.message);
@@ -23,6 +25,7 @@ export const fetchBooksAsync = createAsyncThunk(
     }
   }
 );
+
 
 export const fetchRecentBooksAsync = createAsyncThunk(
   "fetchRecentBooks",
