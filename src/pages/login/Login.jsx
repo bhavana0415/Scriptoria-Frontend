@@ -75,11 +75,15 @@ const Login = () => {
           name="email"
           id="email"
           required
-          className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+          className="w-full p-2 mb-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
         />
         <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
           {errors.email.length > 0 &&
-            errors.email.map((er) => <li key={er}>{er}</li>)}
+            errors.email.map((er) => (
+              <li key={er} className="text-sm">
+                {er}
+              </li>
+            ))}
         </ul>
         <label
           className="block text-stone-800 font-medium mb-2"
@@ -92,7 +96,7 @@ const Login = () => {
             name="pass"
             id="password"
             required
-            className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+            className="w-full p-2 mb-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
           />
           <button
             className="absolute right-2 top-2 text-cyan-800"
@@ -111,10 +115,13 @@ const Login = () => {
               <VisibilityIcon fontSize="small" />
             )}
           </button>
-
           <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
             {errors.password.length > 0 &&
-              errors.password.map((er) => <li key={er}>{er}</li>)}
+              errors.password.map((er) => (
+                <li key={er} className="text-sm">
+                  {er}
+                </li>
+              ))}
           </ul>
         </div>
         <button

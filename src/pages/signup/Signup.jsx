@@ -83,7 +83,11 @@ const Signup = () => {
         />
         <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
           {errors.name.length > 0 &&
-            errors.name.map((er) => <li key={er}>{er}</li>)}
+            errors.name.map((er) => (
+              <li key={er} className="text-sm">
+                {er}
+              </li>
+            ))}
         </ul>
         <label
           className="block text-stone-800 font-medium mb-2"
@@ -99,7 +103,11 @@ const Signup = () => {
         />
         <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
           {errors.email.length > 0 &&
-            errors.email.map((er) => <li key={er}>{er}</li>)}
+            errors.email.map((er) => (
+              <li key={er} className="text-sm">
+                {er}
+              </li>
+            ))}
         </ul>
         <label
           className="block text-stone-800 font-medium mb-2"
@@ -133,7 +141,11 @@ const Signup = () => {
           </button>
           <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
             {errors.password.length > 0 &&
-              errors.password.map((er) => <li key={er}>{er}</li>)}
+              errors.password.map((er) => (
+                <li key={er} className="text-sm">
+                  {er}
+                </li>
+              ))}
           </ul>
         </div>
         <label className="block text-stone-800 font-medium mb-2">
@@ -163,7 +175,11 @@ const Signup = () => {
         </div>
         <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
           {errors.avatar.length > 0 &&
-            errors.avatar.map((er) => <li key={er}>{er}</li>)}
+            errors.avatar.map((er) => (
+              <li key={er} className="text-sm">
+                {er}
+              </li>
+            ))}
         </ul>
 
         <button
