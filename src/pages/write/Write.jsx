@@ -1,14 +1,15 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
-import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
+// import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import { Tooltip } from "@mui/material";
 
-import AutoTextarea from "../../components/AutoTextarea";
+// import AutoTextarea from "../../components/AutoTextarea";
 import PreviewDialog from "../../components/PreviewDialog";
+import Draggable from "../../components/Draggable";
 
-import { setIsLoading } from "../../store/Features/currentState/currentStateSlice";
+// import { setIsLoading } from "../../store/Features/currentState/currentStateSlice";
 import { updateBookAsync } from "../../store/Features/writeContent/writeContentSlice";
 
 const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
@@ -16,7 +17,7 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
   const dispatch = useDispatch();
 
   const [previewOpen, setPreviewOpen] = useState(false);
-  const imageInputRef = useRef(null);
+
   const user = useSelector((state) => state.auth.user);
 
   const handleChange = (index, value) => {
@@ -51,37 +52,6 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
     let newContent = [...content];
     newContent.splice(index, 1);
     setContent(newContent);
-  };
-
-  const convertImage = async (file, index) => {
-    if (!file) return;
-
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "scriptoria");
-    data.append("cloud_name", "dpmtu5hlx");
-
-    const url = "https://api.cloudinary.com/v1_1/dpmtu5hlx/image/upload";
-    try {
-      dispatch(setIsLoading(true));
-      const res = await fetch(url, {
-        method: "POST",
-        body: data,
-      });
-
-      const uploadedImageURL = await res.json();
-      handleChange(index, uploadedImageURL.secure_url);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    } finally {
-      dispatch(setIsLoading(false));
-    }
-  };
-
-  const handleLabelClick = () => {
-    if (imageInputRef.current) {
-      imageInputRef.current.click();
-    }
   };
 
   const saveBook = () => {
@@ -143,7 +113,7 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
             </Tooltip>
           </div>
           <div className="mx-auto max-w-screen-lg justify-center px-2 py-4">
-            {content.map((item, index) => {
+            {/* {content.map((item, index) => {
               if (item.type === "Image") {
                 return (
                   <div
@@ -243,7 +213,15 @@ const Write = ({ bookContent, book_id, bookDetails, setEditingBook }) => {
                   </div>
                 );
               }
-            })}
+            })} */}
+
+            <Draggable
+              content={content}
+              setContent={setContent}
+              removeContent={removeContent}
+              handleChange={handleChange}
+              handleTypeChange={handleTypeChange}
+            />
           </div>
         </div>
       </div>
