@@ -96,33 +96,22 @@ const Login = () => {
           />
           <button
             className="absolute right-2 top-2 text-cyan-800"
-            type="button">
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                setShowPassword((prev) => !prev);
+              }
+            }}
+            role="button"
+            aria-label={showPassword ? "Hide Password" : "Show Password"}>
             {showPassword ? (
-              <VisibilityOffIcon
-                fontSize="small"
-                onClick={() => setShowPassword((prev) => !prev)}
-                aria-label="Hide Password"
-                role="button"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    setShowPassword((prev) => !prev);
-                  }
-                }}
-              />
+              <VisibilityOffIcon fontSize="small" />
             ) : (
-              <VisibilityIcon
-                fontSize="small"
-                onClick={() => setShowPassword((prev) => !prev)}
-                aria-label="Show Password"
-                role="button"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    setShowPassword((prev) => !prev);
-                  }
-                }}
-              />
+              <VisibilityIcon fontSize="small" />
             )}
           </button>
+
           <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
             {errors.password.length > 0 &&
               errors.password.map((er) => <li key={er}>{er}</li>)}

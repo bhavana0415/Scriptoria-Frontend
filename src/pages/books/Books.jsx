@@ -76,6 +76,13 @@ const Books = () => {
     });
   };
 
+  const handleFilterChange = (e) => {
+    setFilterValue(() => e.target.value);
+    if (page !== 1) {
+      setPage(() => 1);
+    }
+  };
+
   return (
     <div>
       <div className="w-full h-10 bg-background flex"></div>
@@ -124,7 +131,7 @@ const Books = () => {
                   placeholder={`Search by ${filter} ...`}
                   value={filterValue}
                   disabled={filter == ""}
-                  onChange={(e) => setFilterValue(e.target.value)}
+                  onChange={handleFilterChange}
                   className="h-full w-full pl-12 pr-4 rounded-lg focus:outline-none bg-pink-900 text-white"
                 />
               </div>

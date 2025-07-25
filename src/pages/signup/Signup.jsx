@@ -116,31 +116,19 @@ const Signup = () => {
           />
           <button
             className="absolute right-2 top-2 text-cyan-800"
-            type="button">
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            aria-label={showPassword ? "Hide Password" : "Show Password"}
+            role="button"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                setShowPassword((prev) => !prev);
+              }
+            }}>
             {showPassword ? (
-              <VisibilityOffIcon
-                fontSize="small"
-                onClick={() => setShowPassword((prev) => !prev)}
-                aria-label="Hide Password"
-                role="button"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    setShowPassword((prev) => !prev);
-                  }
-                }}
-              />
+              <VisibilityOffIcon fontSize="small" />
             ) : (
-              <VisibilityIcon
-                fontSize="small"
-                onClick={() => setShowPassword((prev) => !prev)}
-                aria-label="Show Password"
-                role="button"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    setShowPassword((prev) => !prev);
-                  }
-                }}
-              />
+              <VisibilityIcon fontSize="small" />
             )}
           </button>
           <ul className="w-full text-red-800 h-fit flex flex-col mb-2">
