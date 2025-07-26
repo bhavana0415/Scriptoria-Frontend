@@ -174,7 +174,7 @@ export const addFavourite = async (data) => {
       const data = await response.json();
       return data;
     } else {
-      throw new Error("Failed to fetch add favourite book");
+      throw new Error(response.message || "");
     }
   } catch (error) {
     throw new Error(error);
