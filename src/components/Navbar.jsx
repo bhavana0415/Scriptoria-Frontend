@@ -229,7 +229,7 @@ function Navbar() {
                   changeMode();
                 }
               }}>
-              {currentMode ? (
+              {currentMode == "light" ? (
                 <LightModeIcon className="text-foreground mx-2" />
               ) : (
                 <DarkModeIcon className="text-foreground" />
