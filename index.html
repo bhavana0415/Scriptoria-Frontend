@@ -4,7 +4,7 @@
 <head>
   <script>
     const setTheme = (theme) => {
-      theme ??= localStorage.theme || "light";
+      theme ??= localStorage.theme || "dark";
       document.documentElement.dataset.theme = theme;
       localStorage.theme = theme;
     };
