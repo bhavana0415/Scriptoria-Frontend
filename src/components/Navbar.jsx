@@ -232,7 +232,7 @@ function Navbar() {
               {currentMode == "light" ? (
                 <LightModeIcon className="text-foreground mx-2" />
               ) : (
-                <DarkModeIcon className="text-foreground" />
+                <DarkModeIcon className="text-foreground mx-2" />
               )}
             </button>
           </div>
